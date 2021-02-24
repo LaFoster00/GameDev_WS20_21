@@ -1,3 +1,0 @@
-C:/Users/Lasse/Documents/Git/GameDev_WS20_21/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-C:/Users/Lasse/Documents/Git/GameDev_WS20_21/cmake-build-debug/CMakeFiles/GameDev_WS20_21.dir
-C:/Users/Lasse/Documents/Git/GameDev_WS20_21/cmake-build-debug/CMakeFiles/edit_cache.dir
