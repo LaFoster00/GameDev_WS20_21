@@ -1,0 +1,2 @@
+#pragma code_page(65001)
+1 /* CREATEPROCESS_MANIFEST_RESOURCE_ID */ 24 /* RT_MANIFEST */ "C:/Users/Lasse/Documents/Git/GameDev_WS20_21/cmake-build-debug/CMakeFiles/GameDev_WS20_21.dir/embed.manifest"
