@@ -1,6 +1,13 @@
 #include "ShaderTools.h"
 
-ShaderProgramSource ParseShader(const std::string& filepath, const bool printParsedCode)
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
+ShaderProgramSource ParseShader(const std::string& filepath)
 {
 	std::ifstream stream(filepath);
 
@@ -34,13 +41,12 @@ ShaderProgramSource ParseShader(const std::string& filepath, const bool printPar
 		}
 	}
 
-	if (printParsedCode)
-	{
-		std::cout << "Vertex Shader Code:" << std::endl << std::endl;
-		std::cout << ss[0].str() << std::endl;
-		std::cout << "Fragment Shader Code:" << std::endl << std::endl;
-		std::cout << ss[1].str() << std::endl;
-	}
+#ifdef DEBUG_ENGINE
+	std::cout << "Vertex Shader Code:" << std::endl << std::endl;
+	std::cout << ss[0].str() << std::endl;
+	std::cout << "Fragment Shader Code:" << std::endl << std::endl;
+	std::cout << ss[1].str() << std::endl;
+#endif
 	
 	return { ss[0].str(), ss[1].str() };
 }

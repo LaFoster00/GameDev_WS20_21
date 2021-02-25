@@ -1,12 +1,6 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include <iostream>
-#include <fstream>
 #include <string>
-#include <sstream>
 
 struct ShaderProgramSource
 {
@@ -14,7 +8,7 @@ struct ShaderProgramSource
 	std::string FragmentSource;
 };
 
-ShaderProgramSource ParseShader(const std::string& filepath, const bool printParsedCode = true);
+ShaderProgramSource ParseShader(const std::string& filepath);
 
 uint32_t CompileShader(uint32_t type, const std::string& source);
 

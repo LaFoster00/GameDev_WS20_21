@@ -13,7 +13,9 @@ void main()
 
 layout(location = 0) out vec4 color;
 
+uniform vec4 vertexColor;
+
 void main()
 {
-	color = vec4(gl_FragCoord.x, gl_FragCoord.y, 0.0, 1.0);
+	color = vec4(vertexColor.xyz, 1.0);
 }
