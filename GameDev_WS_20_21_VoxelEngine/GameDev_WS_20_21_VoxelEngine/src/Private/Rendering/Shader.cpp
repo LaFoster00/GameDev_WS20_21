@@ -36,6 +36,11 @@ void Shader::Unbind() const
 	GLASSERTCALL(glUseProgram(0));
 }
 
+void Shader::SetUniform1i(const std::string& name, int value)
+{
+	GLASSERTCALL(glUniform1i(GetUniformLocation(name), value));
+}
+
 void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3)
 {
 	GLASSERTCALL(glUniform4f(GetUniformLocation(name), v0, v1, v2, v3));
@@ -130,10 +135,16 @@ uint32_t Shader::CreateShader(const std::string& vertexShader, const std::string
 
 int Shader::GetUniformLocation(const std::string& name)
 {
+	if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
+		return m_UniformLocationCache[name];
+	
 	GLASSERTCALL(uint32_t location = glGetUniformLocation(m_rendererID, name.c_str()));
 	if (location == -1)
 	{
 		std::cout << "Warning: uniform '" << name << "' doesn't exist!" << std::endl;
+	}else
+	{
+		m_UniformLocationCache[name] = location;
 	}
 	return location;
 }

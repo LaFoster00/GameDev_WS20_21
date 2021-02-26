@@ -20,13 +20,13 @@ void VertexArray::AddBuffer(const VertexBuffer& vertexBuffer, const VertexBuffer
 {
 	Bind();
 	vertexBuffer.Bind();
-	const auto& elemtents = layout.GetElemetns();
+	const auto& elemtents = layout.GetElements();
 	uint32_t offset = 0;
 	for (uint32_t i = 0; i < elemtents.size(); i++)
 	{
 		const auto& element = elemtents[i];
-		GLASSERTCALL(glEnableVertexAttribArray(0));
-		GLASSERTCALL(glVertexAttribPointer(0, element.count, element.type, element.normalized, layout.GetStride(), (const void*) offset));
+		GLASSERTCALL(glEnableVertexAttribArray(i));
+		GLASSERTCALL(glVertexAttribPointer(i, element.count, element.type, element.normalized, layout.GetStride(), (const void*) offset));
 		offset += element.count * VertexBufferElement::GetSizeOfType(element.type);
 	}
 }

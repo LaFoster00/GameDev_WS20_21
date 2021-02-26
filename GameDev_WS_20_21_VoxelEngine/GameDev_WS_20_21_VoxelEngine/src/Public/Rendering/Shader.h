@@ -1,5 +1,7 @@
 #pragma once
+
 #include <string>
+#include <unordered_map>
 
 struct ShaderProgramSource;
 
@@ -13,6 +15,7 @@ public:
 	void Unbind() const;
 
 	//Set uniforms
+	void SetUniform1i(const std::string& name, int value);
 	void SetUniform4f(const std::string& name, float f0, float f1, float f2, float f3);
 private:
 	ShaderProgramSource ParseShader(const std::string& filepath);
@@ -22,4 +25,5 @@ private:
 private:
 	uint32_t m_rendererID;
 	std::string m_filepath;
+	std::unordered_map<std::string, uint32_t> m_UniformLocationCache;
 };

@@ -116,7 +116,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;_DEBUG;_CONSOLE;DEBUG_ENGINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)GameDev_WS_20_21_VoxelEngine\src\Public;$(SolutionDir)GameDev_WS_20_21_VoxelEngine\src\Private;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\include;$(SolutionDir)Dependencies\glew\include;$(SolutionDir)GameDev_WS_20_21_VoxelEngine\src\Public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,29 +146,35 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Private\Data\Texture.cpp" />
     <ClCompile Include="src\Private\DebugTools.cpp" />
     <ClCompile Include="src\Private\Rendering\Display.cpp" />
     <ClCompile Include="src\Private\Rendering\IndexBuffer.cpp" />
+    <ClCompile Include="src\Private\Rendering\Renderer.cpp" />
     <ClCompile Include="src\Private\Rendering\RenderingCore.cpp" />
     <ClCompile Include="src\Private\Rendering\Shader.cpp" />
     <ClCompile Include="src\Private\Rendering\VertexArray.cpp" />
     <ClCompile Include="src\Private\Rendering\VertexBuffer.cpp" />
     <ClCompile Include="src\Private\Rendering\VertexBufferLayout.cpp" />
     <ClCompile Include="src\Private\EngineTime.cpp" />
+    <ClCompile Include="src\Public\vendor\stb_image\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\Basic.shader" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Public\Data\Texture.h" />
     <ClInclude Include="src\Public\DebugTools.h" />
     <ClInclude Include="src\Public\Rendering\Display.h" />
     <ClInclude Include="src\Public\Rendering\IndexBuffer.h" />
+    <ClInclude Include="src\Public\Rendering\Renderer.h" />
     <ClInclude Include="src\Public\Rendering\RenderingCore.h" />
     <ClInclude Include="src\Public\Rendering\Shader.h" />
     <ClInclude Include="src\Public\Rendering\VertexArray.h" />
     <ClInclude Include="src\Public\Rendering\VertexBuffer.h" />
     <ClInclude Include="src\Public\Rendering\VertexBufferLayout.h" />
     <ClInclude Include="src\Public\EngineTime.h" />
+    <ClInclude Include="src\Public\vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

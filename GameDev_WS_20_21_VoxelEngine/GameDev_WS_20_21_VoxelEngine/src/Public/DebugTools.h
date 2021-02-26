@@ -13,7 +13,7 @@
 
 #else
 
-#define GLASSERTCCALL(x) x;
+#define GLASSERTCALL(x) x;
 
 #endif
 
