@@ -14,6 +14,9 @@
 #include "Rendering/VertexBuffer.h"
 #include "Rendering/VertexBufferLayout.h"
 
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+
 int main(void)
 {
 	/* Init GLFW and Window */
@@ -29,6 +32,9 @@ int main(void)
 	
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
+	GLASSERTCALL(glEnable(GL_BLEND));
+	GLASSERTCALL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+	
 	float positions[] = {
 		-0.5f,	-0.5f,	0.0f,	0.0f,
 		 0.5f,	-0.5f,	1.0f,	0.0f,
@@ -53,12 +59,17 @@ int main(void)
 	
 	IndexBuffer indexBuffer(indices, 6);
 
+	glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
+	glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(-0.5f, 0.0f, 0.0f));
+	glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -0.25f, 0.0f));
+	
+	glm::mat4 mvp = proj * view * model;
+	
 	Shader shader("res/shaders/Basic.shader");
 	shader.Bind();
 
 	Texture texture("res/textures/Test.jpg");
 	texture.Bind(0);
-	//shader.SetUniform1i("_Texture", 0);
 	
 	vertexArray.Unbind();
 	shader.Unbind();
@@ -88,6 +99,7 @@ int main(void)
 		texture.Bind(0);
 		/* Modulate color before computing the vertex buffer */
 		shader.SetUniform1i("_Texture", 0);
+		shader.SetUniformMat4("_MVP", mvp);
 
 		renderer.Draw(vertexArray, indexBuffer, shader);
 

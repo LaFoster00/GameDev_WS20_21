@@ -8,9 +8,11 @@ out VERTEXOUT{
 	vec2 _TexCoord;
 }vertexout;
 
+uniform mat4 _MVP;
+
 void main()
 {
-	gl_Position = position;
+	gl_Position = _MVP * position;
 	vertexout._TexCoord = texCoord;
 }
 
@@ -29,5 +31,5 @@ uniform sampler2D _Texture;
 void main()
 {
 	vec4 texColor = texture(_Texture, vertexout._TexCoord);
-	color = vec4(texColor.xyz, 1.0f);
+	color = vec4(texColor);
 }

@@ -5,6 +5,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include "glm/glm.hpp"
+
 #include "DebugTools.h"
 
 struct ShaderProgramSource
@@ -44,6 +46,11 @@ void Shader::SetUniform1i(const std::string& name, int value)
 void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3)
 {
 	GLASSERTCALL(glUniform4f(GetUniformLocation(name), v0, v1, v2, v3));
+}
+
+void Shader::SetUniformMat4(const std::string& name, glm::mat4 value)
+{
+	GLASSERTCALL(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &value[0][0])); 
 }
 
 ShaderProgramSource Shader::ParseShader(const std::string& filepath)
