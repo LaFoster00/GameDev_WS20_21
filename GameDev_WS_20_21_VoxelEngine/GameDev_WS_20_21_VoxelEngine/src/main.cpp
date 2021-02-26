@@ -3,11 +3,11 @@
 
 #include <iostream>
 
-#include "ShaderTools.h"
 #include "EngineTime.h"
 #include "DebugTools.h"
 #include "Rendering/Display.h"
 #include "Rendering/IndexBuffer.h"
+#include "Rendering/Shader.h"
 #include "Rendering/VertexArray.h"
 #include "Rendering/VertexBuffer.h"
 #include "Rendering/VertexBufferLayout.h"
@@ -41,7 +41,6 @@ int main(void)
 
 	VertexArray vertexArray;
 
-	/* vertex buffer */
 	VertexBuffer vertexBuffer(positions, 8* sizeof(float));
 
 	VertexBufferLayout vertexLufferLayout;
@@ -49,18 +48,13 @@ int main(void)
 	
 	vertexArray.AddBuffer(vertexBuffer, vertexLufferLayout);
 	
-	/* Index Buffer */
 	IndexBuffer indexBuffer(indices, 6);
-	
-	ShaderProgramSource source = ParseShader("res/shaders/Basic.shader");
-	unsigned int shader = CreateShader(source.VertexSource, source.FragmentSource);
-	GLASSERTCALL(glUseProgram(shader));
 
-	GLASSERTCALL(const int vertexColorLocation = glGetUniformLocation(shader, "vertexColor"));
-	ASSERT(vertexColorLocation != -1);
+	Shader shader("res/shaders/Basic.shader");
+	shader.Bind();
 
 	vertexArray.Unbind();
-	GLASSERTCALL(glUseProgram(0));
+	shader.Unbind();
 	vertexBuffer.Unbind();
 	indexBuffer.Unbind();
 
@@ -80,9 +74,9 @@ int main(void)
 		/* Render here */
 		GLASSERTCALL(glClear(GL_COLOR_BUFFER_BIT));
 
-		GLASSERTCALL(glUseProgram(shader));
+		shader.Bind();
 		/* Modulate color before computing the vertex buffer */
-		GLASSERTCALL(glUniform4f(vertexColorLocation, r*0.5f, 0.3f, 0.8f, 1.0f));
+		shader.SetUniform4f("vertexColor", r*0.5f, 0.3f, 0.8f, 1.0f);
 
 		vertexArray.Bind();
 		vertexBuffer.Bind();
@@ -103,9 +97,6 @@ int main(void)
 		/* Poll for and process events */  
 		GLASSERTCALL(glfwPollEvents());
 	}
-
-	GLASSERTCALL(glDeleteProgram(shader));
-
 	
 	return 0;
 }

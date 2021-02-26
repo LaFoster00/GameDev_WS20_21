@@ -150,10 +150,10 @@
     <ClCompile Include="src\Private\Rendering\Display.cpp" />
     <ClCompile Include="src\Private\Rendering\IndexBuffer.cpp" />
     <ClCompile Include="src\Private\Rendering\RenderingCore.cpp" />
+    <ClCompile Include="src\Private\Rendering\Shader.cpp" />
     <ClCompile Include="src\Private\Rendering\VertexArray.cpp" />
     <ClCompile Include="src\Private\Rendering\VertexBuffer.cpp" />
     <ClCompile Include="src\Private\Rendering\VertexBufferLayout.cpp" />
-    <ClCompile Include="src\Private\ShaderTools.cpp" />
     <ClCompile Include="src\Private\EngineTime.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -164,10 +164,10 @@
     <ClInclude Include="src\Public\Rendering\Display.h" />
     <ClInclude Include="src\Public\Rendering\IndexBuffer.h" />
     <ClInclude Include="src\Public\Rendering\RenderingCore.h" />
+    <ClInclude Include="src\Public\Rendering\Shader.h" />
     <ClInclude Include="src\Public\Rendering\VertexArray.h" />
     <ClInclude Include="src\Public\Rendering\VertexBuffer.h" />
     <ClInclude Include="src\Public\Rendering\VertexBufferLayout.h" />
-    <ClInclude Include="src\Public\ShaderTools.h" />
     <ClInclude Include="src\Public\EngineTime.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
