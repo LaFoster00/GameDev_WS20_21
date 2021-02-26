@@ -8,7 +8,9 @@
 #include "DebugTools.h"
 #include "Rendering/Display.h"
 #include "Rendering/IndexBuffer.h"
+#include "Rendering/VertexArray.h"
 #include "Rendering/VertexBuffer.h"
+#include "Rendering/VertexBufferLayout.h"
 
 int main(void)
 {
@@ -37,30 +39,30 @@ int main(void)
 		2 , 3 , 0 
 	};
 
-	uint32_t vertexArray;
-	GLASSERTCCALL(glGenVertexArrays(1, &vertexArray));
-	GLASSERTCCALL(glBindVertexArray(vertexArray));
+	VertexArray vertexArray;
 
 	/* vertex buffer */
 	VertexBuffer vertexBuffer(positions, 8* sizeof(float));
 
-	GLASSERTCCALL(glEnableVertexAttribArray(0));
-	GLASSERTCCALL(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr)); /* define data layout for vertex positions */
-
+	VertexBufferLayout vertexLufferLayout;
+	vertexLufferLayout.Push<float>(2);
+	
+	vertexArray.AddBuffer(vertexBuffer, vertexLufferLayout);
+	
 	/* Index Buffer */
 	IndexBuffer indexBuffer(indices, 6);
 	
 	ShaderProgramSource source = ParseShader("res/shaders/Basic.shader");
 	unsigned int shader = CreateShader(source.VertexSource, source.FragmentSource);
-	GLASSERTCCALL(glUseProgram(shader));
+	GLASSERTCALL(glUseProgram(shader));
 
-	GLASSERTCCALL(const int vertexColorLocation = glGetUniformLocation(shader, "vertexColor"));
+	GLASSERTCALL(const int vertexColorLocation = glGetUniformLocation(shader, "vertexColor"));
 	ASSERT(vertexColorLocation != -1);
 
-	GLASSERTCCALL(glBindVertexArray(0));
-	GLASSERTCCALL(glUseProgram(0));
-	GLASSERTCCALL(glBindBuffer(GL_ARRAY_BUFFER, 0));
-	GLASSERTCCALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+	vertexArray.Unbind();
+	GLASSERTCALL(glUseProgram(0));
+	vertexBuffer.Unbind();
+	indexBuffer.Unbind();
 
 	float r = 0.0f;
 	double increment = 0;
@@ -76,16 +78,17 @@ int main(void)
 		}
 		
 		/* Render here */
-		GLASSERTCCALL(glClear(GL_COLOR_BUFFER_BIT));
+		GLASSERTCALL(glClear(GL_COLOR_BUFFER_BIT));
 
-		GLASSERTCCALL(glUseProgram(shader));
+		GLASSERTCALL(glUseProgram(shader));
 		/* Modulate color before computing the vertex buffer */
-		GLASSERTCCALL(glUniform4f(vertexColorLocation, r*0.5f, 0.3f, 0.8f, 1.0f));
+		GLASSERTCALL(glUniform4f(vertexColorLocation, r*0.5f, 0.3f, 0.8f, 1.0f));
 
-		GLASSERTCCALL(glBindVertexArray(vertexArray));
+		vertexArray.Bind();
 		vertexBuffer.Bind();
+		indexBuffer.Bind();
 
-		GLASSERTCCALL(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+		GLASSERTCALL(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
 
 		if (r >= 1.0f)
 			increment = -2;
@@ -95,13 +98,13 @@ int main(void)
 		r += Time::DeltaTime * increment;
 
 		/* Swap front and back buffers */
-		GLASSERTCCALL(glfwSwapBuffers(Display::GetWindow()));
+		GLASSERTCALL(glfwSwapBuffers(Display::GetWindow()));
 
 		/* Poll for and process events */  
-		GLASSERTCCALL(glfwPollEvents());
+		GLASSERTCALL(glfwPollEvents());
 	}
 
-	GLASSERTCCALL(glDeleteProgram(shader));
+	GLASSERTCALL(glDeleteProgram(shader));
 
 	
 	return 0;

@@ -4,22 +4,22 @@
 
 IndexBuffer::IndexBuffer(const uint32_t* data, uint32_t count)
 {
-	GLASSERTCCALL(glGenBuffers(1, &m_rendererID));
-	GLASSERTCCALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_rendererID));
-	GLASSERTCCALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), data, GL_STATIC_DRAW));
+	GLASSERTCALL(glGenBuffers(1, &m_rendererID));
+	GLASSERTCALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_rendererID));
+	GLASSERTCALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), data, GL_STATIC_DRAW));
 }
 
 IndexBuffer::~IndexBuffer()
 {
-	GLASSERTCCALL(glDeleteBuffers(1, &m_rendererID));
+	GLASSERTCALL(glDeleteBuffers(1, &m_rendererID));
 }
 
 void IndexBuffer::Bind() const
 {
-	GLASSERTCCALL(glBindBuffer(GL_ARRAY_BUFFER, m_rendererID));
+	GLASSERTCALL(glBindBuffer(GL_ARRAY_BUFFER, m_rendererID));
 }
 
 void IndexBuffer::Unbind() const
 {
-	GLASSERTCCALL(glBindBuffer(GL_ARRAY_BUFFER, 0));
+	GLASSERTCALL(glBindBuffer(GL_ARRAY_BUFFER, 0));
 }

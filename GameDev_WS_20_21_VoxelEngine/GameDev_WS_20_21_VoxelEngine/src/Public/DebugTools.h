@@ -6,7 +6,7 @@
 
 #ifdef DEBUG_ENGINE
 
-#define GLASSERTCCALL(x) \
+#define GLASSERTCALL(x) \
 	GLClearCall(); \
 	x; \
 	ASSERT(GLLogCall(#x, __FILE__, __LINE__)) \

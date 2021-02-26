@@ -1,7 +1,6 @@
 #include "Rendering/Display.h"
 
 GLFWwindow* Display::m_window;
-Display Display::s_instance;
 
 GLFWwindow* Display::InitiDisplay(
 	const uint32_t resX,

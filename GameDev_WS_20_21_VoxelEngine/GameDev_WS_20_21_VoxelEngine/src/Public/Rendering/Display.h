@@ -5,6 +5,12 @@
 #include <GLFW/glfw3.h>
 #include <string>
 
+/// <summary>
+/// This class handles GLFW and OpenGL initiation as well as termination
+/// Terminating GLFW in here ensures the OpenGL context will be valid until
+/// all the buffers etc. are cleaned up.
+/// </summary>
+
 class Display
 {
 public:
@@ -20,9 +26,9 @@ public:
 		const uint32_t glMajor = 4,
 		const uint32_t glMinor = 1,
 		const int glProfile = GLFW_OPENGL_CORE_PROFILE);
+	
 	static GLFWwindow* GetWindow();
 	
 private:
 	static GLFWwindow* m_window;
-	static Display s_instance;
 };
