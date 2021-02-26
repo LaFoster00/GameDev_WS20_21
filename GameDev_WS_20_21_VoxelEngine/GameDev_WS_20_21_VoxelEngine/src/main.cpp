@@ -2,33 +2,21 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
-#include "ShaderTools.h"
-#include "DebugTools.h"
-#include "EngineTime.h"
 
-GLFWwindow* window;
-float deltaTime;
+#include "ShaderTools.h"
+#include "EngineTime.h"
+#include "DebugTools.h"
+#include "Rendering/Display.h"
+#include "Rendering/IndexBuffer.h"
+#include "Rendering/VertexBuffer.h"
 
 int main(void)
 {
-	/* Initialize the library */
-	if (!glfwInit())
-		return -1;
-
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	/* Init GLFW and Window */
+	Display::InitiDisplay();
 	
-	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-	if (!window)
-	{
-		glfwTerminate();
-		return -1;
-	}
-
 	/* Make the window's context current and init glew */
-	glfwMakeContextCurrent(window);
+	glfwMakeContextCurrent(Display::GetWindow());
 	glfwSwapInterval(0);
 	if (glewInit() != GLEW_OK)
 	{
@@ -37,16 +25,16 @@ int main(void)
 	
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
-	float positions[4][2] = {
-		{   -0.5f,  -0.5f   },
-		{    0.5f,  -0.5f  },
-		{    0.5f,	0.5f  },
-		{   -0.5f,	0.5f  }
+	float positions[8] = {
+		-0.5f,	-0.5f,
+		 0.5f,	-0.5f,
+		 0.5f,	 0.5f,
+		-0.5f,	 0.5f
 	};
 
-	uint32_t indices[2][3] = {
-		{ 0 , 1 , 2 },
-		{ 2 , 3 , 0 }
+	uint32_t indices[6] = {
+		0 , 1 , 2 ,
+		2 , 3 , 0 
 	};
 
 	uint32_t vertexArray;
@@ -54,18 +42,13 @@ int main(void)
 	GLASSERTCCALL(glBindVertexArray(vertexArray));
 
 	/* vertex buffer */
-	uint32_t buffer;
-	GLASSERTCCALL(glGenBuffers(1, &buffer));
-	GLASSERTCCALL(glBindBuffer(GL_ARRAY_BUFFER, buffer));
-	GLASSERTCCALL(glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW)); /* set the buffer data */
+	VertexBuffer vertexBuffer(positions, 8* sizeof(float));
 
 	GLASSERTCCALL(glEnableVertexAttribArray(0));
 	GLASSERTCCALL(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, nullptr)); /* define data layout for vertex positions */
 
-	uint32_t indexBuffer;
-	GLASSERTCCALL(glGenBuffers(1, &indexBuffer));
-	GLASSERTCCALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer));
-	GLASSERTCCALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW));
+	/* Index Buffer */
+	IndexBuffer indexBuffer(indices, 6);
 	
 	ShaderProgramSource source = ParseShader("res/shaders/Basic.shader");
 	unsigned int shader = CreateShader(source.VertexSource, source.FragmentSource);
@@ -83,7 +66,7 @@ int main(void)
 	double increment = 0;
 	std::cout << "Main Engine Loop:\n" << std::endl;
 	/* Loop until the user closes the window */
-	while (!glfwWindowShouldClose(window))
+	while (!glfwWindowShouldClose(Display::GetWindow()))
 	{
 		/* Update Game Time System */
 		{
@@ -100,7 +83,7 @@ int main(void)
 		GLASSERTCCALL(glUniform4f(vertexColorLocation, r*0.5f, 0.3f, 0.8f, 1.0f));
 
 		GLASSERTCCALL(glBindVertexArray(vertexArray));
-		GLASSERTCCALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer));
+		vertexBuffer.Bind();
 
 		GLASSERTCCALL(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
 
@@ -112,7 +95,7 @@ int main(void)
 		r += Time::DeltaTime * increment;
 
 		/* Swap front and back buffers */
-		GLASSERTCCALL(glfwSwapBuffers(window));
+		GLASSERTCCALL(glfwSwapBuffers(Display::GetWindow()));
 
 		/* Poll for and process events */  
 		GLASSERTCCALL(glfwPollEvents());
@@ -120,6 +103,6 @@ int main(void)
 
 	GLASSERTCCALL(glDeleteProgram(shader));
 
-	glfwTerminate();
+	
 	return 0;
 }

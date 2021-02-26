@@ -146,6 +146,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Private\DebugTools.cpp" />
+    <ClCompile Include="src\Private\Rendering\Display.cpp" />
+    <ClCompile Include="src\Private\Rendering\IndexBuffer.cpp" />
+    <ClCompile Include="src\Private\Rendering\RenderingCore.cpp" />
+    <ClCompile Include="src\Private\Rendering\VertexBuffer.cpp" />
     <ClCompile Include="src\Private\ShaderTools.cpp" />
     <ClCompile Include="src\Private\EngineTime.cpp" />
   </ItemGroup>
@@ -153,8 +158,11 @@
     <None Include="shaders\Basic.shader" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Private\DebugTools.cpp" />
     <ClInclude Include="src\Public\DebugTools.h" />
+    <ClInclude Include="src\Public\Rendering\Display.h" />
+    <ClInclude Include="src\Public\Rendering\IndexBuffer.h" />
+    <ClInclude Include="src\Public\Rendering\RenderingCore.h" />
+    <ClInclude Include="src\Public\Rendering\VertexBuffer.h" />
     <ClInclude Include="src\Public\ShaderTools.h" />
     <ClInclude Include="src\Public\EngineTime.h" />
   </ItemGroup>
