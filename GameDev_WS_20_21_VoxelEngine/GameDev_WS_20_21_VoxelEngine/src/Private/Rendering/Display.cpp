@@ -1,5 +1,9 @@
 #include "Rendering/Display.h"
 
+#include <iostream>
+
+#include "imgui/imgui_impl_opengl3.h"
+
 GLFWwindow* Display::m_window;
 
 GLFWwindow* Display::InitiDisplay(
@@ -29,7 +33,24 @@ GLFWwindow* Display::InitiDisplay(
 		glfwTerminate();
 		return nullptr;
 	}
+	
+	glfwMakeContextCurrent(m_window);
 
+	/* Init glew */
+	if (glewInit() != GLEW_OK)
+	{
+		std::cout << "Glew Init Error" << std::endl;
+	}
+	
+	glDisable(GL_STENCIL_TEST);
+
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	ImGui::StyleColorsDark();
+
+	ImGui_ImplGlfw_InitForOpenGL(m_window, true);
+	ImGui_ImplOpenGL3_Init("#version 330");
+	
 	return m_window;
 }
 

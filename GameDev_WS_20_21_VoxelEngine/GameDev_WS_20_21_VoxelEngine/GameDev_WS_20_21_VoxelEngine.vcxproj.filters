@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Vendor">
+      <UniqueIdentifier>{993f77d4-181c-441e-822f-68d15384c26e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Vendor\imgui">
+      <UniqueIdentifier>{ade2df64-7390-4e7f-ab7b-41097a319f4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Vendor">
+      <UniqueIdentifier>{4e88c310-492b-4a82-85cb-679800b742fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Vendor\imgui">
+      <UniqueIdentifier>{098e0851-51ff-4013-aca5-350c6da4eb7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Vendor\stb_image">
+      <UniqueIdentifier>{9a0d6a1d-7c44-4357-bc22-431b88728469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Vendor\stb_image">
+      <UniqueIdentifier>{40995ca2-67b8-4cde-958d-7abb5c29ad4f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -48,15 +66,38 @@
     <ClCompile Include="src\Private\Rendering\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Public\vendor\stb_image\stb_image.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Private\Data\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Public\Vendor\imgui\imgui.cpp">
+      <Filter>Source Files\Vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Public\Vendor\imgui\imgui_draw.cpp">
+      <Filter>Source Files\Vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Public\Vendor\imgui\imgui_impl_glfw.cpp">
+      <Filter>Source Files\Vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Public\Vendor\imgui\imgui_impl_opengl3.cpp">
+      <Filter>Source Files\Vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Public\Vendor\imgui\imgui_widgets.cpp">
+      <Filter>Source Files\Vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Public\vendor\stb_image\stb_image.cpp">
+      <Filter>Source Files\Vendor\stb_image</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Public\Vendor\imgui\imgui_demo.cpp">
+      <Filter>Source Files\Vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Public\Vendor\imgui\imgui_tables.cpp">
+      <Filter>Source Files\Vendor\imgui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\Basic.shader" />
+    <None Include="res\shaders\Basic.shader">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Public\DebugTools.h">
@@ -89,11 +130,40 @@
     <ClInclude Include="src\Public\Rendering\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Public\vendor\stb_image\stb_image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Public\Data\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Public\Vendor\imgui\imstb_truetype.h">
+      <Filter>Header Files\Vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Public\Vendor\imgui\imconfig.h">
+      <Filter>Header Files\Vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Public\Vendor\imgui\imgui.h">
+      <Filter>Header Files\Vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Public\Vendor\imgui\imgui_impl_glfw.h">
+      <Filter>Header Files\Vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Public\Vendor\imgui\imgui_impl_opengl3.h">
+      <Filter>Header Files\Vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Public\Vendor\imgui\imgui_internal.h">
+      <Filter>Header Files\Vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Public\Vendor\imgui\imstb_rectpack.h">
+      <Filter>Header Files\Vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Public\Vendor\imgui\imstb_textedit.h">
+      <Filter>Header Files\Vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Public\vendor\stb_image\stb_image.h">
+      <Filter>Header Files\Vendor\stb_image</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\textures\Test.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

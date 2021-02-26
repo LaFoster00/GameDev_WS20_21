@@ -1,10 +1,10 @@
 #pragma once
 
-#include <cstring>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <string>
 
+#include "imgui/imgui_impl_glfw.h"
 /// <summary>
 /// This class handles GLFW and OpenGL initiation as well as termination
 /// Terminating GLFW in here ensures the OpenGL context will be valid until
@@ -16,6 +16,8 @@ class Display
 public:
 	~Display()
 	{
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyContext();
 		glfwTerminate();
 	}
 	

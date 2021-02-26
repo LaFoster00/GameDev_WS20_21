@@ -17,18 +17,14 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_glfw.h"
+#include "imgui/imgui_impl_opengl3.h"
+
 int main(void)
 {
 	/* Init GLFW and Window */
 	Display::InitiDisplay();
-	
-	/* Make the window's context current and init glew */
-	glfwMakeContextCurrent(Display::GetWindow());
-	glfwSwapInterval(0);
-	if (glewInit() != GLEW_OK)
-	{
-		std::cout << "Glew Init Error" << std::endl;
-	}
 	
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
@@ -80,21 +76,29 @@ int main(void)
 	
 	float r = 0.0f;
 	double increment = 0;
-	std::cout << "Main Engine Loop:\n" << std::endl;
+
+	bool showDemoWindow = true;
+	bool showAnotherWindow = false;
+	ImVec4 clearColor = ImVec4(0.45f, 0.55f, 0.60f, 1.0f);
 	
+	std::cout << "Main Engine Loop:\n" << std::endl;
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(Display::GetWindow()))
 	{
+		/* Clear screen */
+		renderer.Clear();
+		
 		/* Update Game Time System */
 		{
 			Time::UpdateGameTime();
 			/* Update DeltaTime And FPS print */
 			//std::cout << "\r" << "DeltaTime: " << Time::DeltaTime << " FPS: " << (1 / Time::DeltaTime) << std::flush;
 		}
-		
-		/* Render here */
-		renderer.Clear();
 
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+		
 		shader.Bind();
 		texture.Bind(0);
 		/* Modulate color before computing the vertex buffer */
@@ -102,13 +106,46 @@ int main(void)
 		shader.SetUniformMat4("_MVP", mvp);
 
 		renderer.Draw(vertexArray, indexBuffer, shader);
-
+		
 		if (r >= 1.0f)
 			increment = -2;
 		else if (r <= 0.0f)
 			increment = 2;
 
 		r += Time::DeltaTime * increment;
+
+		{
+			static float f = 0.0f;
+			static int counter = 0;
+			ImGui::Text("Hello World!");
+			ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
+			ImGui::ColorEdit3("clear color", (float*)&clearColor);
+
+			ImGui::Checkbox("Demo Window", &showDemoWindow);
+			ImGui::Checkbox("Another Window", &showAnotherWindow);
+
+			if (ImGui::Button("Button"))
+			{
+				counter++;
+			}
+			ImGui::SameLine();
+			ImGui::Text("Counter = %d", counter);
+
+			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+		}
+
+		// 3. Show another simple window.
+		if (showAnotherWindow)
+		{
+			ImGui::Begin("Another Window", &showAnotherWindow);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+			ImGui::Text("Hello from another window!");
+			if (ImGui::Button("Close Me"))
+				showAnotherWindow = false;
+			ImGui::End();
+		}
+		
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		/* Swap front and back buffers */
 		glfwSwapBuffers(Display::GetWindow());
