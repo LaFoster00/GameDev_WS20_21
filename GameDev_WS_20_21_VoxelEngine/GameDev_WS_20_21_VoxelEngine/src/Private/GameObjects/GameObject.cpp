@@ -1,6 +1,6 @@
-#include "Components/GameObject.h"
-#include "Components/Component.h"
-#include "Components/Transform.h"
+#include "GameObjects/GameObject.h"
+#include "GameObjects/Components/Component.h"
+#include "GameObjects/Components/Transform.h"
 
 GameObject::GameObject()
 {
@@ -8,16 +8,17 @@ GameObject::GameObject()
 	internalName = "GameObject" + std::to_string(id);
 	this->name = "GameObject";
 
-	auto transform = new Transform();
+	Transform* transform = new Transform();
 	AddComponent(transform);
 }
 
-GameObject::GameObject(std::string& name, Transform* transform)
+GameObject::GameObject(const std::string& name, glm::vec3 position, glm::vec3 rotation)
 {
 	id = GetNewId();
 	internalName = "GameObject" + std::to_string(id);
 	this->name = name;
 
+	Transform* transform = new Transform(position, glm::vec3(0), rotation);
 	AddComponent(transform);
 }
 

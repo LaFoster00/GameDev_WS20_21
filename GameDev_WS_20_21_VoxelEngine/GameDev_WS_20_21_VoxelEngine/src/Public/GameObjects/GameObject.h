@@ -2,8 +2,8 @@
 #include <string>
 #include <unordered_map>
 
-#include "Component.h"
-#include "Transform.h"
+#include "GameObjects/Components/Component.h"
+#include "GameObjects/Components/Transform.h"
 
 /// <summary>
 /// Game Objects are inspired by Unity and hold a reference to all components that need to be associated
@@ -14,7 +14,7 @@ class GameObject
 {
 public:
 	GameObject();
-	GameObject(std::string& name, Transform* transform);
+	GameObject(const std::string& name, glm::vec3 position, glm::vec3 rotation);
 	~GameObject();
 	
 	template<typename T>
@@ -39,7 +39,7 @@ public:
 	bool RemoveComponent(bool destroy = true)
 	{
 		size_t typeHash = typeid(T).hash_code();
-		if (m_components.find(typeHash) != m_components.end())
+		if (m_components.find(typeHash) == m_components.end())
 		{
 			return false;
 		}
@@ -52,7 +52,7 @@ public:
 	T* GetComponentOfType()
 	{
 		size_t typeHash = typeid(T).hash_code();
-		if (m_components.find(typeHash) != m_components.end())
+		if (m_components.find(typeHash) == m_components.end())
 		{
 			return nullptr;
 		}

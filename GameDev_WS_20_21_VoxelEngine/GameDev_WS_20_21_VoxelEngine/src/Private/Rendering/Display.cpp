@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "imgui/imgui_impl_opengl3.h"
+#include "glm/glm.hpp"
 
 GLFWwindow* Display::m_window;
 DisplaySettings Display::m_settings;
@@ -14,7 +15,7 @@ GLFWwindow* Display::InitiDisplay(const DisplaySettings settings)
 	m_settings = DisplaySettings(settings);
 
 	if (Initialized) return m_window;
-
+	
 	/* Initialize the library */
 	if (!glfwInit())
 		return nullptr;

@@ -5,6 +5,10 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/quaternion.hpp"
 
+
+/// <summary>
+/// Holds all the transform data as well as goodies such as forward vector
+/// </summary>
 class Transform : public Component
 {
 public:

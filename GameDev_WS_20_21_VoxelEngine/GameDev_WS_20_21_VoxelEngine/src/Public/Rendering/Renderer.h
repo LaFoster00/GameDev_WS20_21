@@ -1,5 +1,5 @@
 #pragma once
-#include "Components/Camera.h"
+#include "GameObjects/Components/Camera.h"
 
 class Shader;
 class IndexBuffer;
