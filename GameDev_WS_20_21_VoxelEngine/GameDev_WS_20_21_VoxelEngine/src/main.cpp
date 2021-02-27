@@ -5,6 +5,7 @@
 
 #include "EngineTime.h"
 #include "DebugTools.h"
+#include "Data/Mesh.h"
 #include "Data/Texture.h"
 #include "GameObjects/GameObject.h"
 #include "Rendering/Display.h"
@@ -21,6 +22,7 @@
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
+#include "Tools/ObjImporter.h"
 
 int main(void)
 {
@@ -46,6 +48,8 @@ int main(void)
 	};
 
 	Renderer::InitRenderer();
+
+	Mesh* mesh = LoadObj("res/models/Cube.obj");
 	
 	VertexArray vertexArray;
 
@@ -77,8 +81,6 @@ int main(void)
 	shader.Unbind();
 	vertexBuffer.Unbind();
 	indexBuffer.Unbind();
-
-	Renderer renderer;
 
 	glm::vec3 translation2;
 	
