@@ -146,6 +146,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Private\Components\Camera.cpp" />
+    <ClCompile Include="src\Private\Components\GameObject.cpp" />
+    <ClCompile Include="src\Private\Components\MeshRenderer.cpp" />
+    <ClCompile Include="src\Private\Components\Transform.cpp" />
     <ClCompile Include="src\Private\Data\Texture.cpp" />
     <ClCompile Include="src\Private\DebugTools.cpp" />
     <ClCompile Include="src\Private\Rendering\Display.cpp" />
@@ -170,6 +174,11 @@
     <None Include="res\shaders\Basic.shader" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Public\Components\Camera.h" />
+    <ClInclude Include="src\Public\Components\Component.h" />
+    <ClInclude Include="src\Public\Components\GameObject.h" />
+    <ClInclude Include="src\Public\Components\MeshRenderer.h" />
+    <ClInclude Include="src\Public\Components\Transform.h" />
     <ClInclude Include="src\Public\Data\Texture.h" />
     <ClInclude Include="src\Public\DebugTools.h" />
     <ClInclude Include="src\Public\Rendering\Display.h" />
@@ -181,6 +190,7 @@
     <ClInclude Include="src\Public\Rendering\VertexBuffer.h" />
     <ClInclude Include="src\Public\Rendering\VertexBufferLayout.h" />
     <ClInclude Include="src\Public\EngineTime.h" />
+    <ClInclude Include="src\Public\Tools\MacroCommon.h" />
     <ClInclude Include="src\Public\Vendor\imgui\imconfig.h" />
     <ClInclude Include="src\Public\Vendor\imgui\imgui.h" />
     <ClInclude Include="src\Public\Vendor\imgui\imgui_impl_glfw.h" />
