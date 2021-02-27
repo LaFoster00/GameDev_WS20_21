@@ -7,6 +7,8 @@
 #include "Rendering/Shader.h"
 #include "Rendering/VertexArray.h"
 
+Camera* Renderer::mainCamera;
+
 void Renderer::Clear()
 {
 	GLASSERTCALL(glClear(GL_COLOR_BUFFER_BIT));

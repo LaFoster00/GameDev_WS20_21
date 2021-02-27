@@ -2,9 +2,8 @@
 #include <string>
 #include <unordered_map>
 
-#include "Component.h"
-
 class Transform;
+class Component;
 
 class GameObject
 {

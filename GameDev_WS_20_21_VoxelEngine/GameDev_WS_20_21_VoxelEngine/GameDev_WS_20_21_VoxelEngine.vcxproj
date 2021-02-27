@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Private\Components\Camera.cpp" />
+    <ClCompile Include="src\Private\Components\Component.cpp" />
     <ClCompile Include="src\Private\Components\GameObject.cpp" />
     <ClCompile Include="src\Private\Components\MeshRenderer.cpp" />
     <ClCompile Include="src\Private\Components\Transform.cpp" />

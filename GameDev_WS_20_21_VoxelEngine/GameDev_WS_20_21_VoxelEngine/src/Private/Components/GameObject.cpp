@@ -12,6 +12,8 @@ template <typename T>
 bool GameObject::AddComponent(T* component)
 {
 	Component* castComponent = dynamic_cast<Component*>(component);
+	castComponent->gameObject = this;
+	
 	size_t typeHash = typeid(T).hash_code();
 	
 	if (m_components.find(typeHash) != m_components.end())

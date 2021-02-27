@@ -6,7 +6,9 @@
 class Component
 {
 public:
+	Component();
 	virtual ~Component() {}
 
+public:
 	GameObject* gameObject;
 };
