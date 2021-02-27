@@ -24,7 +24,8 @@
 int main(void)
 {
 	/* Init GLFW and Window */
-	Display::InitiDisplay();
+	DisplaySettings settings;
+	Display::InitiDisplay(settings);
 	
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
@@ -54,12 +55,6 @@ int main(void)
 	vertexArray.AddBuffer(vertexBuffer, vertexLufferLayout);
 	
 	IndexBuffer indexBuffer(indices, 6);
-
-	glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
-	glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(-0.5f, 0.0f, 0.0f));
-	glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -0.25f, 0.0f));
-	
-	glm::mat4 mvp = proj * view * model;
 	
 	Shader shader("res/shaders/Basic.shader");
 	shader.Bind();
@@ -73,13 +68,9 @@ int main(void)
 	indexBuffer.Unbind();
 
 	Renderer renderer;
-	
-	float r = 0.0f;
-	double increment = 0;
 
-	bool showDemoWindow = true;
-	bool showAnotherWindow = false;
-	ImVec4 clearColor = ImVec4(0.45f, 0.55f, 0.60f, 1.0f);
+	glm::vec3 translation1(0);
+	glm::vec3 translation2(0);
 	
 	std::cout << "Main Engine Loop:\n" << std::endl;
 	/* Loop until the user closes the window */
@@ -92,56 +83,38 @@ int main(void)
 		{
 			Time::UpdateGameTime();
 			/* Update DeltaTime And FPS print */
-			//std::cout << "\r" << "DeltaTime: " << Time::DeltaTime << " FPS: " << (1 / Time::DeltaTime) << std::flush;
+			//std::cout << "\r" << "DeltaTime: " << Time::DeltaTime << std::flush;
 		}
 
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
-		
+
+		glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
+		glm::mat4 view(1);
+		glm::mat4 model = glm::translate(glm::mat4(1.0f),translation1);
+
+		glm::mat4 mvp = proj * view * model;
+
 		shader.Bind();
 		texture.Bind(0);
+		
 		/* Modulate color before computing the vertex buffer */
-		shader.SetUniform1i("_Texture", 0);
+		shader.SetUniformSampler("_Texture", 0);
 		shader.SetUniformMat4("_MVP", mvp);
 
 		renderer.Draw(vertexArray, indexBuffer, shader);
+
+		model = glm::translate(glm::mat4(1.0f), translation2);
+		mvp = proj * view * model;
 		
-		if (r >= 1.0f)
-			increment = -2;
-		else if (r <= 0.0f)
-			increment = 2;
-
-		r += Time::DeltaTime * increment;
-
+		shader.SetUniformMat4("_MVP", mvp);
+		renderer.Draw(vertexArray, indexBuffer, shader);
+		
 		{
-			static float f = 0.0f;
-			static int counter = 0;
-			ImGui::Text("Hello World!");
-			ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
-			ImGui::ColorEdit3("clear color", (float*)&clearColor);
-
-			ImGui::Checkbox("Demo Window", &showDemoWindow);
-			ImGui::Checkbox("Another Window", &showAnotherWindow);
-
-			if (ImGui::Button("Button"))
-			{
-				counter++;
-			}
-			ImGui::SameLine();
-			ImGui::Text("Counter = %d", counter);
-
+			ImGui::SliderFloat3("Translation 1", &translation1.x, -2.0f, 2.0f);
+			ImGui::SliderFloat3("Translation 2", &translation2.x, -2.0f, 2.0f);
 			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-		}
-
-		// 3. Show another simple window.
-		if (showAnotherWindow)
-		{
-			ImGui::Begin("Another Window", &showAnotherWindow);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-			ImGui::Text("Hello from another window!");
-			if (ImGui::Button("Close Me"))
-				showAnotherWindow = false;
-			ImGui::End();
 		}
 		
 		ImGui::Render();

@@ -14,8 +14,7 @@ void Renderer::Clear()
 
 void Renderer::Draw(const VertexArray& vertexArray, const IndexBuffer& indexBuffer, const Shader& shader) const
 {
-	shader.Bind();
+	//shader.Bind();
 	vertexArray.Bind();
-	indexBuffer.Bind();
 	GLASSERTCALL(glDrawElements(GL_TRIANGLES, indexBuffer.GetCount(), GL_UNSIGNED_INT, nullptr));
 }

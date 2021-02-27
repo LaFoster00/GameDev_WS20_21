@@ -6,13 +6,7 @@
 
 GLFWwindow* Display::m_window;
 
-GLFWwindow* Display::InitiDisplay(
-	const uint32_t resX,
-	const uint32_t resY, 
-	const char* name, 
-	const uint32_t glMajor, 
-	const uint32_t glMinor, 
-	const int glProfile)
+GLFWwindow* Display::InitiDisplay(const DisplaySettings& settings)
 {
 	static bool Initialized = false;
 
@@ -22,12 +16,12 @@ GLFWwindow* Display::InitiDisplay(
 	if (!glfwInit())
 		return nullptr;
 
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, glMajor);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, glMinor);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, glProfile);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, settings.glMajor);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, settings.glMinor);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, settings.glProfile);
 
 	/* Create a windowed mode window and its OpenGL context */
-	m_window = glfwCreateWindow(resX, resY, name, NULL, NULL);
+	m_window = glfwCreateWindow(settings.resX, settings.resY, settings.name, NULL, NULL);
 	if (!m_window)
 	{
 		glfwTerminate();
@@ -43,6 +37,7 @@ GLFWwindow* Display::InitiDisplay(
 	}
 	
 	glDisable(GL_STENCIL_TEST);
+	glfwSwapInterval(settings.VSync);
 
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
