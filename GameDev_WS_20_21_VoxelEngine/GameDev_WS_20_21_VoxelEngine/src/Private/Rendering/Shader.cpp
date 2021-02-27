@@ -14,7 +14,6 @@ struct ShaderProgramSource
 	std::string FragmentSource;
 };
 
-
 Shader::Shader(const std::string& filepath)
 {
 	m_filepath = filepath;

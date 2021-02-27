@@ -4,6 +4,7 @@
 
 IndexBuffer::IndexBuffer(const uint32_t* data, uint32_t count)
 {
+	if (data == nullptr) return;
 	GLASSERTCALL(glGenBuffers(1, &m_rendererID));
 	GLASSERTCALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_rendererID));
 	GLASSERTCALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), data, GL_STATIC_DRAW));

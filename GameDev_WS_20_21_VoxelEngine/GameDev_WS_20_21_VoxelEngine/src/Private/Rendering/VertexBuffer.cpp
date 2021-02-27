@@ -4,6 +4,7 @@
 
 VertexBuffer::VertexBuffer(const void* data, uint32_t size)
 {
+	if (data == nullptr) return;
 	GLASSERTCALL(glGenBuffers(1, &m_rendererID));
 	GLASSERTCALL(glBindBuffer(GL_ARRAY_BUFFER, m_rendererID));
 	GLASSERTCALL(glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW));

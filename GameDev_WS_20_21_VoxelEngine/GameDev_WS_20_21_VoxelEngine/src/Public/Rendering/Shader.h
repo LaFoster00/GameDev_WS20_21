@@ -24,7 +24,7 @@ public:
 		GLASSERTCALL(glUseProgram(0));
 	}
 
-	//Set uniforms
+	//Set uniforms via name
 	inline void SetUniformSampler(const std::string& name, int slot)
 	{
 		SetUniform1i(name, slot);
@@ -59,11 +59,48 @@ public:
 	{
 		GLASSERTCALL(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &value[0][0]));
 	}
+
+	// Set Uniforms via position
+	inline void SetUniformSampler(uint32_t id, int slot)
+	{
+		SetUniform1i(id, slot);
+	}
+
+	inline void SetUniform1i(uint32_t id, int value)
+	{
+		GLASSERTCALL(glUniform1i(id, value));
+	}
+
+	inline void SetUniform1f(uint32_t id, const float value)
+	{
+		GLASSERTCALL(glUniform1f(id, value));
+	}
+
+	inline void SetUniform2f(uint32_t id, const glm::vec2& value)
+	{
+		GLASSERTCALL(glUniform2f(id, value.x, value.y));
+	}
+
+	inline void SetUniform3f(uint32_t id, const glm::vec3& value)
+	{
+		GLASSERTCALL(glUniform3f(id, value.x, value.y, value.z));
+	}
+
+	inline void SetUniform4f(uint32_t id, const glm::vec4& value)
+	{
+		GLASSERTCALL(glUniform4f(id, value.x, value.y, value.z, value.w));
+	}
+
+	inline void SetUniformMat4(uint32_t id, glm::mat4 value)
+	{
+		GLASSERTCALL(glUniformMatrix4fv(id, 1, GL_FALSE, &value[0][0]));
+	}
+
+	int GetUniformLocation(const std::string& name);
 private:
 	ShaderProgramSource ParseShader(const std::string& filepath);
 	uint32_t CompileShader(uint32_t type, const std::string& source);
 	uint32_t CreateShader(const std::string& vertexShader, const std::string& fragmentShader);
-	int GetUniformLocation(const std::string& name);
 private:
 	uint32_t m_rendererID;
 	std::string m_filepath;

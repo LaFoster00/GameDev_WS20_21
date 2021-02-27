@@ -45,6 +45,8 @@ int main(void)
 		2 , 3 , 0 
 	};
 
+	Renderer::InitRenderer();
+	
 	VertexArray vertexArray;
 
 	VertexBuffer vertexBuffer(positions, sizeof(positions));
@@ -85,7 +87,7 @@ int main(void)
 	while (!glfwWindowShouldClose(Display::GetWindow()))
 	{
 		/* Clear screen */
-		renderer.Clear();
+		Renderer::Clear();
 		
 		/* Update Game Time System */
 		{
@@ -109,13 +111,13 @@ int main(void)
 		shader.SetUniformSampler("_Texture", 0);
 		shader.SetUniformMat4("_MVP", mvp);
 
-		renderer.Draw(vertexArray, indexBuffer, shader);
+		Renderer::Draw(vertexArray, indexBuffer);
 
 		glm::mat4 model = glm::translate(glm::mat4(1.0f), translation2);
 		mvp = viewProj; //* model;
 		
 		shader.SetUniformMat4("_MVP", mvp);
-		renderer.Draw(vertexArray, indexBuffer, shader);
+		Renderer::Draw(vertexArray, indexBuffer);
 		
 		{
 			ImGui::SliderFloat3("Translation 1", &camera->gameObject->GetComponentOfType<Transform>()->Location.x, -2.0f, 2.0f);

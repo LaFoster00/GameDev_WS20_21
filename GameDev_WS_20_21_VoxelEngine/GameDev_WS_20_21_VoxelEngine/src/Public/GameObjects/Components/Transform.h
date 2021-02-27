@@ -15,6 +15,8 @@ public:
 	Transform();
 	Transform(glm::vec3 pos, glm::vec3 scale, glm::vec3 rotation);
 
+	glm::mat4 GetModelMatrix();
+
 public:
 	glm::vec3 Location;
 	glm::vec3 Scale;
