@@ -5,10 +5,13 @@
 #include "imgui/imgui_impl_opengl3.h"
 
 GLFWwindow* Display::m_window;
+DisplaySettings Display::m_settings;
 
-GLFWwindow* Display::InitiDisplay(const DisplaySettings& settings)
+GLFWwindow* Display::InitiDisplay(const DisplaySettings settings)
 {
 	static bool Initialized = false;
+
+	m_settings = DisplaySettings(settings);
 
 	if (Initialized) return m_window;
 
@@ -21,7 +24,7 @@ GLFWwindow* Display::InitiDisplay(const DisplaySettings& settings)
 	glfwWindowHint(GLFW_OPENGL_PROFILE, settings.glProfile);
 
 	/* Create a windowed mode window and its OpenGL context */
-	m_window = glfwCreateWindow(settings.resX, settings.resY, settings.name, NULL, NULL);
+	m_window = glfwCreateWindow(settings.resX, settings.resY, settings.name.c_str(), NULL, NULL);
 	if (!m_window)
 	{
 		glfwTerminate();
@@ -52,4 +55,11 @@ GLFWwindow* Display::InitiDisplay(const DisplaySettings& settings)
 GLFWwindow* Display::GetWindow()
 {
 	return m_window;
+}
+
+glm::vec2 Display::GetWindowDimensions()
+{
+	int width, height;
+	glfwGetWindowSize(m_window, &width, &height);
+	return glm::vec2(width, height);
 }

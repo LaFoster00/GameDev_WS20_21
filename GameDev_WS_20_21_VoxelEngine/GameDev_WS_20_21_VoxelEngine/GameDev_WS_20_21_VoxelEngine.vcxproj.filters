@@ -93,19 +93,19 @@
     <ClCompile Include="src\Public\Vendor\imgui\imgui_tables.cpp">
       <Filter>Source Files\Vendor\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Private\Components\Transform.cpp">
+    <ClCompile Include="src\Private\GameObjects\Components\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Private\Components\GameObject.cpp">
+    <ClCompile Include="src\Private\GameObjects\Components\Component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Private\Components\MeshRenderer.cpp">
+    <ClCompile Include="src\Private\GameObjects\Components\MeshRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Private\Components\Camera.cpp">
+    <ClCompile Include="src\Private\GameObjects\Components\Transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Private\Components\Component.cpp">
+    <ClCompile Include="src\Private\GameObjects\GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -175,22 +175,22 @@
     <ClInclude Include="src\Public\vendor\stb_image\stb_image.h">
       <Filter>Header Files\Vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Public\Components\Transform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Public\Tools\MacroCommon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Public\Components\GameObject.h">
+    <ClInclude Include="src\Public\GameObjects\Components\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Public\Components\Component.h">
+    <ClInclude Include="src\Public\GameObjects\Components\Component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Public\Components\MeshRenderer.h">
+    <ClInclude Include="src\Public\GameObjects\Components\MeshRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Public\Components\Camera.h">
+    <ClInclude Include="src\Public\GameObjects\Components\Transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Public\GameObjects\GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

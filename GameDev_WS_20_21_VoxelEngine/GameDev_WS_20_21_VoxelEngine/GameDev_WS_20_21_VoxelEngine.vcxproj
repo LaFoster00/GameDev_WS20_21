@@ -146,11 +146,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Private\Components\Camera.cpp" />
-    <ClCompile Include="src\Private\Components\Component.cpp" />
-    <ClCompile Include="src\Private\Components\GameObject.cpp" />
-    <ClCompile Include="src\Private\Components\MeshRenderer.cpp" />
-    <ClCompile Include="src\Private\Components\Transform.cpp" />
+    <ClCompile Include="src\Private\GameObjects\Components\Camera.cpp" />
+    <ClCompile Include="src\Private\GameObjects\Components\Component.cpp" />
+    <ClCompile Include="src\Private\GameObjects\GameObject.cpp" />
+    <ClCompile Include="src\Private\GameObjects\Components\MeshRenderer.cpp" />
+    <ClCompile Include="src\Private\GameObjects\Components\Transform.cpp" />
     <ClCompile Include="src\Private\Data\Texture.cpp" />
     <ClCompile Include="src\Private\DebugTools.cpp" />
     <ClCompile Include="src\Private\Rendering\Display.cpp" />
@@ -175,11 +175,11 @@
     <None Include="res\shaders\Basic.shader" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Public\Components\Camera.h" />
-    <ClInclude Include="src\Public\Components\Component.h" />
-    <ClInclude Include="src\Public\Components\GameObject.h" />
-    <ClInclude Include="src\Public\Components\MeshRenderer.h" />
-    <ClInclude Include="src\Public\Components\Transform.h" />
+    <ClInclude Include="src\Public\GameObjects\Components\Camera.h" />
+    <ClInclude Include="src\Public\GameObjects\Components\Component.h" />
+    <ClInclude Include="src\Public\GameObjects\GameObject.h" />
+    <ClInclude Include="src\Public\GameObjects\Components\MeshRenderer.h" />
+    <ClInclude Include="src\Public\GameObjects\Components\Transform.h" />
     <ClInclude Include="src\Public\Data\Texture.h" />
     <ClInclude Include="src\Public\DebugTools.h" />
     <ClInclude Include="src\Public\Rendering\Display.h" />

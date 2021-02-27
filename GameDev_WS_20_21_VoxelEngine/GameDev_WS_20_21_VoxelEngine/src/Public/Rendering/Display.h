@@ -1,7 +1,10 @@
 #pragma once
 
+#include <string>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+
 #include "imgui/imgui_impl_glfw.h"
 /// <summary>
 /// This class handles GLFW and OpenGL initiation as well as termination
@@ -11,15 +14,25 @@
 
 struct DisplaySettings
 {
-	const uint32_t resX = 640;
-	const uint32_t resY = 480;
-	const char* name = "Voxel Engine";
-	const bool VSync = false;
-	const uint32_t glMajor = 3;
-	const uint32_t glMinor = 3;
-	const int glProfile = GLFW_OPENGL_CORE_PROFILE;
+	uint32_t resX;
+	uint32_t resY;
+	std::string name;
+	bool VSync;
+	uint32_t glMajor;
+	uint32_t glMinor;
+	int glProfile;
 
-	DisplaySettings(){}
+	DisplaySettings()
+	{
+		resX = 640;
+		resY = 480;
+		name = "Voxel Engine";
+		VSync = false;
+		glMajor = 3;
+		glMinor = 3;
+		glProfile = GLFW_OPENGL_CORE_PROFILE;
+	}
+	
 };
 
 class Display
@@ -32,10 +45,13 @@ public:
 		glfwTerminate();
 	}
 	
-	static GLFWwindow* InitiDisplay(const DisplaySettings& settings);
+	static GLFWwindow* InitiDisplay(const DisplaySettings settings);
 	
 	static GLFWwindow* GetWindow();
+
+	static glm::vec2 GetWindowDimensions();
 	
 private:
 	static GLFWwindow* m_window;
+	static DisplaySettings m_settings;
 };
