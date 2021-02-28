@@ -14,6 +14,8 @@ enum class ShaderUniformType
 
 struct ShaderUniform
 {
+	std::string name;
+	uint32_t position;	
 	ShaderUniformType type;
 	void* data;
 };
@@ -24,10 +26,15 @@ public:
 	Material(Shader* shader);
 
 	void SetUnifrom(uint32_t id, void* value);
-	void SetUniform(const char* name, void* value);
-private:
-	Shader* shader;
+	uint32_t SetUniform(const char* name, void* value, const ShaderUniformType& type);
 
+	void PrepareForRender();
+
+public:
+	Shader* shader;
+private:
+	void SetShaderUniform(ShaderUniform& uniform);
+	
 	std::unordered_map<uint32_t, ShaderUniform> uniforms;
 	std::unordered_map<const char*, uint32_t> uniformPositions;
 };

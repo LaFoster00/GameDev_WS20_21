@@ -36,6 +36,8 @@ public:
 		std::vector<Face>& faces);
 	~Mesh();
 
+	const VertexArray& GetVertexArray() const;
+	const IndexBuffer& GetIndexBuffer() const;
 private:
 	VertexArray m_meshVertexArray;
 	VertexBuffer m_meshVertexBuffer;

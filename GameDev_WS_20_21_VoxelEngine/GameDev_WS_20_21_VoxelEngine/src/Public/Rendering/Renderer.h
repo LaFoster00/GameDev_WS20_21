@@ -3,6 +3,7 @@
 
 #include "GameObjects/Components/Camera.h"
 
+class Mesh;
 class Shader;
 class IndexBuffer;
 class VertexArray;
@@ -10,7 +11,6 @@ class VertexArray;
 class Renderer
 {
 public:
-	static void InitRenderer();
 	static void Clear();
 	static void Draw(const VertexArray& vertexArray, const IndexBuffer& indexBuffer);
 
@@ -21,5 +21,4 @@ public:
 
 private:
 	static std::unordered_map < uint32_t, VertexArray*> m_vertexArrays;
-	static bool m_initialized;
 };

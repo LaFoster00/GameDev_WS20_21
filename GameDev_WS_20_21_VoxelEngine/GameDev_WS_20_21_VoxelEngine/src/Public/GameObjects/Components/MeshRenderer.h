@@ -15,6 +15,8 @@ public:
 	void SetMesh();
 	void Render();
 
+	void BindForRender();
+
 public:
 	Material* material;
 	Mesh* mesh;

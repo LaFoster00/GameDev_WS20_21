@@ -9,6 +9,7 @@
 VertexArray::VertexArray()
 {
 	GLASSERTCALL(glGenVertexArrays(1, &m_rendererID));
+	Bind();
 }
 
 VertexArray::~VertexArray()

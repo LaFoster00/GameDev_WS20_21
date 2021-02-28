@@ -3,23 +3,13 @@
 #include <GL/glew.h>
 
 #include "DebugTools.h"
+#include "Data/Mesh.h"
 #include "Rendering/IndexBuffer.h"
 #include "Rendering/Shader.h"
 #include "Rendering/VertexArray.h"
 
 std::unordered_map < uint32_t, VertexArray*> Renderer::m_vertexArrays;
 Camera* Renderer::mainCamera;
-bool Renderer::m_initialized;
-
-void Renderer::InitRenderer()
-{
-	if (m_initialized)
-	{
-		std::cout << "Renderer already initialized" << std::endl;
-		return;
-	}
-	m_initialized = true;
-}
 
 void Renderer::Clear()
 {
@@ -28,8 +18,8 @@ void Renderer::Clear()
 
 void Renderer::Draw(const VertexArray& vertexArray, const IndexBuffer& indexBuffer)
 {
-	ASSERT(m_initialized && "Renderer isn't initialized! Cant call draw");
 	vertexArray.Bind();
+	indexBuffer.Bind();
 	GLASSERTCALL(glDrawElements(GL_TRIANGLES, indexBuffer.GetCount(), GL_UNSIGNED_INT, nullptr));
 }
 

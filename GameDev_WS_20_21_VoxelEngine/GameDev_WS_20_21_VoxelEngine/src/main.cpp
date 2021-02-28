@@ -36,8 +36,6 @@ int main(void)
 	GLASSERTCALL(glEnable(GL_BLEND));
 	GLASSERTCALL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
-	Renderer::InitRenderer();
-
 	// Create Camera and set it up
 	GameObject CameraObject("Camera", glm::vec3(0), glm::vec3(0));
 	Camera* camera = new Camera();
@@ -47,11 +45,16 @@ int main(void)
 	camera->cameraSettings.farPlane = 10.0f;
 	CameraObject.AddComponent(camera);
 
+
+	Texture texture("res/textures/Test.jpg");
+	texture.Bind(0);
 	
 	//create cube object from imported cube mesh
 	// Setup Material for cube
 	Shader shader("res/shaders/Basic.shader");
 	Material material = Material(&shader);
+	uint32_t textureSlot = 0;
+	material.SetUniform("_Texture", &textureSlot, ShaderUniformType::TEXTURE);
 
 	//Setup Mesh for cube
 	Mesh* mesh = LoadObj("res/models/Cube.obj");
@@ -61,41 +64,6 @@ int main(void)
 	GameObject cube("Cube", glm::vec3(0, 0, 3), glm::vec3(0));
 	//Add previously setup Mesh Renderer component
 	cube.AddComponent(&cubeRenderer);
-
-
-	float positions[] = {
-		-0.5f,	-0.5f,	1.0f,	0.0f,	0.0f,
-		 0.5f,	-0.5f,	1.0f,	1.0f,	0.0f,
-		 0.5f,	 0.5f,	1.0f,	1.0f,	1.0f,
-		-0.5f,	 0.5f,	1.0f,	0.0f,	1.0f,
-	};
-
-	uint32_t indices[] = {
-		0 , 1 , 2 ,
-		2 , 3 , 0
-	};
-
-	
-	VertexArray vertexArray;
-	VertexBuffer vertexBuffer(positions, sizeof(positions));
-
-	VertexBufferLayout vertexLufferLayout;
-	vertexLufferLayout.Push<float>(3); //Location
-	vertexLufferLayout.Push<float>(2); //UV
-	
-	vertexArray.AddBuffer(vertexBuffer, vertexLufferLayout);
-	
-	IndexBuffer indexBuffer(indices, 6);
-	
-	shader.Bind();
-
-	Texture texture("res/textures/Test.jpg");
-	texture.Bind(0);
-	
-	vertexArray.Unbind();
-	shader.Unbind();
-	vertexBuffer.Unbind();
-	indexBuffer.Unbind();
 
 	glm::vec3 translation2;
 	
@@ -113,23 +81,12 @@ int main(void)
 			//std::cout << "\r" << "DeltaTime: " << Time::DeltaTime << std::flush;
 		}
 
+		cubeRenderer.Render();
+		
+		/* IMGUI stuffelonious */
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
-
-		glm::mat4 viewProj = camera->ViewProjectMat;
-
-		glm::mat4 mvp = viewProj;
-
-		shader.Bind();
-		texture.Bind(0);
-		
-		/* Modulate color before computing the vertex buffer */
-		shader.SetUniformSampler("_Texture", 0);
-		shader.SetUniformMat4("_MVP", mvp);
-
-		Renderer::Draw(vertexArray, indexBuffer);
-		
 		{
 			ImGui::SliderFloat3("Translation 1", &camera->gameObject->GetComponentOfType<Transform>()->Location.x, -2.0f, 2.0f);
 			ImGui::SliderFloat3("Translation 2", &translation2.x, -2.0f, 2.0f);

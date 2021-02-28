@@ -26,5 +26,7 @@ void MeshRenderer::Render()
 		if (!m_transform) return;
 	}
 
-	
+	const IndexBuffer& meshIndexBuffer = mesh->GetIndexBuffer();
+	material->PrepareForRender();
+	Renderer::Draw(mesh->GetVertexArray(), meshIndexBuffer);
 }
