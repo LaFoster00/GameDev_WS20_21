@@ -27,35 +27,35 @@ public:
 	//Set uniforms via name
 	inline void SetUniformSampler(const std::string& name, int slot)
 	{
-		SetUniform1i(name, slot);
+		SetUniform1iWithName(name, slot);
 	}
 
-	inline void SetUniform1i(const std::string& name, int value)
+	inline void SetUniform1iWithName(const std::string& name, int value)
 	{
 		GLASSERTCALL(glUniform1i(GetUniformLocation(name), value));
 	}
 
-	inline void SetUniform1f(const std::string& name, const float value)
+	inline void SetUniform1fWithName(const std::string& name, const float value)
 	{
 		GLASSERTCALL(glUniform1f(GetUniformLocation(name), value));
 	}
 
-	inline void SetUniform2f(const std::string& name, const glm::vec2& value)
+	inline void SetUniform2fWithName(const std::string& name, const glm::vec2& value)
 	{
 		GLASSERTCALL(glUniform2f(GetUniformLocation(name), value.x, value.y));
 	}
 
-	inline void SetUniform3f(const std::string& name, const glm::vec3& value)
+	inline void SetUniform3fWithName(const std::string& name, const glm::vec3& value)
 	{
 		GLASSERTCALL(glUniform3f(GetUniformLocation(name), value.x, value.y, value.z));
 	}
 
-	inline void SetUniform4f(const std::string& name, const glm::vec4& value)
+	inline void SetUniform4fWithName(const std::string& name, const glm::vec4& value)
 	{
 		GLASSERTCALL(glUniform4f(GetUniformLocation(name), value.x, value.y, value.z, value.w));
 	}
 
-	inline void SetUniformMat4(const std::string& name, glm::mat4 value)
+	inline void SetUniformMat4WithName(const std::string& name, glm::mat4 value)
 	{
 		GLASSERTCALL(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &value[0][0]));
 	}

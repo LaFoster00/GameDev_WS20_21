@@ -27,6 +27,8 @@ Mesh::Mesh(std::vector<glm::vec3>& positions, std::vector<glm::vec2>& uvs, std::
 	m_meshIndexBuffer(faces)
 	
 {
+	m_meshVertexArray.Bind();
+	m_meshVertexBuffer.Bind();
 	
 	m_meshVertexBufferLayout.Push<float>(3); //Position
 	m_meshVertexBufferLayout.Push<float>(2); //UVs

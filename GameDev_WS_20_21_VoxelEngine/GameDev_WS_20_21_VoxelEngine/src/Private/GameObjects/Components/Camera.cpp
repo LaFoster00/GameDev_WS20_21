@@ -10,6 +10,7 @@
 
 Camera::Camera()
 {
+	Renderer::mainCamera = this;
 	cameraSettings = CameraRenderSettings();
 }
 

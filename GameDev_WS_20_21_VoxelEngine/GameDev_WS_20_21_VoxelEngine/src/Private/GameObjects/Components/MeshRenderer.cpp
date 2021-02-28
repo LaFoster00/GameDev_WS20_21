@@ -27,6 +27,9 @@ void MeshRenderer::Render()
 	}
 
 	const IndexBuffer& meshIndexBuffer = mesh->GetIndexBuffer();
+
+	glm::mat4 _vp = Renderer::mainCamera->ViewProjectMat;
+	material->SetUniform("_MVP", _vp);
 	material->PrepareForRender();
 	Renderer::Draw(mesh->GetVertexArray(), meshIndexBuffer);
 }

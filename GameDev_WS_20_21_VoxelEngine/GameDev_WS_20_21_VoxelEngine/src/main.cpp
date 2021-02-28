@@ -65,7 +65,7 @@ int main(void)
 
 	Material debugMaterial = Material(&shader);
 	uint32_t deubgTextureSlot = 0;
-	debugMaterial.SetUniform("_Texture", &deubgTextureSlot, ShaderUniformType::TEXTURE);
+	debugMaterial.SetUniform("_Texture", deubgTextureSlot);
 	
 	Mesh* debugMesh = new Mesh(positions, 4 * sizeof(float) * 8, indices, 6);
 	MeshRenderer debugMeshRenderer(debugMesh, &debugMaterial);
@@ -77,7 +77,7 @@ int main(void)
 	// Setup Material for cube
 	Material material = Material(&shader);
 	uint32_t textureSlot = 0;
-	material.SetUniform("_Texture", &textureSlot, ShaderUniformType::TEXTURE);
+	material.SetUniform("_Texture", textureSlot);
 
 	//Setup Mesh for cube
 	Mesh* mesh = LoadObj("res/models/Cube.obj");
