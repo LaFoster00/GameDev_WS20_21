@@ -3,6 +3,7 @@
 #include "DebugTools.h"
 #include "Data/Mesh.h"
 
+
 IndexBuffer::IndexBuffer(const uint32_t* data, uint32_t count)
 {
 	GLASSERTCALL(glGenBuffers(1, &m_rendererID));

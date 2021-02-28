@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+
+#include "DebugTools.h"
 #include "imgui/imgui_impl_opengl3.h"
 #include "glm/glm.hpp"
 
@@ -33,13 +35,18 @@ GLFWwindow* Display::InitiDisplay(const DisplaySettings settings)
 	}
 	
 	glfwMakeContextCurrent(m_window);
-
+	
 	/* Init glew */
 	if (glewInit() != GLEW_OK)
 	{
 		std::cout << "Glew Init Error" << std::endl;
 	}
-	
+
+#ifdef DEBUG_ENGINE
+	glEnable(GL_DEBUG_OUTPUT);
+	glDebugMessageCallback(MessageCallback, 0);
+#endif
+
 	glDisable(GL_STENCIL_TEST);
 	glfwSwapInterval(settings.VSync);
 

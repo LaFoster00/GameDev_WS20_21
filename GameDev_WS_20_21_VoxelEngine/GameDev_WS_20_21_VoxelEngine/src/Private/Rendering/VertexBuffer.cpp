@@ -41,7 +41,7 @@ VertexBuffer::VertexBuffer(std::vector<glm::vec3>& positions, std::vector<glm::v
 	}
 	
 	GLASSERTCALL(glGenBuffers(1, &m_rendererID));
-	Bind();
+	GLASSERTCALL(glBindBuffer(GL_ARRAY_BUFFER, m_rendererID));
 	GLASSERTCALL(glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(float), data.data(), GL_STATIC_DRAW));
 }
 

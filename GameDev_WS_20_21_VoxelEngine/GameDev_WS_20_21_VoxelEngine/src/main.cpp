@@ -45,13 +45,36 @@ int main(void)
 	camera->cameraSettings.farPlane = 10.0f;
 	CameraObject.AddComponent(camera);
 
-
 	Texture texture("res/textures/Test.jpg");
 	texture.Bind(0);
+
+	Shader shader("res/shaders/Basic.shader");
+	
+	//Create Debug Plane PPP UV NNN
+	float positions[] = {
+		-0.5f,	-0.5f,	1.0f,	0.0f,	0.0f,	0.0f,	0.0f,	0.0f,
+		 0.5f,	-0.5f,	1.0f,	1.0f,	0.0f,	0.0f,	0.0f,	0.0f,
+		 0.5f,	 0.5f,	1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	0.0f,
+		-0.5f,	 0.5f,	1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	0.0f,
+	};
+
+	uint32_t indices[] = {
+		0 , 1 , 2 ,
+		2 , 3 , 0
+	};
+
+	Material debugMaterial = Material(&shader);
+	uint32_t deubgTextureSlot = 0;
+	debugMaterial.SetUniform("_Texture", &deubgTextureSlot, ShaderUniformType::TEXTURE);
+	
+	Mesh* debugMesh = new Mesh(positions, 4 * sizeof(float) * 8, indices, 6);
+	MeshRenderer debugMeshRenderer(debugMesh, &debugMaterial);
+
+	GameObject debugObject("Debug", glm::vec3(0), glm::vec3(0));
+	debugObject.AddComponent(&debugMeshRenderer);
 	
 	//create cube object from imported cube mesh
 	// Setup Material for cube
-	Shader shader("res/shaders/Basic.shader");
 	Material material = Material(&shader);
 	uint32_t textureSlot = 0;
 	material.SetUniform("_Texture", &textureSlot, ShaderUniformType::TEXTURE);
@@ -81,6 +104,7 @@ int main(void)
 			//std::cout << "\r" << "DeltaTime: " << Time::DeltaTime << std::flush;
 		}
 
+		debugMeshRenderer.Render();
 		cubeRenderer.Render();
 		
 		/* IMGUI stuffelonious */

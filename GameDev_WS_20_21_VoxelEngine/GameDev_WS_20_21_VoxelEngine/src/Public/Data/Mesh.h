@@ -31,11 +31,14 @@ struct Face
 class Mesh
 {
 public:
-	Mesh(const void* data, uint32_t size, const uint32_t* indexBuffer, uint32_t count);
+	Mesh(const void* data, uint32_t size, const uint32_t* indices, uint32_t count);
 	Mesh(std::vector<glm::vec3>& positions, std::vector<glm::vec2>& uvs, std::vector<glm::vec3>& normals,
 		std::vector<Face>& faces);
 	~Mesh();
 
+	void Populate(std::vector<glm::vec3>& positions, std::vector<glm::vec2>& uvs, std::vector<glm::vec3>& normals,
+		std::vector<Face>& faces);
+	
 	const VertexArray& GetVertexArray() const;
 	const IndexBuffer& GetIndexBuffer() const;
 private:
