@@ -33,13 +33,9 @@ void MeshRenderer::Render()
 
 	glm::mat4 _vp = Renderer::mainCamera->ViewProjectMat;
 
-	glm::mat4 scale = glm::scale(glm::mat4(1), m_transform->Scale);
-	glm::mat4 rotation = glm::toMat4(m_transform->Rotation);
-	glm::mat4 tranlation = glm::translate(glm::mat4(1.0f), m_transform->Location);
-
-	_vp *= scale *  rotation * tranlation;
+	glm::mat4 mvp = _vp * m_transform->GetModelMatrix();
 	
-	material->SetUniform("_MVP", _vp);
+	material->SetUniform("_MVP", mvp);
 	material->PrepareForRender();
 	Renderer::Draw(mesh->GetVertexArray(), meshIndexBuffer);
 }

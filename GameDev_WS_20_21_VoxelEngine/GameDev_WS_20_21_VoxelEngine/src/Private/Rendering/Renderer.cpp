@@ -14,6 +14,7 @@ Camera* Renderer::mainCamera;
 void Renderer::Clear()
 {
 	GLASSERTCALL(glClear(GL_COLOR_BUFFER_BIT));
+	GLASSERTCALL(glClear(GL_DEPTH_BUFFER_BIT));
 }
 
 void Renderer::Draw(const VertexArray& vertexArray, const IndexBuffer& indexBuffer)

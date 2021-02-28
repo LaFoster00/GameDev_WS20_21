@@ -3,74 +3,52 @@
 
 #include <iostream>
 
-#include "DebugTools.h"
 #include "Data/Mesh.h"
 #include "Data/Texture.h"
 #include "GameObjects/GameObject.h"
 #include "GameObjects/Components/MeshRenderer.h"
 #include "GameSystems/EngineTime.h"
+#include "GameSystems/GameManager.h"
 #include "GameSystems/InputManager.h"
 #include "Rendering/Display.h"
 #include "Rendering/Shader.h"
 #include "Rendering/Renderer.h"
-#include "Rendering/VertexBuffer.h"
+#include "Tools/ObjImporter.h"
 
 #include "glm/glm.hpp"
 
+#ifdef WITH_EDITOR
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
-#include "Tools/ObjImporter.h"
+#include "Editor/EditorManager.h"
+#endif
 
 int main(void)
 {
 	/* Init GLFW and Window */
 	DisplaySettings settings;
+	settings.resX = 640 * 2;
+	settings.resY = 480 * 2;
 	Display::InitiDisplay(settings);
 
-	InputManager::InitInput();
+	GameManager* gameManager = new GameManager();
 	
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
-	GLASSERTCALL(glEnable(GL_BLEND));
-	GLASSERTCALL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
-
 	// Create Camera and set it up
-	GameObject CameraObject("Camera", glm::vec3(0), glm::vec3(0));
+	GameObject* CameraObject = GameManager::AddGameObject("Camera", glm::vec3(0, 1, -2), glm::vec3(0));
 	Camera* camera = new Camera();
 	camera->cameraSettings.renderMode = RenderMode::PERSPECTIVE;
 	camera->cameraSettings.fov = 90.0f;
 	camera->cameraSettings.nearPlane = 0.01f;
 	camera->cameraSettings.farPlane = 10.0f;
-	CameraObject.AddComponent(camera);
+	CameraObject->AddComponent(camera);
 
 	Texture texture("res/textures/Test.jpg");
 	texture.Bind(0);
 
 	Shader shader("res/shaders/Basic.shader");
-	
-	//Create Debug Plane PPP UV NNN
-	float positions[] = {
-		-0.5f,	-0.5f,	1.0f,	0.0f,	0.0f,	0.0f,	0.0f,	0.0f,
-		 0.5f,	-0.5f,	1.0f,	1.0f,	0.0f,	0.0f,	0.0f,	0.0f,
-		 0.5f,	 0.5f,	1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	0.0f,
-		-0.5f,	 0.5f,	1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	0.0f,
-	};
-
-	uint32_t indices[] = {
-		0 , 1 , 2 ,
-		2 , 3 , 0
-	};
-
-	Material debugMaterial = Material(&shader);
-	uint32_t deubgTextureSlot = 0;
-	debugMaterial.SetUniform("_Texture", deubgTextureSlot);
-	
-	Mesh* debugMesh = new Mesh(positions, 4 * sizeof(float) * 8, indices, 6);
-	MeshRenderer debugMeshRenderer(debugMesh, &debugMaterial);
-
-	GameObject debugObject("Debug", glm::vec3(0), glm::vec3(0));
-	debugObject.AddComponent(&debugMeshRenderer);
 	
 	//create cube object from imported cube mesh
 	// Setup Material for cube
@@ -80,12 +58,12 @@ int main(void)
 
 	//Setup Mesh for cube
 	Mesh* mesh = LoadObj("res/models/Monkey.obj");
-	MeshRenderer cubeRenderer(mesh, &material);
+	MeshRenderer* cubeRenderer = new MeshRenderer(mesh, &material);
 
 	//Setup GameObject for cube
-	GameObject cube("Cube", glm::vec3(0, 0, 0), glm::vec3(0));
+	GameObject* importedObject = GameManager::AddGameObject("Cube", glm::vec3(0, 0, 0), glm::vec3(0));
 	//Add previously setup Mesh Renderer component
-	cube.AddComponent(&cubeRenderer);
+	importedObject->AddComponent(cubeRenderer);
 
 	glm::vec3 translation2;
 	
@@ -93,38 +71,35 @@ int main(void)
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(Display::GetWindow()))
 	{
-		/* Clear screen */
-		Renderer::Clear();
-		
-		/* Update Game Time System */
+		/* Engine Loop */
 		{
 			Time::UpdateGameTime();
-			/* Update DeltaTime And FPS print */
-			//std::cout << "\r" << "DeltaTime: " << Time::DeltaTime << std::flush;
 		}
-
-		//debugMeshRenderer.Render();
-		cubeRenderer.Render();
-		
-		/* IMGUI stuffelonious */
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
+			
+		/* Render Loop */
 		{
-			ImGui::SliderFloat3("Translation 1", &camera->gameObject->GetComponentOfType<Transform>()->Location.x, -2.0f, 2.0f);
-			ImGui::SliderFloat3("Translation 2", &cube.GetComponentOfType<Transform>()->Location.x, -2.0f, 2.0f);
-			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-		}
-		
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+			/* Clear screen */
+			Renderer::Clear();
 
-		/* Swap front and back buffers */
-		glfwSwapBuffers(Display::GetWindow());
+#ifdef WITH_EDITOR
+			/* IMGUI stuffelonious */
+			ImGui_ImplOpenGL3_NewFrame();
+			ImGui_ImplGlfw_NewFrame();
+			ImGui::NewFrame();
+			EditorManager::RenderEditor();
+			ImGui::Render();
+			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+#endif
+
+			/* Swap front and back buffers */
+			glfwSwapBuffers(Display::GetWindow());
+		}
 
 		/* Poll for and process events */  
 		glfwPollEvents();
 	}
+
+	delete gameManager; // Should be removed last as this will destroy all game objects that still exist
 	
 	return 0;
 }

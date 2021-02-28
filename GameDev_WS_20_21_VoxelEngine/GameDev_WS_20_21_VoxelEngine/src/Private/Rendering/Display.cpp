@@ -22,6 +22,7 @@ GLFWwindow* Display::InitiDisplay(const DisplaySettings settings)
 	if (!glfwInit())
 		return nullptr;
 
+	/* Set glfw settings */
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, settings.glMajor);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, settings.glMinor);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, settings.glProfile);
@@ -43,18 +44,24 @@ GLFWwindow* Display::InitiDisplay(const DisplaySettings settings)
 		std::cout << "Glew Init Error" << std::endl;
 	}
 
+	/* Set OpenGl features. */
 #ifdef DEBUG_ENGINE
 	glEnable(GL_DEBUG_OUTPUT);
 	glDebugMessageCallback(MessageCallback, 0);
 #endif
 
-	//glEnable(GL_DEPTH_TEST);
-	//glDepthFunc(GL_ALWAYS);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
 	glEnable(GL_CULL_FACE);
+
+	GLASSERTCALL(glEnable(GL_BLEND));
+	GLASSERTCALL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	
 	glDisable(GL_STENCIL_TEST);
 	glfwSwapInterval(settings.VSync);
 
+
+	/* Set up ImGui */
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	ImGui::StyleColorsDark();

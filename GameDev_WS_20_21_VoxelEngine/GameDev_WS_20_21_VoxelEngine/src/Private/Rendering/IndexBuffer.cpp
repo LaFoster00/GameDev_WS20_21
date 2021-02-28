@@ -16,12 +16,9 @@ IndexBuffer::IndexBuffer(const std::vector<Face>& faces)
 {
 	std::vector<uint32_t> indices(faces.size() * 3);
 
-	for (uint32_t i = 0; i < faces.size(); i++)
+	for (uint32_t i = 0; i < faces.size() * 3; i++)
 	{
-		for (uint32_t j = 0; j < 3; j++)
-		{
-			indices[i * 3 + j] = faces[i].vertices[j].x;
-		}
+			indices[i] = i;
 	}
 
 	GLASSERTCALL(glGenBuffers(1, &m_rendererID));
