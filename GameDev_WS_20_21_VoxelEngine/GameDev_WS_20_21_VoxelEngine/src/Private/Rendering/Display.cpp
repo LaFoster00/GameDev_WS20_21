@@ -25,6 +25,7 @@ GLFWwindow* Display::InitiDisplay(const DisplaySettings settings)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, settings.glMajor);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, settings.glMinor);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, settings.glProfile);
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
 	/* Create a windowed mode window and its OpenGL context */
 	m_window = glfwCreateWindow(settings.resX, settings.resY, settings.name.c_str(), NULL, NULL);
@@ -47,6 +48,10 @@ GLFWwindow* Display::InitiDisplay(const DisplaySettings settings)
 	glDebugMessageCallback(MessageCallback, 0);
 #endif
 
+	//glEnable(GL_DEPTH_TEST);
+	//glDepthFunc(GL_ALWAYS);
+	glEnable(GL_CULL_FACE);
+	
 	glDisable(GL_STENCIL_TEST);
 	glfwSwapInterval(settings.VSync);
 

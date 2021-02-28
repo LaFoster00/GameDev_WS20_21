@@ -26,7 +26,7 @@ enum class ShaderUniformType
 template<typename T>
 struct ShaderUniform
 {
-	std::string name;
+	std::string name; 
 	uint32_t position;
 	ShaderUniformType type;
 	T data;

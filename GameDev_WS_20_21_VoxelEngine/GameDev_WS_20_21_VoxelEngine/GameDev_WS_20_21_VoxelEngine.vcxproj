@@ -114,7 +114,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>GLM_FORCE_LEFT_HANDED;GLEW_STATIC;_DEBUG;_CONSOLE;DEBUG_ENGINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;_DEBUG;_CONSOLE;DEBUG_ENGINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\glew\include;src/Public;src/Public/Vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -131,7 +131,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>GLM_FORCE_LEFT_HANDED;GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\glew\include;src/Public;src/Public/Vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -149,6 +149,7 @@
     <ClCompile Include="src\Private\Data\Mesh.cpp" />
     <ClCompile Include="src\Private\GameObjects\Components\Camera.cpp" />
     <ClCompile Include="src\Private\GameObjects\Components\Component.cpp" />
+    <ClCompile Include="src\Private\GameSystems\InputManager.cpp" />
     <ClCompile Include="src\Private\Rendering\Material.cpp" />
     <ClCompile Include="src\Private\GameObjects\GameObject.cpp" />
     <ClCompile Include="src\Private\GameObjects\Components\MeshRenderer.cpp" />
@@ -164,7 +165,7 @@
     <ClCompile Include="src\Private\Rendering\VertexArray.cpp" />
     <ClCompile Include="src\Private\Rendering\VertexBuffer.cpp" />
     <ClCompile Include="src\Private\Rendering\VertexBufferLayout.cpp" />
-    <ClCompile Include="src\Private\EngineTime.cpp" />
+    <ClCompile Include="src\Private\GameSystems\EngineTime.cpp" />
     <ClCompile Include="src\Private\Tools\ObjImporter.cpp" />
     <ClCompile Include="src\Public\Vendor\imgui\imgui.cpp" />
     <ClCompile Include="src\Public\Vendor\imgui\imgui_demo.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="src\Public\Data\Texture.h" />
     <ClInclude Include="src\Public\DebugTools.h" />
     <ClInclude Include="src\Public\GameObjects\GameObjectManager.h" />
+    <ClInclude Include="src\Public\GameSystems\InputManager.h" />
     <ClInclude Include="src\Public\Rendering\Display.h" />
     <ClInclude Include="src\Public\Rendering\IndexBuffer.h" />
     <ClInclude Include="src\Public\Rendering\Material.h" />
@@ -197,7 +199,7 @@
     <ClInclude Include="src\Public\Rendering\VertexArray.h" />
     <ClInclude Include="src\Public\Rendering\VertexBuffer.h" />
     <ClInclude Include="src\Public\Rendering\VertexBufferLayout.h" />
-    <ClInclude Include="src\Public\EngineTime.h" />
+    <ClInclude Include="src\Public\GameSystems\EngineTime.h" />
     <ClInclude Include="src\Public\Tools\MacroCommon.h" />
     <ClInclude Include="src\Public\Tools\ObjImporter.h" />
     <ClInclude Include="src\Public\Vendor\imgui\imconfig.h" />

@@ -36,9 +36,6 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Private\EngineTime.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Private\Rendering\VertexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -120,6 +117,12 @@
     <ClCompile Include="src\Private\Tools\ObjImporter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Private\GameSystems\InputManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Private\GameSystems\EngineTime.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader">
@@ -128,9 +131,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Public\DebugTools.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Public\EngineTime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Public\Rendering\VertexBuffer.h">
@@ -215,6 +215,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Public\Tools\ObjImporter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Public\GameSystems\InputManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Public\GameSystems\EngineTime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

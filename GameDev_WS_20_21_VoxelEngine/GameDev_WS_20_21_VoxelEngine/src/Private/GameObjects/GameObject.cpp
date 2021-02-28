@@ -18,7 +18,7 @@ GameObject::GameObject(const std::string& name, glm::vec3 position, glm::vec3 ro
 	internalName = "GameObject" + std::to_string(id);
 	this->name = name;
 
-	Transform* transform = new Transform(position, glm::vec3(0), rotation);
+	Transform* transform = new Transform(position, glm::vec3(1), rotation);
 	AddComponent(transform);
 }
 

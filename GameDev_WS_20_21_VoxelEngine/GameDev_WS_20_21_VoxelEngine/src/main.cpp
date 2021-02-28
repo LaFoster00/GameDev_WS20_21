@@ -3,22 +3,19 @@
 
 #include <iostream>
 
-#include "EngineTime.h"
 #include "DebugTools.h"
 #include "Data/Mesh.h"
 #include "Data/Texture.h"
 #include "GameObjects/GameObject.h"
 #include "GameObjects/Components/MeshRenderer.h"
+#include "GameSystems/EngineTime.h"
+#include "GameSystems/InputManager.h"
 #include "Rendering/Display.h"
 #include "Rendering/Shader.h"
-#include "Rendering/IndexBuffer.h"
 #include "Rendering/Renderer.h"
-#include "Rendering/VertexArray.h"
 #include "Rendering/VertexBuffer.h"
-#include "Rendering/VertexBufferLayout.h"
 
 #include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
@@ -30,6 +27,8 @@ int main(void)
 	/* Init GLFW and Window */
 	DisplaySettings settings;
 	Display::InitiDisplay(settings);
+
+	InputManager::InitInput();
 	
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
@@ -40,7 +39,7 @@ int main(void)
 	GameObject CameraObject("Camera", glm::vec3(0), glm::vec3(0));
 	Camera* camera = new Camera();
 	camera->cameraSettings.renderMode = RenderMode::PERSPECTIVE;
-	camera->cameraSettings.fov = 60.0f;
+	camera->cameraSettings.fov = 90.0f;
 	camera->cameraSettings.nearPlane = 0.01f;
 	camera->cameraSettings.farPlane = 10.0f;
 	CameraObject.AddComponent(camera);
@@ -80,11 +79,11 @@ int main(void)
 	material.SetUniform("_Texture", textureSlot);
 
 	//Setup Mesh for cube
-	Mesh* mesh = LoadObj("res/models/Cube.obj");
+	Mesh* mesh = LoadObj("res/models/Monkey.obj");
 	MeshRenderer cubeRenderer(mesh, &material);
 
 	//Setup GameObject for cube
-	GameObject cube("Cube", glm::vec3(0, 0, 3), glm::vec3(0));
+	GameObject cube("Cube", glm::vec3(0, 0, 0), glm::vec3(0));
 	//Add previously setup Mesh Renderer component
 	cube.AddComponent(&cubeRenderer);
 
@@ -104,7 +103,7 @@ int main(void)
 			//std::cout << "\r" << "DeltaTime: " << Time::DeltaTime << std::flush;
 		}
 
-		debugMeshRenderer.Render();
+		//debugMeshRenderer.Render();
 		cubeRenderer.Render();
 		
 		/* IMGUI stuffelonious */
@@ -113,7 +112,7 @@ int main(void)
 		ImGui::NewFrame();
 		{
 			ImGui::SliderFloat3("Translation 1", &camera->gameObject->GetComponentOfType<Transform>()->Location.x, -2.0f, 2.0f);
-			ImGui::SliderFloat3("Translation 2", &translation2.x, -2.0f, 2.0f);
+			ImGui::SliderFloat3("Translation 2", &cube.GetComponentOfType<Transform>()->Location.x, -2.0f, 2.0f);
 			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 		}
 		
