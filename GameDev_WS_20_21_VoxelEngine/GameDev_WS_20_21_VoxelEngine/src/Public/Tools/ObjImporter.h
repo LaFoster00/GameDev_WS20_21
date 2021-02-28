@@ -19,11 +19,7 @@ static Mesh* LoadObj(const char* filePath)
 	std::vector<glm::vec2> vertexUVs;
 	std::vector<glm::vec3> vertexNormals;
 
-	std::vector<uint32_t> vertexPositionIndices;
-	std::vector<uint32_t> vertexUvIndices;
-	std::vector<uint32_t> vertexNormalIndices;
-
-	std::vector<Vertex> vertices;
+	std::vector<Face> faces;
 
 	std::stringstream ss;
 	std::ifstream inFile(filePath);
@@ -32,8 +28,8 @@ static Mesh* LoadObj(const char* filePath)
 
 	glm::vec3 tempVec3;
 	glm::vec2 tempVec2;
-	uint32_t tempUint = 0;
 
+	uint32_t currentFace = 0;
 	
 	if (!inFile.is_open())
 	{
@@ -63,33 +59,34 @@ static Mesh* LoadObj(const char* filePath)
 		}
 		else if (prefix == "f")
 		{
-			int counter = 0;
-			while (ss >> tempUint)
+			faces.resize(1 + currentFace, Face());
+			int faceVertexCounter = 0;
+			int vertexComponentCounter = 0;
+			uint32_t componentIndex = 0;
+			
+			while (ss >> componentIndex)
 			{
-				//Pushing indices
-				if (counter == 0)
-					vertexPositionIndices.push_back(tempUint);
-				else if (counter == 1)
-					vertexUvIndices.push_back(tempUint);
-				else if (counter == 2)
-					vertexNormalIndices.push_back(tempUint);
+				if (faceVertexCounter > 2)
+				{
+					throw "Cant import non triangulated Meshes retard!";
+				}
+				//Retrieving faces
+				faces[currentFace].vertices[faceVertexCounter][vertexComponentCounter] = componentIndex - 1; // - 1 because obj files start counting at 1
 
 				// Handling characters
 				if (ss.peek() == '/')
 				{
-					++counter;
+					vertexComponentCounter++;
 					ss.ignore(1, '/');
 				}
 				else if (ss.peek() == ' ')
 				{
-					++counter;
+					vertexComponentCounter = 0;
+					faceVertexCounter++;
 					ss.ignore(1, ' ');
 				}
-
-				// Reset the counter
-				if (counter > 2)
-					counter = 0;
 			}
+			currentFace++;
 		}
 		else if (prefix == "#")
 		{
@@ -112,19 +109,9 @@ static Mesh* LoadObj(const char* filePath)
 		}
 	}
 
-	//Build final vertex array (mesh)
-	vertices.resize(vertexPositionIndices.size(), Vertex());
-
-	for (size_t i = 0; i < vertices.size(); i++)
-	{
-		vertices[i].location = vertexPositions[vertexPositionIndices[i] - 1];
-		vertices[i].normal = vertexNormals[vertexNormalIndices[i] - 1];
-		vertices[i].uv = vertexUVs[vertexUvIndices[i] -1 ];
-	}
-
-	std::cout << "Nr of verticies: " << vertices.size() << std::endl;
+	std::cout << "Nr of verticies: " << vertexPositions.size() << std::endl;
 	
-	Mesh* importedMesh = new Mesh(vertices, vertexPositionIndices);
+	Mesh* importedMesh = new Mesh(vertexPositions, vertexUVs, vertexNormals, faces);
 	
 	return importedMesh;
 }

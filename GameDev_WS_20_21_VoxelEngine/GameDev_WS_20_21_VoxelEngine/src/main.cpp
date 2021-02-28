@@ -8,6 +8,7 @@
 #include "Data/Mesh.h"
 #include "Data/Texture.h"
 #include "GameObjects/GameObject.h"
+#include "GameObjects/Components/MeshRenderer.h"
 #include "Rendering/Display.h"
 #include "Rendering/Shader.h"
 #include "Rendering/IndexBuffer.h"
@@ -34,7 +35,34 @@ int main(void)
 
 	GLASSERTCALL(glEnable(GL_BLEND));
 	GLASSERTCALL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+
+	Renderer::InitRenderer();
+
+	// Create Camera and set it up
+	GameObject CameraObject("Camera", glm::vec3(0), glm::vec3(0));
+	Camera* camera = new Camera();
+	camera->cameraSettings.renderMode = RenderMode::PERSPECTIVE;
+	camera->cameraSettings.fov = 60.0f;
+	camera->cameraSettings.nearPlane = 0.01f;
+	camera->cameraSettings.farPlane = 10.0f;
+	CameraObject.AddComponent(camera);
+
 	
+	//create cube object from imported cube mesh
+	// Setup Material for cube
+	Shader shader("res/shaders/Basic.shader");
+	Material material = Material(&shader);
+
+	//Setup Mesh for cube
+	Mesh* mesh = LoadObj("res/models/Cube.obj");
+	MeshRenderer cubeRenderer(mesh, &material);
+
+	//Setup GameObject for cube
+	GameObject cube("Cube", glm::vec3(0, 0, 3), glm::vec3(0));
+	//Add previously setup Mesh Renderer component
+	cube.AddComponent(&cubeRenderer);
+
+
 	float positions[] = {
 		-0.5f,	-0.5f,	1.0f,	0.0f,	0.0f,
 		 0.5f,	-0.5f,	1.0f,	1.0f,	0.0f,
@@ -44,15 +72,11 @@ int main(void)
 
 	uint32_t indices[] = {
 		0 , 1 , 2 ,
-		2 , 3 , 0 
+		2 , 3 , 0
 	};
 
-	Renderer::InitRenderer();
-
-	Mesh* mesh = LoadObj("res/models/Cube.obj");
 	
 	VertexArray vertexArray;
-
 	VertexBuffer vertexBuffer(positions, sizeof(positions));
 
 	VertexBufferLayout vertexLufferLayout;
@@ -63,15 +87,6 @@ int main(void)
 	
 	IndexBuffer indexBuffer(indices, 6);
 	
-	GameObject CameraObject("Camera", glm::vec3(0), glm::vec3(0));
-	Camera* camera = new Camera();
-	camera->cameraSettings.renderMode = RenderMode::PERSPECTIVE;
-	camera->cameraSettings.fov = 60.0f;
-	camera->cameraSettings.nearPlane = 0.01f;
-	camera->cameraSettings.farPlane = 10.0f;
-	CameraObject.AddComponent(camera);
-	
-	Shader shader("res/shaders/Basic.shader");
 	shader.Bind();
 
 	Texture texture("res/textures/Test.jpg");
@@ -113,12 +128,6 @@ int main(void)
 		shader.SetUniformSampler("_Texture", 0);
 		shader.SetUniformMat4("_MVP", mvp);
 
-		Renderer::Draw(vertexArray, indexBuffer);
-
-		glm::mat4 model = glm::translate(glm::mat4(1.0f), translation2);
-		mvp = viewProj; //* model;
-		
-		shader.SetUniformMat4("_MVP", mvp);
 		Renderer::Draw(vertexArray, indexBuffer);
 		
 		{

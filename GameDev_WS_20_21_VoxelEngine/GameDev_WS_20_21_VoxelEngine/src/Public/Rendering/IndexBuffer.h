@@ -1,11 +1,15 @@
 #pragma once
 
 #include <cstdint>
+#include <vector>
+
+struct Face;
 
 class IndexBuffer
 {
 public:
 	IndexBuffer(const uint32_t* data, uint32_t count);
+	IndexBuffer(const std::vector<Face>& faces);
 	~IndexBuffer();
 
 	void Bind() const;

@@ -5,13 +5,12 @@
 #include "Rendering/Renderer.h"
 #include "Data/Mesh.h"
 
-MeshRenderer::MeshRenderer(Mesh mesh, Material material)
-{
-	
-}
 
-MeshRenderer::MeshRenderer(Mesh mesh, Material material, VertexArray* vertexArray)
+
+MeshRenderer::MeshRenderer(Mesh* mesh, Material* material)
 {
+	this->mesh = mesh;
+	this->material = material;
 }
 
 MeshRenderer::~MeshRenderer()

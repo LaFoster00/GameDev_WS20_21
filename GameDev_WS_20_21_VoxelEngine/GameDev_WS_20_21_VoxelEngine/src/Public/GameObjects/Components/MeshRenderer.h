@@ -9,8 +9,7 @@ class Transform;
 class MeshRenderer : public Component
 {
 public:
-	MeshRenderer(Mesh mesh, Material material);
-	MeshRenderer(Mesh mesh, Material material, VertexArray* vertexArray);
+	MeshRenderer(Mesh* mesh, Material* material);
 	~MeshRenderer();
 
 	void SetMesh();
@@ -18,6 +17,7 @@ public:
 
 public:
 	Material* material;
+	Mesh* mesh;
 private:
 	Transform* m_transform;
 };
