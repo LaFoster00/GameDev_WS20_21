@@ -75,11 +75,13 @@ int main(void)
 		{
 			Time::UpdateGameTime();
 		}
-			
+
 		/* Render Loop */
 		{
 			/* Clear screen */
 			Renderer::Clear();
+
+			cubeRenderer->Render();
 
 #ifdef WITH_EDITOR
 			/* IMGUI stuffelonious */
