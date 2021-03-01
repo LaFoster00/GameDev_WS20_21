@@ -22,7 +22,6 @@ void GLClearCall();
 
 bool GLLogCall(const char* function, const char* file, int line);
 
-
 void GLAPIENTRY
 MessageCallback(GLenum source,
     GLenum type,

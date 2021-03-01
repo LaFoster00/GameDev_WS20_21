@@ -1,12 +1,12 @@
 #include "GameObjects/Components/Camera.h"
-#include "GameObjects/GameObject.h"
-#include "GameObjects/Components/Transform.h"
-
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtx/quaternion.hpp"
 
 #include "Rendering/Display.h"
 #include "Rendering/Renderer.h"
+#include "GameObjects/GameObject.h"
+#include "GameObjects/Components/Transform.h"
+
+#include <glm/ext/matrix_transform.hpp>
+#include <glm/ext/matrix_clip_space.hpp>
 
 Camera::Camera()
 {
@@ -21,7 +21,7 @@ Camera::Camera(CameraRenderSettings cameraSettings, bool isMainCamera)
 	this->cameraSettings = cameraSettings;
 }
 
-glm::mat4& Camera::get_ViewProjectMat()
+glm::mat4 Camera::get_ViewProjectMat()
 {
 	if (!m_transform)
 	{

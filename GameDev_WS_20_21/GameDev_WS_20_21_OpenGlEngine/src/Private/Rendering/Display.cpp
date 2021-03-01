@@ -1,14 +1,21 @@
 #include "Rendering/Display.h"
 
 #include <iostream>
-
+#include <GL/glew.h>
 
 #include "DebugTools.h"
-#include "imgui/imgui_impl_opengl3.h"
-#include "glm/glm.hpp"
 
 GLFWwindow* Display::m_window;
 DisplaySettings Display::m_settings;
+
+Display::~Display()
+{
+#ifdef WITH_IMGUI
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+#endif
+	glfwTerminate();
+}
 
 GLFWwindow* Display::InitiDisplay(const DisplaySettings settings)
 {
@@ -60,7 +67,7 @@ GLFWwindow* Display::InitiDisplay(const DisplaySettings settings)
 	glDisable(GL_STENCIL_TEST);
 	glfwSwapInterval(settings.VSync);
 
-
+#ifdef WITH_IMGUI
 	/* Set up ImGui */
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -68,7 +75,7 @@ GLFWwindow* Display::InitiDisplay(const DisplaySettings settings)
 
 	ImGui_ImplGlfw_InitForOpenGL(m_window, true);
 	ImGui_ImplOpenGL3_Init("#version 330");
-	
+#endif	
 	return m_window;
 }
 

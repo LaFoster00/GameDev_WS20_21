@@ -1,16 +1,19 @@
 #include "GameSystems/GameManager.h"
 
+#include <iostream>
+
 #include "GameObjects/GameObject.h"
 #include "GameSystems/InputManager.h"
 
+
 std::vector<GameObject*> GameManager::m_gameObjects;
 
-GameManager::GameManager()
+void GameManager::Init()
 {
 	InputManager::InitInput();
 }
 
-GameManager::~GameManager()
+void GameManager::ShutDown()
 {
 	if (m_gameObjects.size() > 0)
 	{

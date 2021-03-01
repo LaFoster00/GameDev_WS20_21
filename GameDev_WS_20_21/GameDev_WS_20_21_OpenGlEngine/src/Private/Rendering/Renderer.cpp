@@ -1,12 +1,9 @@
 #include "Rendering/Renderer.h"
 
-#include <GL/glew.h>
-
 #include "DebugTools.h"
-#include "Data/Mesh.h"
 #include "Rendering/IndexBuffer.h"
-#include "Rendering/Shader.h"
 #include "Rendering/VertexArray.h"
+
 
 std::unordered_map < uint32_t, VertexArray*> Renderer::m_vertexArrays;
 Camera* Renderer::mainCamera;

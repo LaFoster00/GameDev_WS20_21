@@ -1,9 +1,5 @@
 #include "GameObjects/Components/Transform.h"
 
-#include <glm/glm.hpp>
-#include <glm/gtx/quaternion.hpp>
-
-
 Transform::Transform() : Location(0), Scale(1), _Rotation(0), Forward(glm::vec3(1, 0 ,0))
 {
 }

@@ -33,13 +33,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Private\Rendering\VertexBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Private\Rendering\RenderingCore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Private\DebugTools.cpp">
@@ -105,9 +99,6 @@
     <ClCompile Include="src\Private\GameObjects\GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Private\GameObjects\GameObjectManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Private\Data\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -126,7 +117,10 @@
     <ClCompile Include="src\Private\GameSystems\GameManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Private\EditorManager\EditorManager.cpp">
+    <ClCompile Include="src\Public\Engine.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Private\Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -140,9 +134,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Public\Rendering\VertexBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Public\Rendering\RenderingCore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Public\Rendering\IndexBuffer.h">
@@ -211,9 +202,6 @@
     <ClInclude Include="src\Public\GameObjects\GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Public\GameObjects\GameObjectManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Public\Data\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -230,9 +218,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Public\GameSystems\GameManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Public\Editor\EditorManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,12 +1,8 @@
 #include "Rendering/Shader.h"
 
-#include <GL/glew.h>
-
-#include <iostream>
 #include <fstream>
 #include <sstream>
 
-#include "DebugTools.h"
 
 struct ShaderProgramSource
 {

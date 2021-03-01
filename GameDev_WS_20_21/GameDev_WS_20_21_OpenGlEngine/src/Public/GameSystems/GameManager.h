@@ -3,14 +3,15 @@
 #include <vector>
 #include <glm/vec3.hpp>
 
+
 class GameObject;
 
 class GameManager
 {
 public:
-	GameManager();
-	~GameManager();
-	
+	static void Init();
+	static void ShutDown();
+
 	static GameObject* AddGameObject();
 	static GameObject* AddGameObject(const std::string& name, glm::vec3 position, glm::vec3 rotation);
 	static void AddGameObject(GameObject* gameObject);

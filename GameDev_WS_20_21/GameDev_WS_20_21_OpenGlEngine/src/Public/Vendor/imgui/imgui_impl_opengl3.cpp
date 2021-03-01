@@ -414,7 +414,7 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
         }
     }
 
-    // Destroy the temporary VAO
+    // ShutDown the temporary VAO
 #ifndef IMGUI_IMPL_OPENGL_ES2
     glDeleteVertexArrays(1, &vertex_array_object);
 #endif

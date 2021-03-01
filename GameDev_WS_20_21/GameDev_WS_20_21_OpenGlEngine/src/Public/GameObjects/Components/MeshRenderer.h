@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
-#include "Rendering/Material.h"
 
+class Material;
 class VertexArray;
 class Mesh;
 class Transform;

@@ -3,6 +3,7 @@
 #include "DebugTools.h"
 #include "Data/Mesh.h"
 
+
 VertexBuffer::VertexBuffer(const void* data, uint32_t size)
 {
 	GLASSERTCALL(glGenBuffers(1, &m_rendererID));

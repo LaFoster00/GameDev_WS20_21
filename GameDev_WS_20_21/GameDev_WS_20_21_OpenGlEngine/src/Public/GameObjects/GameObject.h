@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
 #include <unordered_map>
+#include <glm/vec3.hpp>
 
-#include "GameObjects/Components/Component.h"
-#include "GameObjects/Components/Transform.h"
+
+class Component;
 
 /// <summary>
 /// Game Objects are inspired by Unity and hold a reference to all components that need to be associated

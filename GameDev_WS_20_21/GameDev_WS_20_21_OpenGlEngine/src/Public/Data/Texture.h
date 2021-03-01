@@ -2,8 +2,6 @@
 
 #include <string>
 
-#include "Rendering/Renderer.h"
-
 class Texture
 {
 public:
@@ -13,8 +11,8 @@ public:
 	void Bind(uint32_t slot = 0);
 	void Undbind();
 
-	inline int GetWidth() const { return m_width; }
-	inline int GetHeight() const { return m_height; }
+	int GetWidth() const { return m_width; }
+	int GetHeight() const { return m_height; }
 
 private:
 	uint32_t m_rendererID;

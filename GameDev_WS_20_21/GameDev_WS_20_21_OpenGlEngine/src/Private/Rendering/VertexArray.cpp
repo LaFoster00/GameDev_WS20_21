@@ -1,7 +1,5 @@
 #include "Rendering/VertexArray.h"
 
-#include <GL/glew.h>
-
 #include "DebugTools.h"
 #include "Rendering/VertexBuffer.h"
 #include "Rendering/VertexBufferLayout.h"

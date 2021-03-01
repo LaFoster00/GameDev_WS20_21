@@ -35,7 +35,11 @@ public:
 	Camera();
 	Camera(CameraRenderSettings cameraSettings, bool isMainCamera = true);
 
-	CUSTOMREADONLYATTRIB(glm::mat4, ViewProjectMat)
+private:
+	glm::mat4 _ViewProjectMat;
+public:
+	glm::mat4 get_ViewProjectMat();
+	_declspec( property( get = get_ViewProjectMat ) ) glm::mat4 ViewProjectMat;
 
 	CameraRenderSettings cameraSettings;
 

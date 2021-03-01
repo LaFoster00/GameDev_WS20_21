@@ -1,10 +1,10 @@
 #pragma once
 #include <iostream>
 #include <unordered_map>
-#include <vcruntime_typeinfo.h>
 #include <glm/fwd.hpp>
-
-#include "Shader.h"
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
 
 #define SETUNIFORM_EXPLICIT(type) \
 public: \
@@ -12,6 +12,8 @@ template<> void SetUniformWithId(uint32_t id, type value); \
 template<> uint32_t SetUniform(const char* name, type value); \
 private: \
 template<> void SetShaderUniform(ShaderUniform<type>& uniform); \
+
+class Shader;
 
 enum class ShaderUniformType
 {

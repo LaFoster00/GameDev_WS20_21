@@ -6,6 +6,7 @@
 
 #include "Rendering/Display.h"
 
+
 class InputManager
 {
 public:

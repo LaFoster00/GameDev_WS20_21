@@ -1,14 +1,13 @@
 #include "GameObjects/Components/MeshRenderer.h"
 
-#include <glm/gtx/quaternion.hpp>
+#include <glm/fwd.hpp>
 
-
-#include "GameObjects/GameObject.h"
-#include "GameObjects/Components/Transform.h"
-#include "Rendering/Renderer.h"
 #include "Data/Mesh.h"
-
-
+#include "Rendering/Renderer.h"
+#include "GameObjects/GameObject.h"
+#include "GameObjects/Components/Camera.h"
+#include "GameObjects/Components/Transform.h"
+#include "Rendering/Material.h"
 
 MeshRenderer::MeshRenderer(Mesh* mesh, Material* material)
 {

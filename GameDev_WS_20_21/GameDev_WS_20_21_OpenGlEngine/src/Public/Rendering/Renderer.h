@@ -1,8 +1,7 @@
 #pragma once
 #include <unordered_map>
 
-#include "GameObjects/Components/Camera.h"
-
+class Camera;
 class Mesh;
 class Shader;
 class IndexBuffer;
