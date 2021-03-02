@@ -27,8 +27,8 @@ struct DisplaySettings
 		resY = 480;
 		name = "Voxel Engine";
 		VSync = false;
-		glMajor = 3;
-		glMinor = 3;
+		glMajor = 4;
+		glMinor = 1;
 		glProfile = GLFW_OPENGL_CORE_PROFILE;
 	}
 	

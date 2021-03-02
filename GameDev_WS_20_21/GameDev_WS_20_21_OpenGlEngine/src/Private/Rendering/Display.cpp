@@ -4,6 +4,12 @@
 #include <GL/glew.h>
 
 #include "DebugTools.h"
+#include "imgui/imgui.h"
+
+#ifdef WITH_IMGUI
+#include "imgui/imgui_impl_glfw.h"
+#include "imgui/imgui_impl_opengl3.h"
+#endif
 
 GLFWwindow* Display::m_window;
 DisplaySettings Display::m_settings;
@@ -73,8 +79,14 @@ GLFWwindow* Display::InitiDisplay(const DisplaySettings settings)
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	ImGui::StyleColorsDark();
 
+	char buffer[100];
+	sprintf_s(buffer, "#version %d%d0", settings.glMajor, settings.glMinor);
+	std::cout << "ImGui OpenGl Version: " << buffer << std::endl;
+	
 	ImGui_ImplGlfw_InitForOpenGL(m_window, true);
-	ImGui_ImplOpenGL3_Init("#version 330");
+	ImGui_ImplOpenGL3_Init(buffer);
+
+	std::cout << "Imgui Activated!" << std::endl;
 #endif	
 	return m_window;
 }

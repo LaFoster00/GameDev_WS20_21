@@ -4,20 +4,27 @@
 
 #include "GameSystems/EngineTime.h"
 #include "GameSystems/GameManager.h"
+
+#ifdef WITH_IMGUI
+#include "imgui/imgui_impl_glfw.h"
+#include "imgui/imgui_impl_opengl3.h"
+#endif
+
 #include "Rendering/Display.h"
 #include "Rendering/Renderer.h"
 
 
 void Engine::Init()
 {
-	GameManager::Init();
 	/* Init GLFW and Window */
 	DisplaySettings settings;
 	settings.resX = 640 * 2;
 	settings.resY = 480 * 2;
 	Display::InitiDisplay(settings);
 
-	std::cout << glGetString(GL_VERSION) << std::endl;
+	std::cout << "OpenGl: " << glGetString(GL_VERSION) << std::endl;
+
+	GameManager::Init();
 }
 
 void Engine::ShutDown()
@@ -42,7 +49,6 @@ void Engine::Update()
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
-		std::cout << "Imgui Activated!" << std::endl;
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 #endif
