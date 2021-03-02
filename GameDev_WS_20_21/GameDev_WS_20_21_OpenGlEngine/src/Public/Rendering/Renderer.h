@@ -1,4 +1,5 @@
 #pragma once
+
 #include <unordered_map>
 
 class Camera;
@@ -12,9 +13,7 @@ class Renderer
 public:
 	static void Clear();
 	static void Draw(const VertexArray& vertexArray, const IndexBuffer& indexBuffer);
-
-	static VertexArray* AddVertexArray(uint32_t id);
-	static VertexArray* GetVertexArray(uint32_t id);
+	
 public:
 	static Camera* mainCamera;
 

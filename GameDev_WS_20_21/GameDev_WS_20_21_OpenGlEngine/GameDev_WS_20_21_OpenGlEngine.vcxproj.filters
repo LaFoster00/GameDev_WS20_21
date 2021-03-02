@@ -117,10 +117,10 @@
     <ClCompile Include="src\Private\GameSystems\GameManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Public\Engine.h">
+    <ClCompile Include="src\Private\Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Private\Engine.cpp">
+    <ClCompile Include="src\Public\Engine.h">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -218,6 +218,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Public\GameSystems\GameManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Public\GameSystems\Callbacks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Public\Core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Public\GameSystems\Events\EventSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Public\GameSystems\Events\EngineEvents.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

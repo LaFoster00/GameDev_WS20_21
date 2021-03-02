@@ -9,7 +9,7 @@
 #include "GameObjects/Components/Transform.h"
 #include "Rendering/Material.h"
 
-MeshRenderer::MeshRenderer(Mesh* mesh, Material* material)
+MeshRenderer::MeshRenderer(Mesh* mesh, Material* material) 
 {
 	this->mesh = mesh;
 	this->material = material;
