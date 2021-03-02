@@ -10,7 +10,6 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
-		DebugEngineImgui|x64 = DebugEngineImgui|x64
 		DebugImgui|x64 = DebugImgui|x64
 		Release|x64 = Release|x64
 		ReleaseImgui|x64 = ReleaseImgui|x64
@@ -18,20 +17,16 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CBB44772-1513-46BB-B27D-D807C9F07BC9}.Debug|x64.ActiveCfg = Debug|x64
 		{CBB44772-1513-46BB-B27D-D807C9F07BC9}.Debug|x64.Build.0 = Debug|x64
-		{CBB44772-1513-46BB-B27D-D807C9F07BC9}.DebugEngineImgui|x64.ActiveCfg = Debug|x64
-		{CBB44772-1513-46BB-B27D-D807C9F07BC9}.DebugEngineImgui|x64.Build.0 = Debug|x64
-		{CBB44772-1513-46BB-B27D-D807C9F07BC9}.DebugImgui|x64.ActiveCfg = DebugImgui|x64
-		{CBB44772-1513-46BB-B27D-D807C9F07BC9}.DebugImgui|x64.Build.0 = DebugImgui|x64
+		{CBB44772-1513-46BB-B27D-D807C9F07BC9}.DebugImgui|x64.ActiveCfg = Debug|x64
+		{CBB44772-1513-46BB-B27D-D807C9F07BC9}.DebugImgui|x64.Build.0 = Debug|x64
 		{CBB44772-1513-46BB-B27D-D807C9F07BC9}.Release|x64.ActiveCfg = Release|x64
 		{CBB44772-1513-46BB-B27D-D807C9F07BC9}.Release|x64.Build.0 = Release|x64
 		{CBB44772-1513-46BB-B27D-D807C9F07BC9}.ReleaseImgui|x64.ActiveCfg = Release|x64
 		{CBB44772-1513-46BB-B27D-D807C9F07BC9}.ReleaseImgui|x64.Build.0 = Release|x64
 		{65F699C1-DF82-41C4-9474-EF469F9DD071}.Debug|x64.ActiveCfg = Debug|x64
 		{65F699C1-DF82-41C4-9474-EF469F9DD071}.Debug|x64.Build.0 = Debug|x64
-		{65F699C1-DF82-41C4-9474-EF469F9DD071}.DebugEngineImgui|x64.ActiveCfg = DebugImgui|x64
-		{65F699C1-DF82-41C4-9474-EF469F9DD071}.DebugEngineImgui|x64.Build.0 = DebugImgui|x64
-		{65F699C1-DF82-41C4-9474-EF469F9DD071}.DebugImgui|x64.ActiveCfg = Debug|x64
-		{65F699C1-DF82-41C4-9474-EF469F9DD071}.DebugImgui|x64.Build.0 = Debug|x64
+		{65F699C1-DF82-41C4-9474-EF469F9DD071}.DebugImgui|x64.ActiveCfg = DebugImgui|x64
+		{65F699C1-DF82-41C4-9474-EF469F9DD071}.DebugImgui|x64.Build.0 = DebugImgui|x64
 		{65F699C1-DF82-41C4-9474-EF469F9DD071}.Release|x64.ActiveCfg = Release|x64
 		{65F699C1-DF82-41C4-9474-EF469F9DD071}.Release|x64.Build.0 = Release|x64
 		{65F699C1-DF82-41C4-9474-EF469F9DD071}.ReleaseImgui|x64.ActiveCfg = ReleaseImgui|x64
