@@ -21,6 +21,9 @@ public:
 	static void AddRenderSceneCallback(uint32_t id, EngineCallback& callback);
 	static void RemoveRenderSceneCallback(uint32_t id);
 
+	static void AddRenderGuiCallback(uint32_t id, EngineCallback& callback);
+	static void RemoveRenderGuiCallback(uint32_t id);
+
 public:
 	static Camera* MainCamera;
 
@@ -28,4 +31,5 @@ private:
 	static std::unordered_map < uint32_t, VertexArray*> m_vertexArrays;
 
 	static std::unordered_map < uint32_t, EngineCallback*> RenderSceneCallbacks;
+	static std::unordered_map < uint32_t, EngineCallback*> RenderGuiCallbacks;
 };

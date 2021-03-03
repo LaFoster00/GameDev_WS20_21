@@ -8,6 +8,7 @@
 
 std::unordered_map < uint32_t, VertexArray*> Renderer::m_vertexArrays;
 std::unordered_map < uint32_t, EngineCallback*> Renderer::RenderSceneCallbacks;
+std::unordered_map < uint32_t, EngineCallback*> Renderer::RenderGuiCallbacks;
 
 Camera* Renderer::MainCamera;
 
@@ -35,6 +36,10 @@ void Renderer::RenderScene()
 
 void Renderer::RenderGui()
 {
+	for (auto renderer_callback : RenderGuiCallbacks)
+	{
+		renderer_callback.second->callback();
+	}
 }
 
 void Renderer::AddRenderSceneCallback(uint32_t id, EngineCallback& callback)
@@ -50,5 +55,21 @@ void Renderer::RemoveRenderSceneCallback(uint32_t id)
 	if (RenderSceneCallbacks.find(id) != RenderSceneCallbacks.end())
 	{
 		RenderSceneCallbacks.erase(id);
+	}
+}
+
+void Renderer::AddRenderGuiCallback(uint32_t id, EngineCallback& callback)
+{
+	if (RenderGuiCallbacks.find(id) == RenderGuiCallbacks.end())
+	{
+		RenderGuiCallbacks[id] = &callback;
+	}
+}
+
+void Renderer::RemoveRenderGuiCallback(uint32_t id)
+{
+	if (RenderGuiCallbacks.find(id) != RenderGuiCallbacks.end())
+	{
+		RenderGuiCallbacks.erase(id);
 	}
 }
