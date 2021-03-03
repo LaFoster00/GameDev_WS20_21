@@ -1,6 +1,8 @@
 #include "UiManager.h"
 
 
+
+#include "EditorManager.h"
 #include "imgui/imgui.h"
 #include "Rendering/Renderer.h"
 
@@ -20,4 +22,9 @@ void UiManager::DrawUi()
 {
 	// Any application code here
 	ImGui::Text("Hello, world!");
+
+	if (ImGui::Button("Save Scene", ImVec2(100, 20)))
+	{
+		EditorManager::SaveScene("TestSafe.savefile");
+	}
 }

@@ -18,6 +18,8 @@ public:
 
 	glm::mat4 GetModelMatrix() const;
 
+	virtual nlohmann::ordered_json Serialize();
+
 public:
 	glm::vec3 Location;
 	glm::vec3 Scale;

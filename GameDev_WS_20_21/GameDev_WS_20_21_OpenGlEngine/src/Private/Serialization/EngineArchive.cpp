@@ -42,6 +42,7 @@ void EngineArchive::SaveEngineConfig()
 	
 	output.Serialize(Instance->WindowSizeX, "WindowSizeX");
 	output.Serialize(Instance->WindowSizeY, "WindowSizeY");
+	output.Serialize(Instance->WindowName, "WindowName");
 	output.Serialize(Instance->VSync, "VSync");
 	output.Serialize(Instance->glMajor, "GlMajor");
 	output.Serialize(Instance->glMinor, "GlMinor");

@@ -13,10 +13,10 @@ public:
 	MeshRenderer(Mesh* mesh, Material* material);
 	~MeshRenderer();
 
-	void SetMesh();
+	void SetMesh(Mesh* mesh);
 	void Render();
 
-	void BindForRender();
+	nlohmann::ordered_json Serialize() override;
 
 public:
 	Material* material;

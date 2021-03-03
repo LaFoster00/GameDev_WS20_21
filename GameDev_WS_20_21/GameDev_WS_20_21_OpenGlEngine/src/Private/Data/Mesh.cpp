@@ -1,11 +1,12 @@
 #include "Data/Mesh.h"
 
-Mesh::Mesh(const void* data, uint32_t size, const uint32_t* indices, uint32_t count) :
+Mesh::Mesh(const std::string& filepath, const void* data, uint32_t size, const uint32_t* indices, uint32_t count) :
 	m_meshVertexArray(),
 	m_meshVertexBuffer(data, size),
 	m_meshVertexBufferLayout(),
 	m_meshIndexBuffer(indices, count)
 {
+	this->filepath = filepath;
 	m_meshVertexArray.Bind();
 	m_meshVertexBuffer.Bind();
 	
@@ -19,7 +20,7 @@ Mesh::Mesh(const void* data, uint32_t size, const uint32_t* indices, uint32_t co
 	m_meshIndexBuffer.Unbind();
 }
 
-Mesh::Mesh(std::vector<glm::vec3>& positions, std::vector<glm::vec2>& uvs, std::vector<glm::vec3>& normals,
+Mesh::Mesh(const std::string& filepath, std::vector<glm::vec3>& positions, std::vector<glm::vec2>& uvs, std::vector<glm::vec3>& normals,
 	std::vector<Face>& faces) :
 	m_meshVertexArray(),
 	m_meshVertexBuffer(positions, uvs, normals, faces),
@@ -27,6 +28,7 @@ Mesh::Mesh(std::vector<glm::vec3>& positions, std::vector<glm::vec2>& uvs, std::
 	m_meshIndexBuffer(faces)
 	
 {
+	this->filepath = filepath;
 	m_meshVertexArray.Bind();
 	m_meshVertexBuffer.Bind();
 	

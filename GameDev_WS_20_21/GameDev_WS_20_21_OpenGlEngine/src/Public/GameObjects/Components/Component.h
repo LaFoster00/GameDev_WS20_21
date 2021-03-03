@@ -1,25 +1,29 @@
 #pragma once
 #include <iostream>
+#include <nlohmann/json.hpp>
+
 
 #include "GameSystems/Callbacks.h"
 #include "Tools/MacroCommon.h"
 
+class JsonOutputArchive;
 class GameObject;
 
 /// <summary>
 /// Base class holding common data for all derived components
 /// </summary>
-class Component
+class Component 
 {
 public:
 	Component() = delete;
 	Component(bool CallUpdate);
 	virtual ~Component() { std::cout << "Component Base Destroyed" << std::endl; }
 
-	virtual void Serialize();
+	virtual bool IsOfType(const char* rawName);
+	virtual nlohmann::ordered_json Serialize() = 0;
 
 protected:
-	virtual void Update();
+	virtual void Update() {}
 
 public:
 	CUSTOM_READ_WRITE_ATTRIB(bool, CallUpdate)

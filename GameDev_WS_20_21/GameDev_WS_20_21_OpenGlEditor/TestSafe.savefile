@@ -1,0 +1,14 @@
+{
+    "GameObjects": {
+        "Camera": {
+            "Components": {
+                ".PEAVComponent@@": {
+                    "Fov": 90.0,
+                    "NearPlane": 0.10000000149011612,
+                    "FarPlane": 100.0,
+                    "RenderMode": 0
+                }
+            }
+        }
+    }
+}

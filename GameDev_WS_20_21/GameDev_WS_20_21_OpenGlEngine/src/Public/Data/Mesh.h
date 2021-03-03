@@ -31,8 +31,8 @@ struct Face
 class Mesh
 {
 public:
-	Mesh(const void* data, uint32_t size, const uint32_t* indices, uint32_t count);
-	Mesh(std::vector<glm::vec3>& positions, std::vector<glm::vec2>& uvs, std::vector<glm::vec3>& normals,
+	Mesh(const std::string& filepath, const void* data, uint32_t size, const uint32_t* indices, uint32_t count);
+	Mesh(const std::string& filepath, std::vector<glm::vec3>& positions, std::vector<glm::vec2>& uvs, std::vector<glm::vec3>& normals,
 		std::vector<Face>& faces);
 	~Mesh();
 
@@ -41,6 +41,9 @@ public:
 	
 	const VertexArray& GetVertexArray() const;
 	const IndexBuffer& GetIndexBuffer() const;
+public:
+	std::string filepath;
+
 private:
 	VertexArray m_meshVertexArray;
 	VertexBuffer m_meshVertexBuffer;

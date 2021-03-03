@@ -3,8 +3,6 @@
 #include "Component.h"
 #include "glm/glm.hpp"
 
-#include "Tools/MacroCommon.h"
-
 class Transform;
 
 enum class RenderMode
@@ -34,6 +32,7 @@ class Camera : public Component
 public:
 	Camera();
 	Camera(CameraRenderSettings cameraSettings, bool isMainCamera = true);
+	virtual nlohmann::ordered_json Serialize() override;
 
 private:
 	glm::mat4 _ViewProjectMat;

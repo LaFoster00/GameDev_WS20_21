@@ -3121,7 +3121,7 @@ void ImGui::TableSaveSettings(ImGuiTable* table)
     }
     settings->ColumnsCount = (ImGuiTableColumnIdx)table->ColumnsCount;
 
-    // Serialize ImGuiTable/ImGuiTableColumn into ImGuiTableSettings/ImGuiTableColumnSettings
+    // Save ImGuiTable/ImGuiTableColumn into ImGuiTableSettings/ImGuiTableColumnSettings
     IM_ASSERT(settings->ID == table->ID);
     IM_ASSERT(settings->ColumnsCount == table->ColumnsCount && settings->ColumnsCountMax >= settings->ColumnsCount);
     ImGuiTableColumn* column = table->Columns.Data;
@@ -3186,7 +3186,7 @@ void ImGui::TableLoadSettings(ImGuiTable* table)
     table->SettingsLoadedFlags = settings->SaveFlags;
     table->RefScale = settings->RefScale;
 
-    // Serialize ImGuiTableSettings/ImGuiTableColumnSettings into ImGuiTable/ImGuiTableColumn
+    // Save ImGuiTableSettings/ImGuiTableColumnSettings into ImGuiTable/ImGuiTableColumn
     ImGuiTableColumnSettings* column_settings = settings->GetColumnSettings();
     ImU64 display_order_mask = 0;
     for (int data_n = 0; data_n < settings->ColumnsCount; data_n++, column_settings++)

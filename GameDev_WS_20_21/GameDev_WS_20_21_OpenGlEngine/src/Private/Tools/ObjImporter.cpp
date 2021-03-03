@@ -107,7 +107,7 @@ Mesh* LoadObj(const char* filePath)
 
 	std::cout << "Nr of verticies: " << vertexPositions.size() << std::endl;
 
-	Mesh* importedMesh = new Mesh(vertexPositions, vertexUVs, vertexNormals, faces);
+	Mesh* importedMesh = new Mesh(filePath, vertexPositions, vertexUVs, vertexNormals, faces);
 
 	return importedMesh;
 }

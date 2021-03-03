@@ -1,5 +1,7 @@
 #include "GameObjects/Components/Transform.h"
 
+#include "Serialization/IArchive.h"
+
 Transform::Transform() : Component(false) , Location(0), Scale(1), _Rotation(0), Forward(glm::vec3(1, 0 ,0))
 {
 }
@@ -19,6 +21,29 @@ glm::mat4 Transform::GetModelMatrix() const
 	const glm::mat4 translation = glm::translate(glm::mat4(1), Location);
 
 	return translation * rotation * scale;
+}
+
+nlohmann::ordered_json Transform::Serialize()
+{
+	nlohmann::ordered_json transformSerialized = nlohmann::json::object();
+
+	transformSerialized["Location"] = nlohmann::json::array({
+		{"X", Location.x},
+		{"Y", Location.y},
+		{"Z", Location.z}
+		});
+	transformSerialized["Rotation"] = nlohmann::json::array({
+		{"X", Rotation.x},
+		{"Y", Rotation.y},
+		{"Z", Rotation.z}
+		});
+	transformSerialized["Scale"] = nlohmann::json::array({
+		{"X", Scale.x},
+		{"Y", Scale.y},
+		{"Z", Scale.z}
+		});
+
+	return transformSerialized;
 }
 
 glm::vec3& Transform::get_Rotation()

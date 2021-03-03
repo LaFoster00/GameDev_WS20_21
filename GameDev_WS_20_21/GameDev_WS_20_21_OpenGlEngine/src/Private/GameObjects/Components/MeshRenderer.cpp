@@ -23,6 +23,18 @@ MeshRenderer::~MeshRenderer()
 	Renderer::RemoveRenderSceneCallback(gameObject->id);
 }
 
+void MeshRenderer::SetMesh(Mesh* mesh)
+{
+	this->mesh = mesh;
+}
+
+nlohmann::ordered_json MeshRenderer::Serialize()
+{
+	nlohmann::ordered_json meshRendererSerialized;
+	meshRendererSerialized["Mesh"] = mesh->filepath;
+	return meshRendererSerialized;
+}
+
 void MeshRenderer::Render()
 {
 	if (!m_transform)

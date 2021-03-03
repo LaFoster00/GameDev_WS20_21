@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "GameSystems/GameManager.h"
+#include "Serialization/JsonArchive.h"
 
 Component::Component(bool CallUpdate) :
 	updateCallback([this]() { Update(); })
@@ -11,13 +12,9 @@ Component::Component(bool CallUpdate) :
 	std::cout << "Component Base Created" << std::endl;
 }
 
-void Component::Serialize()
+bool Component::IsOfType(const char* rawName)
 {
-}
-
-void Component::Update()
-{
-	
+	return typeid(this).raw_name() == rawName;
 }
 
 bool& Component::get_CallUpdate()

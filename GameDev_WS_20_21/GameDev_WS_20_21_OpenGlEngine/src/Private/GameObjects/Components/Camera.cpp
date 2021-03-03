@@ -8,6 +8,8 @@
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/ext/matrix_clip_space.hpp>
 
+#include "Serialization/IArchive.h"
+
 Camera::Camera(): Component(false)
 {
 	Renderer::MainCamera = this;
@@ -16,9 +18,22 @@ Camera::Camera(): Component(false)
 
 Camera::Camera(CameraRenderSettings cameraSettings, bool isMainCamera) : Component(false)
 {
+	if (isMainCamera)
 	Renderer::MainCamera = this;
 
 	this->cameraSettings = cameraSettings;
+}
+
+nlohmann::ordered_json Camera::Serialize()
+{
+	nlohmann::ordered_json cameraSerialized;
+
+	cameraSerialized["Fov"] = cameraSettings.fov;
+	cameraSerialized["NearPlane"] = cameraSettings.nearPlane;
+	cameraSerialized["FarPlane"] = cameraSettings.farPlane;
+	cameraSerialized["RenderMode"] = cameraSettings.renderMode;
+
+	return cameraSerialized;
 }
 
 glm::mat4 Camera::get_ViewProjectMat()

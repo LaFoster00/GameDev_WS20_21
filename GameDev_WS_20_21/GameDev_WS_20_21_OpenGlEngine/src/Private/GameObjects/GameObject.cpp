@@ -1,6 +1,7 @@
 #include "GameObjects/GameObject.h"
 
 #include "GameObjects/Components/Transform.h"
+#include "Serialization/JsonArchive.h"
 
 GameObject::GameObject()
 {
@@ -30,11 +31,11 @@ GameObject::~GameObject()
 	}
 }
 
-void GameObject::Serialize()
+void GameObject::Serialize(nlohmann::ordered_json& archive)
 {
 	for (auto component : m_components)
 	{
-		component.second->Serialize();
+		archive["GameObjects"][name]["Components"][typeid(component.second).raw_name()] = component.second->Serialize();
 	}
 }
 

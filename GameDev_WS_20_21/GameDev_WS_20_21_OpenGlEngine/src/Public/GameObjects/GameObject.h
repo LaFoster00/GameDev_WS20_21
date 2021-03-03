@@ -2,7 +2,7 @@
 #include <string>
 #include <unordered_map>
 #include <glm/vec3.hpp>
-
+#include <nlohmann/json.hpp>
 
 class Component;
 
@@ -18,7 +18,7 @@ public:
 	GameObject(const std::string& name, glm::vec3 position, glm::vec3 rotation);
 	~GameObject();
 
-	virtual void Serialize();
+	virtual void Serialize(nlohmann::ordered_json& archive);
 	
 	template<typename T>
 	bool AddComponent(T* tComponent)
