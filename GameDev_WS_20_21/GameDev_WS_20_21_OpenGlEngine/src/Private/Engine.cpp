@@ -37,6 +37,7 @@ void Engine::Update()
 	/* Engine Loop */
 	{
 		Time::UpdateGameTime();
+		GameManager::Update();
 	}
 
 	/* Render Loop */

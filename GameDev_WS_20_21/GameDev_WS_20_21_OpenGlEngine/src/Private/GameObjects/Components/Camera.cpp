@@ -8,13 +8,13 @@
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/ext/matrix_clip_space.hpp>
 
-Camera::Camera()
+Camera::Camera(): Component(false)
 {
 	Renderer::MainCamera = this;
 	cameraSettings = CameraRenderSettings();
 }
 
-Camera::Camera(CameraRenderSettings cameraSettings, bool isMainCamera)
+Camera::Camera(CameraRenderSettings cameraSettings, bool isMainCamera) : Component(false)
 {
 	Renderer::MainCamera = this;
 

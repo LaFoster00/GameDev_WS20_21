@@ -10,8 +10,8 @@
 #include "GameSystems/Callbacks.h"
 #include "Rendering/Material.h"
 
-MeshRenderer::MeshRenderer(Mesh* mesh, Material* material) :
-	m_renderSceneCallback(std::bind(&MeshRenderer::Render, this))
+MeshRenderer::MeshRenderer(Mesh* mesh, Material* material) : Component(false),
+	m_renderSceneCallback([this] { Render(); })
 {
 	this->mesh = mesh;
 	this->material = material;

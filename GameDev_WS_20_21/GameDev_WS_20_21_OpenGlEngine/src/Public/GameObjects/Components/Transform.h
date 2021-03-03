@@ -21,6 +21,6 @@ public:
 public:
 	glm::vec3 Location;
 	glm::vec3 Scale;
-	CUSTOMREADWRITEATTRIB(glm::vec3, Rotation)
+	CUSTOM_READ_WRITE_ATTRIB(glm::vec3, Rotation)
 	glm::vec3 Forward;
 };

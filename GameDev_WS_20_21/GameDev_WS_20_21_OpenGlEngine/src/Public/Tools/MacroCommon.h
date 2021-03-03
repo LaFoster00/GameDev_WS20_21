@@ -1,6 +1,6 @@
 #pragma once
 
-#define SIMPLEREADONLYATTRIB(type, name) \
+#define SIMPLE_READONLY_ATTRIB(type, name) \
 private: \
 	type _##name; \
 public: \
@@ -10,14 +10,14 @@ public: \
 	} \
 	_declspec( property( get = get_##name ) ) type name; \
 
-#define CUSTOMREADONLYATTRIB(type, name) \
+#define CUSTOM_READONLY_ATTRIB(type, name) \
 private: \
 	type _##name; \
 public: \
 	type##& get_##name(); \
 	_declspec( property( get = get_##name ) ) type name; \
 
-#define CUSTOMREADWRITEATTRIB(type, name) \
+#define CUSTOM_READ_WRITE_ATTRIB(type, name) \
 private: \
 	type _##name; \
 public: \

@@ -4,9 +4,12 @@
 
 #include "GameObjects/GameObject.h"
 #include "GameSystems/InputManager.h"
+#include "GameSystems/Callbacks.h"
 
 
 std::vector<GameObject*> GameManager::m_gameObjects;
+std::unordered_map< uint32_t, EngineCallback*> GameManager::UpdateCallbacks;
+std::unordered_map< uint32_t, EngineCallback*> GameManager::EngineShutDownCallbacks;
 
 void GameManager::Init()
 {
@@ -21,6 +24,51 @@ void GameManager::ShutDown()
 		{
 			delete m_gameObjects[i - 1];
 		}
+	}
+
+	for (auto shutDownCallback : EngineShutDownCallbacks)
+	{
+		shutDownCallback.second->callback();
+	}
+}
+
+void GameManager::Update()
+{
+	for (auto updateCallback : UpdateCallbacks)
+	{
+		updateCallback.second->callback();
+	}
+}
+
+void GameManager::AddUpdateCallback(EngineCallback& callback)
+{
+	if (UpdateCallbacks.find(callback.id) == UpdateCallbacks.end())
+	{
+		UpdateCallbacks[callback.id] = &callback;
+	}
+}
+
+void GameManager::RemoveUpdateCallback(EngineCallback& callback)
+{
+	if (UpdateCallbacks.find(callback.id) != UpdateCallbacks.end())
+	{
+		UpdateCallbacks.erase(callback.id);
+	}
+}
+
+void GameManager::AddEngineShutDownCallback(EngineCallback& callback)
+{
+	if (EngineShutDownCallbacks.find(callback.id) == EngineShutDownCallbacks.end())
+	{
+		EngineShutDownCallbacks[callback.id] = &callback;
+	}
+}
+
+void GameManager::RemoveEngineShutDownCallback(EngineCallback& callback)
+{
+	if (EngineShutDownCallbacks.find(callback.id) != EngineShutDownCallbacks.end())
+	{
+		EngineShutDownCallbacks.erase(callback.id);
 	}
 }
 
@@ -42,7 +90,7 @@ GameObject* GameManager::AddGameObject(const std::string& name, glm::vec3 positi
 
 void GameManager::AddGameObject(GameObject* gameObject)
 {
-	if (std::find(m_gameObjects.begin(), m_gameObjects.end(), gameObject) != m_gameObjects.end())
+	if (IsGameObjectInGame(gameObject))
 	{
 		std::cout << "This gameObject is already part of the game!" << std::endl;
 		return;
@@ -53,14 +101,14 @@ void GameManager::AddGameObject(GameObject* gameObject)
 
 void GameManager::DestroyGameObject(GameObject* gameObject)
 {
-	auto index = std::find(m_gameObjects.begin(), m_gameObjects.end(), gameObject);
-	if (index == m_gameObjects.end())
+	if (!IsGameObjectInGame(gameObject))
 	{
 		std::cout << "This gameObject isn't part of the game or not valid anymore!" << std::endl;
 		return;
 	}
 
 	delete gameObject;
+	auto index = std::find(m_gameObjects.begin(), m_gameObjects.end(), gameObject);
 	m_gameObjects.erase(index);
 }
 

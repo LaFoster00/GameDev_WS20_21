@@ -1,10 +1,10 @@
 #include "GameObjects/Components/Transform.h"
 
-Transform::Transform() : Location(0), Scale(1), _Rotation(0), Forward(glm::vec3(1, 0 ,0))
+Transform::Transform() : Component(false) , Location(0), Scale(1), _Rotation(0), Forward(glm::vec3(1, 0 ,0))
 {
 }
 
-Transform::Transform(glm::vec3 pos, glm::vec3 scale, glm::vec3 rotation)
+Transform::Transform(glm::vec3 pos, glm::vec3 scale, glm::vec3 rotation) : Component(false)
 {
 	Location = pos;
 	Scale = scale;
