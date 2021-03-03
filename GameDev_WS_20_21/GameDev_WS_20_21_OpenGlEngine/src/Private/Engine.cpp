@@ -43,6 +43,8 @@ void Engine::Update()
 	{
 		/* Clear screen */
 		Renderer::Clear();
+
+		Renderer::RenderScene();
 		
 #ifdef WITH_IMGUI
 		/* IMGUI stuffelonious */

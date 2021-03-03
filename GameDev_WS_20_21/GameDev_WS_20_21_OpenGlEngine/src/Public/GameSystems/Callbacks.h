@@ -1,16 +1,17 @@
 #pragma once
+#include <functional>
 
-template<typename...Args>
+
 struct EngineCallback
 {
 	uint32_t id;
-	void(*Callback)(Args ...);
+	std::function<void()> callback;
 
 	EngineCallback() = delete;
-	EngineCallback(void(*C)(Args ...))
+	EngineCallback(std::function<void()> callback)
 	{
 		static uint32_t ids = 0;
 		id = ++ids;
-		Callback = C;
+		this->callback = callback;
 	}
 };

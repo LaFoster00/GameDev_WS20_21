@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "GameSystems/Callbacks.h"
 
 class Material;
 class VertexArray;
@@ -22,4 +23,6 @@ public:
 	Mesh* mesh;
 private:
 	Transform* m_transform;
+
+	EngineCallback m_renderSceneCallback;
 };

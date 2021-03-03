@@ -7,17 +7,20 @@
 #include "GameObjects/GameObject.h"
 #include "GameObjects/Components/Camera.h"
 #include "GameObjects/Components/Transform.h"
+#include "GameSystems/Callbacks.h"
 #include "Rendering/Material.h"
 
-MeshRenderer::MeshRenderer(Mesh* mesh, Material* material) 
+MeshRenderer::MeshRenderer(Mesh* mesh, Material* material) :
+	m_renderSceneCallback(std::bind(&MeshRenderer::Render, this))
 {
 	this->mesh = mesh;
 	this->material = material;
+	Renderer::AddRenderSceneCallback(gameObject->id, m_renderSceneCallback);
 }
 
 MeshRenderer::~MeshRenderer()
 {
-	
+	Renderer::RemoveRenderSceneCallback(gameObject->id);
 }
 
 void MeshRenderer::Render()
@@ -30,7 +33,7 @@ void MeshRenderer::Render()
 
 	const IndexBuffer& meshIndexBuffer = mesh->GetIndexBuffer();
 
-	glm::mat4 _vp = Renderer::mainCamera->ViewProjectMat;
+	glm::mat4 _vp = Renderer::MainCamera->ViewProjectMat;
 
 	glm::mat4 mvp = _vp * m_transform->GetModelMatrix();
 	

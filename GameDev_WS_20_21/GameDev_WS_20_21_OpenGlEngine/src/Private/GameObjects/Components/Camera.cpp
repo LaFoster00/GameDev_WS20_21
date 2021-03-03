@@ -10,13 +10,13 @@
 
 Camera::Camera()
 {
-	Renderer::mainCamera = this;
+	Renderer::MainCamera = this;
 	cameraSettings = CameraRenderSettings();
 }
 
 Camera::Camera(CameraRenderSettings cameraSettings, bool isMainCamera)
 {
-	Renderer::mainCamera = this;
+	Renderer::MainCamera = this;
 
 	this->cameraSettings = cameraSettings;
 }
