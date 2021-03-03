@@ -97,7 +97,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;_DEBUG;_CONSOLE;DEBUG_ENGINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\glew\include;$(ProjectDir)src\Public;$(ProjectDir)src\Public\Vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\glew\include;$(ProjectDir)src\Public;$(ProjectDir)src\Public\Vendor;$(SolutionDir)Dependencies\json\single_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -112,7 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WITH_IMGUI;GLEW_STATIC;_DEBUG;_CONSOLE;DEBUG_ENGINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\glew\include;$(ProjectDir)src\Public;$(ProjectDir)src\Public\Vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\glew\include;$(ProjectDir)src\Public;$(ProjectDir)src\Public\Vendor;$(SolutionDir)Dependencies\json\single_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,7 +129,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\glew\include;$(ProjectDir)src\Public;$(ProjectDir)src\Public\Vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\glew\include;$(ProjectDir)src\Public;$(ProjectDir)src\Public\Vendor;$(SolutionDir)Dependencies\json\single_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,7 +148,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WITH_IMGUI;GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\glew\include;$(ProjectDir)src\Public;$(ProjectDir)src\Public\Vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\glew\include;$(ProjectDir)src\Public;$(ProjectDir)src\Public\Vendor;$(SolutionDir)Dependencies\json\single_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,6 +161,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Private\Engine.cpp" />
+    <ClCompile Include="src\Private\Serialization\EngineArchive.cpp" />
+    <ClCompile Include="src\Private\Serialization\JsonArchive.cpp" />
     <ClCompile Include="src\Public\Engine.h" />
     <ClCompile Include="src\Private\Data\Mesh.cpp" />
     <ClCompile Include="src\Private\GameObjects\Components\Camera.cpp" />
@@ -218,6 +220,10 @@
     <ClInclude Include="src\Public\Rendering\VertexBuffer.h" />
     <ClInclude Include="src\Public\Rendering\VertexBufferLayout.h" />
     <ClInclude Include="src\Public\GameSystems\EngineTime.h" />
+    <ClInclude Include="src\Public\Serialization\EngineArchive.h" />
+    <ClInclude Include="src\Public\Serialization\IArchive.h" />
+    <ClInclude Include="src\Public\Serialization\JsonArchive.h" />
+    <ClInclude Include="src\Public\Serialization\ObjectInterface.h" />
     <ClInclude Include="src\Public\Tools\MacroCommon.h" />
     <ClInclude Include="src\Public\Tools\ObjImporter.h" />
     <ClInclude Include="src\Public\Vendor\imgui\imconfig.h" />

@@ -17,6 +17,8 @@ public:
 	GameObject();
 	GameObject(const std::string& name, glm::vec3 position, glm::vec3 rotation);
 	~GameObject();
+
+	virtual void Serialize();
 	
 	template<typename T>
 	bool AddComponent(T* tComponent)

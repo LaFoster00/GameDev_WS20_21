@@ -16,6 +16,8 @@ public:
 	Component(bool CallUpdate);
 	virtual ~Component() { std::cout << "Component Base Destroyed" << std::endl; }
 
+	virtual void Serialize();
+
 protected:
 	virtual void Update();
 

@@ -5,6 +5,7 @@
 
 #include "DebugTools.h"
 #include "imgui/imgui.h"
+#include "Serialization/EngineArchive.h"
 
 #ifdef WITH_IMGUI
 #include "imgui/imgui_impl_glfw.h"
@@ -12,7 +13,6 @@
 #endif
 
 GLFWwindow* Display::m_window;
-DisplaySettings Display::m_settings;
 
 Display::~Display()
 {
@@ -23,11 +23,10 @@ Display::~Display()
 	glfwTerminate();
 }
 
-GLFWwindow* Display::InitiDisplay(const DisplaySettings settings)
+GLFWwindow* Display::InitiDisplay()
 {
 	static bool Initialized = false;
-
-	m_settings = DisplaySettings(settings);
+	
 
 	if (Initialized) return m_window;
 	
@@ -36,13 +35,13 @@ GLFWwindow* Display::InitiDisplay(const DisplaySettings settings)
 		return nullptr;
 
 	/* Set glfw settings */
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, settings.glMajor);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, settings.glMinor);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, settings.glProfile);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, EngineArchive::Get()->glMajor);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, EngineArchive::Get()->glMinor);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
 	/* Create a windowed mode window and its OpenGL context */
-	m_window = glfwCreateWindow(settings.resX, settings.resY, settings.name.c_str(), NULL, NULL);
+	m_window = glfwCreateWindow(EngineArchive::Get()->WindowSizeX, EngineArchive::Get()->WindowSizeY, EngineArchive::Get()->WindowName.c_str(), NULL, NULL);
 	if (!m_window)
 	{
 		glfwTerminate();
@@ -71,7 +70,7 @@ GLFWwindow* Display::InitiDisplay(const DisplaySettings settings)
 	GLASSERTCALL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	
 	glDisable(GL_STENCIL_TEST);
-	glfwSwapInterval(settings.VSync);
+	glfwSwapInterval(EngineArchive::Get()->VSync);
 
 #ifdef WITH_IMGUI
 	/* Set up ImGui */
@@ -80,7 +79,7 @@ GLFWwindow* Display::InitiDisplay(const DisplaySettings settings)
 	ImGui::StyleColorsDark();
 
 	char buffer[100];
-	sprintf_s(buffer, "#version %d%d0", settings.glMajor, settings.glMinor);
+	sprintf_s(buffer, "#version %d%d0", EngineArchive::Get()->glMajor, EngineArchive::Get()->glMinor);
 	std::cout << "ImGui OpenGl Version: " << buffer << std::endl;
 	
 	ImGui_ImplGlfw_InitForOpenGL(m_window, true);

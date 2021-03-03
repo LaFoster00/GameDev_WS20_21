@@ -1,6 +1,5 @@
 #pragma once
 
-#include <string>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/vec2.hpp>
@@ -11,35 +10,12 @@
 /// all the buffers etc. are cleaned up.
 /// </summary>
 
-struct DisplaySettings
-{
-	uint32_t resX;
-	uint32_t resY;
-	std::string name;
-	bool VSync;
-	uint32_t glMajor;
-	uint32_t glMinor;
-	int glProfile;
-
-	DisplaySettings()
-	{
-		resX = 640;
-		resY = 480;
-		name = "Voxel Engine";
-		VSync = false;
-		glMajor = 4;
-		glMinor = 1;
-		glProfile = GLFW_OPENGL_CORE_PROFILE;
-	}
-	
-};
-
 class Display
 {
 public:
 	~Display();
 	
-	static GLFWwindow* InitiDisplay(const DisplaySettings settings);
+	static GLFWwindow* InitiDisplay();
 	
 	static GLFWwindow* GetWindow();
 
@@ -47,5 +23,4 @@ public:
 	
 private:
 	static GLFWwindow* m_window;
-	static DisplaySettings m_settings;
 };

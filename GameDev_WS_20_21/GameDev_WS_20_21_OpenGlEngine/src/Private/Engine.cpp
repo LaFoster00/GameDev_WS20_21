@@ -1,6 +1,7 @@
 #include "Engine.h"
 
 #include <iostream>
+#include <fstream>
 
 #include "GameSystems/EngineTime.h"
 #include "GameSystems/GameManager.h"
@@ -12,15 +13,15 @@
 
 #include "Rendering/Display.h"
 #include "Rendering/Renderer.h"
+#include "Serialization/EngineArchive.h"
 
 
 void Engine::Init()
 {
+	EngineArchive::LoadEngineConfig("EngineConfig.config");
+	
 	/* Init GLFW and Window */
-	DisplaySettings settings;
-	settings.resX = 640 * 2;
-	settings.resY = 480 * 2;
-	Display::InitiDisplay(settings);
+	Display::InitiDisplay();
 
 	std::cout << "OpenGl: " << glGetString(GL_VERSION) << std::endl;
 
@@ -30,6 +31,7 @@ void Engine::Init()
 void Engine::ShutDown()
 {
 	GameManager::ShutDown(); // Should be removed last as this will destroy all game objects that still exist
+	EngineArchive::SaveEngineConfig();
 }
 
 void Engine::Update()

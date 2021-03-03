@@ -11,6 +11,10 @@ Component::Component(bool CallUpdate) :
 	std::cout << "Component Base Created" << std::endl;
 }
 
+void Component::Serialize()
+{
+}
+
 void Component::Update()
 {
 	

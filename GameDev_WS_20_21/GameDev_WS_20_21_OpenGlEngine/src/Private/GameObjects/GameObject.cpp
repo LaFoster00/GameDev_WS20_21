@@ -30,6 +30,14 @@ GameObject::~GameObject()
 	}
 }
 
+void GameObject::Serialize()
+{
+	for (auto component : m_components)
+	{
+		component.second->Serialize();
+	}
+}
+
 
 uint32_t GameObject::GetNewId()
 {
