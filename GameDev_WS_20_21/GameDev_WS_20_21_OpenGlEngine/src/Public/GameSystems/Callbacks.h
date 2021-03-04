@@ -1,6 +1,6 @@
 #pragma once
 #include <functional>
-
+#include "Tools/MacroCommon.h"
 
 struct EngineCallback
 {

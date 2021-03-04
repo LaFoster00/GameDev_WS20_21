@@ -12,7 +12,7 @@ class GameObject;
 /// <summary>
 /// Base class holding common data for all derived components
 /// </summary>
-class Component 
+class Component
 {
 public:
 	Component() = delete;
@@ -21,6 +21,8 @@ public:
 	virtual ~Component() { std::cout << "Component Base Destroyed" << std::endl; }
 
 	virtual bool IsOfType(const char* rawName);
+	virtual void NotifyAttach() = 0;
+	virtual void NotifyDetach() = 0;
 	virtual nlohmann::ordered_json Serialize() = 0;
 
 protected:
@@ -31,6 +33,7 @@ public:
 	CUSTOM_READ_WRITE_ATTRIB(bool, CallUpdate)
 	GameObject* gameObject;
 
+	SIMPLE_READONLY_ATTRIB(uint32_t, ComponentId)
 private:
 	EngineCallback updateCallback;
 };

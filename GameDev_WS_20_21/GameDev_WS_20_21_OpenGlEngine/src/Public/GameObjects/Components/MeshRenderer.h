@@ -14,6 +14,9 @@ public:
 	MeshRenderer(nlohmann::ordered_json& serializedMeshRenderer);
 	~MeshRenderer();
 
+	void NotifyAttach() override;
+	void NotifyDetach() override;
+	
 	void SetMesh(Mesh* mesh);
 	void Render();
 

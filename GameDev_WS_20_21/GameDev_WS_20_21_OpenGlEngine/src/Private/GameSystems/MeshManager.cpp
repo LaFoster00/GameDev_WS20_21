@@ -21,7 +21,7 @@ Mesh* MeshManager::LoadMesh(const std::string& filepath)
 	if (m_meshes.find(filepath) == m_meshes.end())
 	{
 		std::ifstream testValid(filepath);
-		if (testValid.is_open()) return nullptr;
+		if (!testValid.is_open()) return nullptr;
 		
 		m_meshes[filepath] = Tools::LoadObj(filepath);
 		

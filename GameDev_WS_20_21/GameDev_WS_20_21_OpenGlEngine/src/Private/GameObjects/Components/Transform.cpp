@@ -16,6 +16,15 @@ Transform::Transform(nlohmann::ordered_json& serializedComponent) : Component(fa
 	Deserialize(serializedComponent);
 }
 
+void Transform::NotifyAttach()
+{
+	
+}
+
+void Transform::NotifyDetach()
+{
+}
+
 glm::mat4 Transform::GetModelMatrix() const
 {
 	const glm::mat4 scale = glm::scale(glm::mat4(1.0f), Scale);

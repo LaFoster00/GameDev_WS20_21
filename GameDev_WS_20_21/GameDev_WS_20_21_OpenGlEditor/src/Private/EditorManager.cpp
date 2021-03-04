@@ -54,17 +54,17 @@ void EditorManager::LoadScene(const std::string& filepath, bool saveCurrentScene
 			for (auto component: gameObject.value()["Components"].items())
 			{
 				nlohmann::ordered_json componentJson = component.value();
-				if (component.key() == typeid(Camera).raw_name())
+				if (component.key() == typeid(Camera).name())
 				{
 					Camera* camera = new Camera(componentJson);
 					newGameObject->AddComponent(camera);
 				}
-				else if (component.key() == typeid(MeshRenderer).raw_name())
+				else if (component.key() == typeid(MeshRenderer).name())
 				{	
 					MeshRenderer* meshRenderer = new MeshRenderer(componentJson);
 					newGameObject->AddComponent(meshRenderer);
 				}
-				else if (component.key() == typeid(Transform).raw_name())
+				else if (component.key() == typeid(Transform).name())
 				{
 					Transform* newTransform = new Transform(componentJson);
 					newGameObject->AddComponent(newTransform);

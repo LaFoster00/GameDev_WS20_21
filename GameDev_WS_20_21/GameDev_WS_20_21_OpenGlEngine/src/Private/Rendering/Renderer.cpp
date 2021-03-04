@@ -42,34 +42,34 @@ void Renderer::RenderGui()
 	}
 }
 
-void Renderer::AddRenderSceneCallback(uint32_t id, EngineCallback& callback)
+void Renderer::AddRenderSceneCallback(EngineCallback& callback)
 {
-	if (RenderSceneCallbacks.find(id) == RenderSceneCallbacks.end())
+	if (RenderSceneCallbacks.find(callback.id) == RenderSceneCallbacks.end())
 	{
-		RenderSceneCallbacks[id] = &callback;
+		RenderSceneCallbacks[callback.id] = &callback;
 	}
 }
 
-void Renderer::RemoveRenderSceneCallback(uint32_t id)
+void Renderer::RemoveRenderSceneCallback(EngineCallback& callback)
 {
-	if (RenderSceneCallbacks.find(id) != RenderSceneCallbacks.end())
+	if (RenderSceneCallbacks.find(callback.id) != RenderSceneCallbacks.end())
 	{
-		RenderSceneCallbacks.erase(id);
+		RenderSceneCallbacks.erase(callback.id);
 	}
 }
 
-void Renderer::AddRenderGuiCallback(uint32_t id, EngineCallback& callback)
+void Renderer::AddRenderGuiCallback(EngineCallback& callback)
 {
-	if (RenderGuiCallbacks.find(id) == RenderGuiCallbacks.end())
+	if (RenderGuiCallbacks.find(callback.id) == RenderGuiCallbacks.end())
 	{
-		RenderGuiCallbacks[id] = &callback;
+		RenderGuiCallbacks[callback.id] = &callback;
 	}
 }
 
-void Renderer::RemoveRenderGuiCallback(uint32_t id)
+void Renderer::RemoveRenderGuiCallback(EngineCallback& callback)
 {
-	if (RenderGuiCallbacks.find(id) != RenderGuiCallbacks.end())
+	if (RenderGuiCallbacks.find(callback.id) != RenderGuiCallbacks.end())
 	{
-		RenderGuiCallbacks.erase(id);
+		RenderGuiCallbacks.erase(callback.id);
 	}
 }

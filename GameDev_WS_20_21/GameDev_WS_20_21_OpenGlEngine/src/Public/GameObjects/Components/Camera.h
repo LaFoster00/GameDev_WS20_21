@@ -33,6 +33,9 @@ public:
 	Camera();
 	Camera(CameraRenderSettings cameraSettings, bool isMainCamera = true);
 	Camera(nlohmann::ordered_json& serializedCamera);
+
+	void NotifyAttach() override;
+	void NotifyDetach() override;
 	
 	virtual nlohmann::ordered_json Serialize() override;
 

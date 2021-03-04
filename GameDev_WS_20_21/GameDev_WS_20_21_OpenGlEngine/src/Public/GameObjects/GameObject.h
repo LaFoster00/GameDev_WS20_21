@@ -4,6 +4,8 @@
 #include <glm/vec3.hpp>
 #include <nlohmann/json.hpp>
 
+#include "Components/Component.h"
+
 class Component;
 
 /// <summary>
@@ -24,16 +26,16 @@ public:
 	bool AddComponent(T* tComponent)
 	{
 		Component* castComponent = dynamic_cast<Component*>(tComponent);
-		castComponent->gameObject = this;
 
 		size_t typeHash = typeid(T).hash_code();
-
 		if (m_components.find(typeHash) != m_components.end())
 		{
 			return false;
 		}
 
 		m_components[typeHash] = castComponent;
+		castComponent->gameObject = this;
+		castComponent->NotifyAttach();
 		return true;
 	}
 	
@@ -47,6 +49,8 @@ public:
 			return false;
 		}
 
+		m_components[typeHash]->NotifyDetach();
+		
 		if (destroy) delete m_components[typeHash];
 		m_components.erase(typeHash);
 	}

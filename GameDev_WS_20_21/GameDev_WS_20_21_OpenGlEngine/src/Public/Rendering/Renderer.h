@@ -18,11 +18,11 @@ public:
 	static void RenderScene();
 	static void RenderGui();
 	
-	static void AddRenderSceneCallback(uint32_t id, EngineCallback& callback);
-	static void RemoveRenderSceneCallback(uint32_t id);
+	static void AddRenderSceneCallback(EngineCallback& callback);
+	static void RemoveRenderSceneCallback(EngineCallback& callback);
 
-	static void AddRenderGuiCallback(uint32_t id, EngineCallback& callback);
-	static void RemoveRenderGuiCallback(uint32_t id);
+	static void AddRenderGuiCallback(EngineCallback& callback);
+	static void RemoveRenderGuiCallback(EngineCallback& callback);
 
 public:
 	static Camera* MainCamera;

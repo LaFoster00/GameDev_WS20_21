@@ -29,6 +29,16 @@ Camera::Camera(nlohmann::ordered_json& serializedCamera): Component(false)
 	Deserialize(serializedCamera);
 }
 
+void Camera::NotifyAttach()
+{
+	
+}
+
+void Camera::NotifyDetach()
+{
+	
+}
+
 nlohmann::ordered_json Camera::Serialize()
 {
 	nlohmann::ordered_json cameraSerialized;

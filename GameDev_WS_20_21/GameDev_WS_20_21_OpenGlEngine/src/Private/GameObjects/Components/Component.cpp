@@ -8,13 +8,17 @@
 Component::Component(bool CallUpdate) :
 	updateCallback([this]() { Update(); })
 {
+	static uint32_t ID = 0;
+
+	this->_ComponentId = ID++;
+	
 	this->CallUpdate = CallUpdate;
 	std::cout << "Component Base Created" << std::endl;
 }
 
 bool Component::IsOfType(const char* rawName)
 {
-	return typeid(this).raw_name() == rawName;
+	return typeid(this).name() == rawName;
 }
 
 bool& Component::get_CallUpdate()

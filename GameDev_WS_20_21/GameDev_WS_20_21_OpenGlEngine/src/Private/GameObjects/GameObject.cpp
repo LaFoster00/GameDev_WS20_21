@@ -35,7 +35,7 @@ void GameObject::Serialize(nlohmann::ordered_json& archive)
 {
 	for (auto component : m_components)
 	{
-		archive["GameObjects"][name]["Components"][typeid(component.second).raw_name()] = component.second->Serialize();
+		archive["GameObjects"][name]["Components"][typeid(*component.second).name()] = component.second->Serialize();
 	}
 }
 

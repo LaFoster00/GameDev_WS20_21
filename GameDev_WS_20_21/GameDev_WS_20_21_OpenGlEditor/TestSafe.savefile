@@ -3,11 +3,217 @@
     "GameObjects": {
         "Camera": {
             "Components": {
-                ".PEAVComponent@@": {
+                "class Transform": {
+                    "Location": [
+                        [
+                            "X",
+                            -2.0
+                        ],
+                        [
+                            "Y",
+                            0.0
+                        ],
+                        [
+                            "Z",
+                            0.0
+                        ]
+                    ],
+                    "Rotation": [
+                        [
+                            "X",
+                            0.0
+                        ],
+                        [
+                            "Y",
+                            0.0
+                        ],
+                        [
+                            "Z",
+                            0.0
+                        ]
+                    ],
+                    "Scale": [
+                        [
+                            "X",
+                            1.0
+                        ],
+                        [
+                            "Y",
+                            1.0
+                        ],
+                        [
+                            "Z",
+                            1.0
+                        ]
+                    ]
+                },
+                "class Camera": {
                     "Fov": 90.0,
                     "NearPlane": 0.10000000149011612,
                     "FarPlane": 100.0,
                     "RenderMode": 0
+                }
+            }
+        },
+        "Cube0": {
+            "Components": {
+                "class Transform": {
+                    "Location": [
+                        [
+                            "X",
+                            0.0
+                        ],
+                        [
+                            "Y",
+                            0.0
+                        ],
+                        [
+                            "Z",
+                            0.0
+                        ]
+                    ],
+                    "Rotation": [
+                        [
+                            "X",
+                            0.0
+                        ],
+                        [
+                            "Y",
+                            0.0
+                        ],
+                        [
+                            "Z",
+                            0.0
+                        ]
+                    ],
+                    "Scale": [
+                        [
+                            "X",
+                            1.0
+                        ],
+                        [
+                            "Y",
+                            1.0
+                        ],
+                        [
+                            "Z",
+                            1.0
+                        ]
+                    ]
+                },
+                "class MeshRenderer": {
+                    "Mesh": "../Assets/models/Cube.obj",
+                    "Material": {
+                        "Shader": "../Assets/shader/Basic.shader"
+                    }
+                }
+            }
+        },
+        "Cube1": {
+            "Components": {
+                "class Transform": {
+                    "Location": [
+                        [
+                            "X",
+                            0.0
+                        ],
+                        [
+                            "Y",
+                            0.0
+                        ],
+                        [
+                            "Z",
+                            0.0
+                        ]
+                    ],
+                    "Rotation": [
+                        [
+                            "X",
+                            0.0
+                        ],
+                        [
+                            "Y",
+                            0.0
+                        ],
+                        [
+                            "Z",
+                            0.0
+                        ]
+                    ],
+                    "Scale": [
+                        [
+                            "X",
+                            1.0
+                        ],
+                        [
+                            "Y",
+                            1.0
+                        ],
+                        [
+                            "Z",
+                            1.0
+                        ]
+                    ]
+                },
+                "class MeshRenderer": {
+                    "Mesh": "../Assets/models/Cube.obj",
+                    "Material": {
+                        "Shader": "../Assets/shader/Basic.shader"
+                    }
+                }
+            }
+        },
+        "Cube2": {
+            "Components": {
+                "class Transform": {
+                    "Location": [
+                        [
+                            "X",
+                            0.0
+                        ],
+                        [
+                            "Y",
+                            0.0
+                        ],
+                        [
+                            "Z",
+                            0.0
+                        ]
+                    ],
+                    "Rotation": [
+                        [
+                            "X",
+                            0.0
+                        ],
+                        [
+                            "Y",
+                            0.0
+                        ],
+                        [
+                            "Z",
+                            0.0
+                        ]
+                    ],
+                    "Scale": [
+                        [
+                            "X",
+                            1.0
+                        ],
+                        [
+                            "Y",
+                            1.0
+                        ],
+                        [
+                            "Z",
+                            1.0
+                        ]
+                    ]
+                },
+                "class MeshRenderer": {
+                    "Mesh": "../Assets/models/Cube.obj",
+                    "Material": {
+                        "Shader": "../Assets/shader/Basic.shader"
+                    }
                 }
             }
         }

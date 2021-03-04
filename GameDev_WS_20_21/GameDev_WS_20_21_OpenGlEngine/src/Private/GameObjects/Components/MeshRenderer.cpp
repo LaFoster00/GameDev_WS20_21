@@ -17,18 +17,26 @@ MeshRenderer::MeshRenderer(Mesh* mesh, Material* material) : Component(false),
 {
 	this->mesh = mesh;
 	this->material = material;
-	Renderer::AddRenderSceneCallback(gameObject->id, m_renderSceneCallback);
 }
 
 MeshRenderer::MeshRenderer(nlohmann::ordered_json& serializedMeshRenderer) : Component(false), m_renderSceneCallback([this] { Render(); })
 {
-	Renderer::AddRenderSceneCallback(gameObject->id, m_renderSceneCallback);
 	Deserialize(serializedMeshRenderer);
 }
 
 MeshRenderer::~MeshRenderer()
 {
-	Renderer::RemoveRenderSceneCallback(gameObject->id);
+	
+}
+
+void MeshRenderer::NotifyAttach()
+{
+	Renderer::AddRenderSceneCallback(m_renderSceneCallback);
+}
+
+void MeshRenderer::NotifyDetach()
+{
+	Renderer::RemoveRenderSceneCallback(m_renderSceneCallback);
 }
 
 void MeshRenderer::SetMesh(Mesh* mesh)

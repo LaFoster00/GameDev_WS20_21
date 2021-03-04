@@ -16,6 +16,9 @@ public:
 	Transform();
 	Transform(glm::vec3 pos, glm::vec3 scale, glm::vec3 rotation);
 	Transform(nlohmann::ordered_json& serializedComponent);
+
+	void NotifyAttach() override;
+	void NotifyDetach() override;
 	
 	glm::mat4 GetModelMatrix() const;
 

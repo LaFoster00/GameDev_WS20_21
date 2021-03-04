@@ -1,22 +1,21 @@
 #include "Engine.h"
 
 #include <iostream>
-#include <fstream>
 
 #include "GameSystems/EngineTime.h"
 #include "GameSystems/GameManager.h"
+#include "GameSystems/MaterialManager.h"
 #include "GameSystems/MeshManager.h"
+#include "GameSystems/ShaderManager.h"
+#include "Rendering/Display.h"
+#include "Rendering/Renderer.h"
+#include "Serialization/EngineArchive.h"
 
 #ifdef WITH_IMGUI
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
 #endif
 
-#include "GameSystems/MaterialManager.h"
-#include "GameSystems/ShaderManager.h"
-#include "Rendering/Display.h"
-#include "Rendering/Renderer.h"
-#include "Serialization/EngineArchive.h"
 
 
 void Engine::Init()
