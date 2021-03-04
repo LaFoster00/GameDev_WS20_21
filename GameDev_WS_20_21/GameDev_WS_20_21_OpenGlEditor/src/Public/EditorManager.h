@@ -44,7 +44,7 @@ public:
 	static void LoadScene(const std::string& filepath, bool saveCurrentScene = false);
 	static void SaveScene(const std::string& filepath);
 
-	static void UpdateSceneOutliner();
+	static void OnGameObjectNotify();
 public:
 	static Scene* CurrentlyOpenScene;
 	static GameObject* SelectedGameObject;

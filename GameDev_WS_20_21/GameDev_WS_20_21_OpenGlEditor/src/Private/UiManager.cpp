@@ -27,6 +27,46 @@ void UiManager::DrawUi()
 {
 	using namespace ImGui;
 	{
+		Begin("Menu");
+		{
+			{
+				static char NewObjectName[100] = "New Game Object";
+				static char MeshImportFilepath[100] = "Assets/models/Cube.obj";
+				ImGui::InputText("Game Object Name", NewObjectName, 100);
+				ImGui::InputText("Mesh Path", MeshImportFilepath, 100);
+				if (Button("Create new object with Mesh", { GetWindowContentRegionWidth(), 20 }))
+				{
+					GameObject* go = GameManager::AddGameObject(NewObjectName, glm::vec3(0), glm::vec3(0));
+					Mesh* mesh = MeshManager::LoadMesh(MeshImportFilepath);
+					Material* material = MaterialManager::GetDefaultMaterial();
+					MeshRenderer* meshRenderer = new MeshRenderer();
+					meshRenderer->mesh = mesh;
+					meshRenderer->material = material;
+
+					go->AddComponent(meshRenderer);
+					
+				}
+			}
+
+			{
+				static char LoadSceneFilepath[100] = "Assets/Maps/Default.savefile";
+				ImGui::InputText("Load Scene File Path", LoadSceneFilepath, 100);
+				if (Button("Load Scene", { GetWindowContentRegionWidth(), 20 }))
+				{
+					EditorManager::LoadScene(LoadSceneFilepath);
+				}
+			}
+
+			{
+				static char SaveSceneFilepath[100] = "Assets/Maps/Default.savefile";
+				ImGui::InputText("Save Scene File Path", SaveSceneFilepath, 100);
+				if (Button("Save Scene", { GetWindowContentRegionWidth(), 20 }))
+				{
+					EditorManager::SaveScene(SaveSceneFilepath);
+				}
+			}
+		}
+		End();
 		
 		Begin("Scene");
 		{
@@ -52,10 +92,9 @@ void UiManager::DrawUi()
 		/// </summary>
 		Begin("Inspector");
 		{
-			
 			if (EditorManager::SelectedGameObject)
 			{
-				BeginChild("Transform");
+				BeginChild("Transform", { ImGui::GetWindowContentRegionWidth(), 30 * 3 } );
 				{
 					Transform* transform = EditorManager::SelectedGameObject->GetComponentOfType<Transform>();
 					DragFloat3("Location", &transform->Location.x);
@@ -66,7 +105,7 @@ void UiManager::DrawUi()
 
 				if (EditorManager::SelectedGameObject->GetComponentOfType<Camera>())
 				{
-					BeginChild("Camera");
+					BeginChild("Camera", { ImGui::GetWindowContentRegionWidth(), 30 * 3 } );
 					{
 						Camera* camera = EditorManager::SelectedGameObject->GetComponentOfType<Camera>();
 						DragFloat("Fov", &camera->cameraSettings.fov);
@@ -76,45 +115,42 @@ void UiManager::DrawUi()
 					EndChild();
 				}
 
-				if (EditorManager::SelectedGameObject->GetComponentOfType<MeshManager>())
+				if (EditorManager::SelectedGameObject->GetComponentOfType<MeshRenderer>())
 				{
-					BeginChild("MeshRenderer");
+					BeginChild("MeshRenderer", { ImGui::GetWindowContentRegionWidth(), 30 * 6 } );
 					{
 						MeshRenderer* meshRenderer = EditorManager::SelectedGameObject->GetComponentOfType<MeshRenderer>();
-						std::string MeshLabel = "Mesh used :" + meshRenderer->mesh->filepath;
-						ImGui::LabelText(MeshLabel.c_str(), "");
+
+						//Mesh Outliner
+						{
+							LabelText("Mesh Used: ", meshRenderer->mesh ? meshRenderer->mesh->filepath.c_str() : "None");
+
+							static char filepathBuffer[100] = "Assets/models/Monkey.obj";
+							ImGui::InputText("New Mesh", filepathBuffer, 100);
+							if (Button("Replace with New Mesh", { GetWindowContentRegionWidth() , 20 }))
+							{
+								meshRenderer->mesh = MeshManager::LoadMesh(filepathBuffer);
+							}
+						}
+
+						//Material Outliner
+						{
+							Shader* shader = meshRenderer->material->shader;
+							LabelText("Shader used in Material: ", shader ? shader->GetFilepath().c_str() : "None");
+
+							static char shaderFilepathBuffer[100] = "Assets/shader/Basic.shader";
+							ImGui::InputText("New Shader", shaderFilepathBuffer, 100);
+							if (Button("Replace with New Shader", { GetWindowContentRegionWidth(), 20 }))
+							{
+								meshRenderer->material = MaterialManager::GetMaterial(shaderFilepathBuffer);
+							}
+
+						}
 					}
+					EndChild();
 				}
 			}
 		}
 		End();
-		
-		// Any application code here
-		ImGui::Text("Hello, world!");
-
-		ImGui::SliderFloat3("Translation Camera", &Renderer::MainCamera->gameObject->GetComponentOfType<Transform>()->Location.x, -5, 5);
-
-		if (ImGui::Button("Save Scene", ImVec2(100, 20)))
-		{
-			EditorManager::SaveScene("TestSafe.savefile");
-		}
-
-		if (ImGui::Button("Load Scene", ImVec2(100, 20)))
-		{
-			EditorManager::LoadScene("TestSafe.savefile");
-		}
-
-		if (ImGui::Button("Add Monkey", ImVec2(100, 20)))
-		{
-			static uint32_t id = 0;
-			GameObject* gameObject = GameManager::AddGameObject("Cube" + std::to_string(id++), glm::vec3(0), glm::vec3(0));
-			MeshRenderer* meshRenderer = new MeshRenderer();
-			Mesh* mesh = MeshManager::LoadMesh("../Assets/models/Monkey.obj");
-			meshRenderer->SetMesh(mesh);
-			Material* material = MaterialManager::GetMaterial("../Assets/shader/Basic.shader");
-			meshRenderer->SetMaterial(material);
-
-			gameObject->AddComponent(meshRenderer);
-		}
 	}
 }

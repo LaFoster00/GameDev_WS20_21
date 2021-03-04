@@ -39,6 +39,7 @@ nlohmann::ordered_json GameObject::Serialize()
 		components.push_back(component.second->Serialize());
 	}
 	nlohmann::ordered_json output;
+	output["Name"] = name;
 	output["Components"] = components;
 	return output;
 }

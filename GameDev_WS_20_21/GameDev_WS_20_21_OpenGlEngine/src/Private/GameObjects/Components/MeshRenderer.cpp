@@ -57,19 +57,27 @@ nlohmann::ordered_json MeshRenderer::Serialize()
 {
 	nlohmann::ordered_json meshRendererSerialized;
 	meshRendererSerialized["Type"] = typeid(MeshRenderer).name();
-	meshRendererSerialized["Mesh"] = mesh->filepath;
-	meshRendererSerialized["Material"] = this->material->Serialize();
+	meshRendererSerialized["Mesh"] = mesh ? mesh->filepath : "";
+	if (material)
+	{
+		meshRendererSerialized["Material"] = this->material->Serialize();
+	}
 	return meshRendererSerialized;
 }
 
 void MeshRenderer::Deserialize(nlohmann::ordered_json& serializedComponent)
 {
 	mesh = MeshManager::LoadMesh(serializedComponent["Mesh"]);
-	material = MaterialManager::GetMaterial(serializedComponent["Material"]["Shader"]);
+
+	if (serializedComponent.contains("Material"))
+	{
+		material = MaterialManager::GetMaterial(serializedComponent["Material"]["Shader"]);
+	}
 }
 
 void MeshRenderer::Render()
 {
+	if (!mesh || !material) return;
 	if (!m_transform)
 	{
 		m_transform = gameObject->GetComponentOfType<Transform>();

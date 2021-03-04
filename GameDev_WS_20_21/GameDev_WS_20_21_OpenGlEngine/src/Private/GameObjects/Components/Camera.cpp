@@ -19,7 +19,7 @@ Camera::Camera(CameraRenderSettings cameraSettings, bool isMainCamera) : Compone
 {
 	if (isMainCamera)
 	Renderer::MainCamera = this;
-
+	
 	this->cameraSettings = cameraSettings;
 }
 
@@ -28,9 +28,14 @@ Camera::Camera(nlohmann::ordered_json& serializedCamera): Component(false)
 	Deserialize(serializedCamera);
 }
 
+Camera::~Camera()
+{
+	Renderer::MainCamera = Renderer::MainCamera == this ? nullptr : Renderer::MainCamera;
+}
+
 void Camera::NotifyAttach()
 {
-	
+	m_transform = gameObject->GetComponentOfType<Transform>();
 }
 
 void Camera::NotifyDetach()
@@ -41,6 +46,7 @@ void Camera::NotifyDetach()
 nlohmann::ordered_json Camera::Serialize()
 {
 	nlohmann::ordered_json cameraSerialized;
+	cameraSerialized["MainCamera"] = Renderer::MainCamera == this;
 	cameraSerialized["Type"] = typeid(Camera).name();
 	cameraSerialized["Fov"] = cameraSettings.fov;
 	cameraSerialized["NearPlane"] = cameraSettings.nearPlane;
@@ -52,15 +58,7 @@ nlohmann::ordered_json Camera::Serialize()
 
 glm::mat4 Camera::get_ViewProjectMat()
 {
-	if (!m_transform)
-	{
-		if (gameObject)
-		{
-			m_transform = gameObject->GetComponentOfType<Transform>();
-		}
-		
-		if (!m_transform) return _ViewProjectMat;
-	}
+	if (!m_transform) return _ViewProjectMat;
 
 	const glm::vec2 resolution = glm::max(Display::GetWindowDimensions(), glm::vec2(1));
 	const float aspectRatio = resolution.x / resolution.y;
@@ -86,6 +84,7 @@ glm::mat4 Camera::get_ViewProjectMat()
 
 void Camera::Deserialize(nlohmann::ordered_json& serializedComponent)
 {
+	Renderer::MainCamera = serializedComponent["MainCamera"].get<bool>() ? this : Renderer::MainCamera;
 	cameraSettings.fov = serializedComponent["Fov"].get<float>();
 	int renderMode = serializedComponent["RenderMode"].get<int>();
 	cameraSettings.renderMode = (RenderMode)renderMode;

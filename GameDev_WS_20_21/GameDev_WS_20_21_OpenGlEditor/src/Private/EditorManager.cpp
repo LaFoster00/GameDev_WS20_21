@@ -8,7 +8,7 @@
 
 Scene* EditorManager::CurrentlyOpenScene;
 GameObject* EditorManager::SelectedGameObject;
-EngineCallback EditorManager::GameObjectNotify([]() { UpdateSceneOutliner(); });
+EngineCallback EditorManager::GameObjectNotify([]() { OnGameObjectNotify(); });
 
 void EditorManager::InitDefaultScene()
 {
@@ -45,7 +45,7 @@ void EditorManager::LoadScene(const std::string& filepath, bool saveCurrentScene
 
 		for (auto gameObject: saveFile["GameObjects"].items())
 		{
-			GameObject* newGameObject = new GameObject(gameObject.key(), glm::vec3(0), glm::vec3(0));
+			GameObject* newGameObject = new GameObject(gameObject.value()["Name"], glm::vec3(0), glm::vec3(0));
 			GameManager::AddGameObject(newGameObject);
 			
 			for (auto component: gameObject.value()["Components"])
@@ -66,6 +66,7 @@ void EditorManager::LoadScene(const std::string& filepath, bool saveCurrentScene
 				{
 					Transform* newTransform = newGameObject->GetComponentOfType<Transform>();
 					newTransform->Deserialize(componentJson);
+					newGameObject->AddComponent(newTransform);
 				}
 			}
 		}
@@ -77,7 +78,11 @@ void EditorManager::SaveScene(const std::string& filepath)
 	CurrentlyOpenScene->Save(filepath);
 }
 
-void EditorManager::UpdateSceneOutliner()
+
+void EditorManager::OnGameObjectNotify()
 {
-	
+	if (std::find(GameManager::GetGameObjects().begin(), GameManager::GetGameObjects().end(), EditorManager::SelectedGameObject) == GameManager::GetGameObjects().end())
+	{
+		EditorManager::SelectedGameObject = nullptr;
+	}
 }
