@@ -5,6 +5,9 @@
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
+#include <nlohmann/json.hpp>
+
+#include "Shader.h"
 
 #define SETUNIFORM_EXPLICIT(type) \
 public: \
@@ -42,22 +45,30 @@ public:
 	template<typename T>
 	void SetUniformWithId(uint32_t id, T value)
 	{
-		throw "This should not be called";
+		throw "Uniform type incompatible!";
 	}
 
 	template<typename T>
 	uint32_t SetUniform(const char* name, T value)
 	{
-		throw "This should not be called";
+		throw "Uniform type incompatible!";
 	}
 	
 	void PrepareForRender();
+
+	nlohmann::ordered_json Serialize()
+	{
+		nlohmann::ordered_json serializedMaterial;
+		serializedMaterial["Shader"] = shader->GetFilepath();
+		return serializedMaterial;
+	}
+
 private:
 
 	template<typename T>
 	void SetShaderUniform(ShaderUniform<T>& uniform)
 	{
-		throw "This should't be called";
+		throw "Uniform type incompatible!";
 	}
 public:
 	Shader* shader;

@@ -1,5 +1,9 @@
 #pragma once
+#include <string>
 
 class Mesh;
 
-static Mesh* LoadObj(const char* filePath);
+namespace Tools
+{
+	Mesh* LoadObj(const std::string& filePath);
+}

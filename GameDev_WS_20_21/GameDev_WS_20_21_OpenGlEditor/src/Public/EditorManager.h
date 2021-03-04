@@ -17,6 +17,7 @@ struct Scene
 	void Save(const std::string& filepath)
 	{
 		nlohmann::ordered_json saveFile;
+		saveFile["SceneName"] = Name;
 
 		for (auto object : GameObjects)
 		{

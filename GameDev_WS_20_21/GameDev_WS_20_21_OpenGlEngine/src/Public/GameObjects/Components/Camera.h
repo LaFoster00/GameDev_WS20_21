@@ -32,12 +32,16 @@ class Camera : public Component
 public:
 	Camera();
 	Camera(CameraRenderSettings cameraSettings, bool isMainCamera = true);
+	Camera(nlohmann::ordered_json& serializedCamera);
+	
 	virtual nlohmann::ordered_json Serialize() override;
 
-private:
-	glm::mat4 _ViewProjectMat;
-public:
 	glm::mat4 get_ViewProjectMat();
+
+protected:
+	void Deserialize(nlohmann::ordered_json& serializedComponent) override;
+
+public:
 	_declspec( property( get = get_ViewProjectMat ) ) glm::mat4 ViewProjectMat;
 
 	CameraRenderSettings cameraSettings;
@@ -45,4 +49,5 @@ public:
 private:
 	Transform* m_transform;
 	glm::mat4 m_projectMat;
+	glm::mat4 _ViewProjectMat;
 };

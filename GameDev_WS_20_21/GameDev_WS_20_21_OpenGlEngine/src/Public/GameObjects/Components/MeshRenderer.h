@@ -11,6 +11,7 @@ class MeshRenderer : public Component
 {
 public:
 	MeshRenderer(Mesh* mesh, Material* material);
+	MeshRenderer(nlohmann::ordered_json& serializedMeshRenderer);
 	~MeshRenderer();
 
 	void SetMesh(Mesh* mesh);
@@ -18,6 +19,8 @@ public:
 
 	nlohmann::ordered_json Serialize() override;
 
+protected:
+	void Deserialize(nlohmann::ordered_json& serializedComponent) override;
 public:
 	Material* material;
 	Mesh* mesh;

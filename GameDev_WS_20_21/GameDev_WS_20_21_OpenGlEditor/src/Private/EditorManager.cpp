@@ -2,6 +2,8 @@
 
 
 #include "GameObjects/Components/Camera.h"
+#include "GameObjects/Components/MeshRenderer.h"
+#include "GameObjects/Components/Transform.h"
 #include "GameSystems/GameManager.h"
 
 Scene* EditorManager::CurrentlyOpenScene;
@@ -31,6 +33,43 @@ void EditorManager::LoadScene(const std::string& filepath, bool saveCurrentScene
 		for (auto sceneObject : CurrentlyOpenScene->GameObjects)
 		{
 			GameManager::DestroyGameObject(sceneObject);
+		}
+	}
+
+	std::ifstream file(filepath);
+	if (file.is_open())
+	{
+		nlohmann::json saveFile = nlohmann::json::parse(file);
+		CurrentlyOpenScene->Name = saveFile["SceneName"];
+		CurrentlyOpenScene->Filepath = filepath;
+
+		std::vector<nlohmann::json> gameObjects = saveFile["GameObjects"].get<std::vector<nlohmann::json>>();
+
+		for (auto gameObject: saveFile["GameObjects"].items())
+		{
+			GameObject* newGameObject = new GameObject(gameObject.key(), glm::vec3(0), glm::vec3(0));
+			GameManager::AddGameObject(newGameObject);
+			CurrentlyOpenScene->GameObjects.push_back(newGameObject);
+			
+			for (auto component: gameObject.value()["Components"].items())
+			{
+				nlohmann::ordered_json componentJson = component.value();
+				if (component.key() == typeid(Camera).raw_name())
+				{
+					Camera* camera = new Camera(componentJson);
+					newGameObject->AddComponent(camera);
+				}
+				else if (component.key() == typeid(MeshRenderer).raw_name())
+				{	
+					MeshRenderer* meshRenderer = new MeshRenderer(componentJson);
+					newGameObject->AddComponent(meshRenderer);
+				}
+				else if (component.key() == typeid(Transform).raw_name())
+				{
+					Transform* newTransform = new Transform(componentJson);
+					newGameObject->AddComponent(newTransform);
+				}
+			}
 		}
 	}
 }

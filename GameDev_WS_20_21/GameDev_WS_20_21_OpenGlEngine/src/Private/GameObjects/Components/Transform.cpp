@@ -1,7 +1,5 @@
 #include "GameObjects/Components/Transform.h"
 
-#include "Serialization/IArchive.h"
-
 Transform::Transform() : Component(false) , Location(0), Scale(1), _Rotation(0), Forward(glm::vec3(1, 0 ,0))
 {
 }
@@ -11,6 +9,11 @@ Transform::Transform(glm::vec3 pos, glm::vec3 scale, glm::vec3 rotation) : Compo
 	Location = pos;
 	Scale = scale;
 	Rotation = rotation;
+}
+
+Transform::Transform(nlohmann::ordered_json& serializedComponent) : Component(false), Location(0), Scale(1), _Rotation(0), Forward(glm::vec3(1, 0, 0))
+{
+	Deserialize(serializedComponent);
 }
 
 glm::mat4 Transform::GetModelMatrix() const
@@ -44,6 +47,21 @@ nlohmann::ordered_json Transform::Serialize()
 		});
 
 	return transformSerialized;
+}
+
+void Transform::Deserialize(nlohmann::ordered_json& serializedComponent)
+{
+	Location.x = serializedComponent["Location"]["X"];
+	Location.y = serializedComponent["Location"]["Y"];
+	Location.z = serializedComponent["Location"]["Z"];
+
+	Rotation.x = serializedComponent["Rotation"]["X"];
+	Rotation.y = serializedComponent["Rotation"]["Y"];
+	Rotation.z = serializedComponent["Rotation"]["Z"];
+
+	Scale.x = serializedComponent["Scale"]["X"];
+	Scale.y = serializedComponent["Scale"]["Y"];
+	Scale.z = serializedComponent["Scale"]["Z"];
 }
 
 glm::vec3& Transform::get_Rotation()

@@ -5,12 +5,15 @@
 
 #include "GameSystems/EngineTime.h"
 #include "GameSystems/GameManager.h"
+#include "GameSystems/MeshManager.h"
 
 #ifdef WITH_IMGUI
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
 #endif
 
+#include "GameSystems/MaterialManager.h"
+#include "GameSystems/ShaderManager.h"
 #include "Rendering/Display.h"
 #include "Rendering/Renderer.h"
 #include "Serialization/EngineArchive.h"
@@ -31,6 +34,9 @@ void Engine::Init()
 void Engine::ShutDown()
 {
 	GameManager::ShutDown(); // Should be removed last as this will destroy all game objects that still exist
+	MeshManager::ShutDown();
+	MaterialManager::ShutDown();
+	ShaderManager::ShutDown();
 	EngineArchive::SaveEngineConfig();
 }
 

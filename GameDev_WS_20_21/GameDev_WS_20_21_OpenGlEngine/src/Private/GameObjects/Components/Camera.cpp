@@ -24,6 +24,11 @@ Camera::Camera(CameraRenderSettings cameraSettings, bool isMainCamera) : Compone
 	this->cameraSettings = cameraSettings;
 }
 
+Camera::Camera(nlohmann::ordered_json& serializedCamera): Component(false)
+{
+	Deserialize(serializedCamera);
+}
+
 nlohmann::ordered_json Camera::Serialize()
 {
 	nlohmann::ordered_json cameraSerialized;
@@ -73,4 +78,12 @@ glm::mat4 Camera::get_ViewProjectMat()
 	
 	glm::mat4 output = m_projectMat * view * tranlation ;
 	return output;
+}
+
+void Camera::Deserialize(nlohmann::ordered_json& serializedComponent)
+{
+	cameraSettings.fov = serializedComponent["Fov"];
+	cameraSettings.renderMode = serializedComponent["RenderMode"];
+	cameraSettings.farPlane = serializedComponent["FarPlane"];
+	cameraSettings.nearPlane = serializedComponent["NearPlane"];
 }

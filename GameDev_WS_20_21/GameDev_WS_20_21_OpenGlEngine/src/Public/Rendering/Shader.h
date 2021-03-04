@@ -14,6 +14,8 @@ public:
 	Shader(const std::string& filepath);
 	~Shader();
 
+	std::string GetFilepath() const;
+
 	inline void Bind() const
 	{
 		GLASSERTCALL(glUseProgram(m_rendererID));

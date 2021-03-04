@@ -8,14 +8,22 @@
 #include "GameObjects/Components/Camera.h"
 #include "GameObjects/Components/Transform.h"
 #include "GameSystems/Callbacks.h"
+#include "GameSystems/MaterialManager.h"
+#include "GameSystems/MeshManager.h"
 #include "Rendering/Material.h"
 
 MeshRenderer::MeshRenderer(Mesh* mesh, Material* material) : Component(false),
-	m_renderSceneCallback([this] { Render(); })
+                                                             m_renderSceneCallback([this] { Render(); })
 {
 	this->mesh = mesh;
 	this->material = material;
 	Renderer::AddRenderSceneCallback(gameObject->id, m_renderSceneCallback);
+}
+
+MeshRenderer::MeshRenderer(nlohmann::ordered_json& serializedMeshRenderer) : Component(false), m_renderSceneCallback([this] { Render(); })
+{
+	Renderer::AddRenderSceneCallback(gameObject->id, m_renderSceneCallback);
+	Deserialize(serializedMeshRenderer);
 }
 
 MeshRenderer::~MeshRenderer()
@@ -32,7 +40,14 @@ nlohmann::ordered_json MeshRenderer::Serialize()
 {
 	nlohmann::ordered_json meshRendererSerialized;
 	meshRendererSerialized["Mesh"] = mesh->filepath;
+	meshRendererSerialized["Material"] = this->material->Serialize();
 	return meshRendererSerialized;
+}
+
+void MeshRenderer::Deserialize(nlohmann::ordered_json& serializedComponent)
+{
+	mesh = MeshManager::LoadMesh(serializedComponent["Mesh"]);
+	material = MaterialManager::GetMaterial(serializedComponent["Material"]["Shader"]);
 }
 
 void MeshRenderer::Render()

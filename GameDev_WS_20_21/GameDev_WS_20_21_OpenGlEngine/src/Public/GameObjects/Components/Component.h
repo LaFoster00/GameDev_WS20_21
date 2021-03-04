@@ -17,6 +17,7 @@ class Component
 public:
 	Component() = delete;
 	Component(bool CallUpdate);
+	
 	virtual ~Component() { std::cout << "Component Base Destroyed" << std::endl; }
 
 	virtual bool IsOfType(const char* rawName);
@@ -24,6 +25,7 @@ public:
 
 protected:
 	virtual void Update() {}
+	virtual void Deserialize(nlohmann::ordered_json& serializedComponent) { };
 
 public:
 	CUSTOM_READ_WRITE_ATTRIB(bool, CallUpdate)

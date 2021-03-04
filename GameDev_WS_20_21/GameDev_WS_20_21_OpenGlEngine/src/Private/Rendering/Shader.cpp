@@ -22,6 +22,11 @@ Shader::~Shader()
 	GLASSERTCALL(glDeleteProgram(m_rendererID));
 }
 
+std::string Shader::GetFilepath() const
+{
+	return m_filepath;
+}
+
 ShaderProgramSource Shader::ParseShader(const std::string& filepath)
 {
 	std::ifstream stream(filepath);

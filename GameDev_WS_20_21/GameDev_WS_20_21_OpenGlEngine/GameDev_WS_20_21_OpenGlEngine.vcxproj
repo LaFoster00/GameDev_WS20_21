@@ -161,6 +161,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Private\Engine.cpp" />
+    <ClCompile Include="src\Private\GameSystems\MeshManager.cpp" />
+    <ClCompile Include="src\Private\GameSystems\MaterialManager.cpp" />
+    <ClCompile Include="src\Private\GameSystems\ShaderManager.cpp" />
     <ClCompile Include="src\Private\Serialization\EngineArchive.cpp" />
     <ClCompile Include="src\Private\Serialization\JsonArchive.cpp" />
     <ClCompile Include="src\Public\Engine.h" />
@@ -210,7 +213,10 @@
     <ClInclude Include="src\Public\GameObjects\Components\Transform.h" />
     <ClInclude Include="src\Public\Data\Texture.h" />
     <ClInclude Include="src\Public\DebugTools.h" />
+    <ClInclude Include="src\Public\GameSystems\ShaderManager.h" />
     <ClInclude Include="src\Public\GameSystems\InputManager.h" />
+    <ClInclude Include="src\Public\GameSystems\MaterialManager.h" />
+    <ClInclude Include="src\Public\GameSystems\MeshManager.h" />
     <ClInclude Include="src\Public\Rendering\Display.h" />
     <ClInclude Include="src\Public\Rendering\IndexBuffer.h" />
     <ClInclude Include="src\Public\Rendering\Material.h" />
