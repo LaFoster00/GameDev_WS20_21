@@ -1,4 +1,4 @@
-#include "Rendering/Shader.h"
+﻿#include "Rendering/Shader.h"
 
 #include <fstream>
 #include <sstream>
@@ -20,6 +20,67 @@ Shader::Shader(const std::string& filepath)
 Shader::~Shader()
 {
 	GLASSERTCALL(glDeleteProgram(m_rendererID));
+}
+
+void Shader::GetShaderUniforms(uint32_t program)
+{
+	GLint i;
+	GLint count;
+
+	GLint size; // size of the variable
+	GLenum type; // type of the variable (float, vec3 or mat4, etc)
+
+	const GLsizei bufSize = 32; // maximum name length
+	GLchar name[bufSize]; // variable name in GLSL
+	GLsizei length; // name length
+	
+	glGetProgramiv(program, GL_ACTIVE_UNIFORMS, &count);
+
+	//printf("Active Uniforms: %d\n", count);
+
+	for (i = 0; i < count; i++)
+	{
+		glGetActiveUniform(program, (GLuint)i, bufSize, &length, &size, &type, name);
+
+		printf("Uniform #%d Type: %u Name: %s\n", i, type, name);
+
+		UniformType engineType = UniformType::NONE;
+		switch (type)
+		{
+			case GL_INT:
+				engineType = UniformType::INT1;
+				break;
+			case GL_FLOAT:
+				engineType = UniformType::VEC1;
+				break;
+			case GL_FLOAT_VEC2:
+				engineType = UniformType::VEC2;
+				break;
+			case GL_FLOAT_VEC3:
+				engineType = UniformType::VEC3;
+				break;
+			case GL_FLOAT_VEC4:
+				engineType = UniformType::VEC4;
+				break;
+			case GL_SAMPLER_2D:
+				engineType = UniformType::TEXTURE;
+			break;
+			case GL_FLOAT_MAT4:
+				engineType = UniformType::MAT4;
+			break;
+		}
+
+		if (engineType != UniformType::NONE)
+		{
+			ShaderUniform uniform{};
+			uniform.location = i;
+			uniform.engineType = engineType;
+			uniform.glType = type;
+			uniform.name = name;
+			
+			Uniforms[name] = uniform;
+		}
+	}
 }
 
 std::string Shader::GetFilepath() const
@@ -111,21 +172,7 @@ uint32_t Shader::CreateShader(const std::string& vertexShader, const std::string
 	GLASSERTCALL(glDeleteShader(vs));
 	GLASSERTCALL(glDeleteShader(fs));
 
-	return program;
-}
-
-int Shader::GetUniformLocation(const std::string& name)
-{
-	if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
-		return m_UniformLocationCache[name];
+	GetShaderUniforms(program);
 	
-	GLASSERTCALL(uint32_t location = glGetUniformLocation(m_rendererID, name.c_str()));
-	if (location == -1)
-	{
-		std::cout << "Warning: uniform '" << name << "' doesn't exist!" << std::endl;
-	}else
-	{
-		m_UniformLocationCache[name] = location;
-	}
-	return location;
+	return program;
 }
