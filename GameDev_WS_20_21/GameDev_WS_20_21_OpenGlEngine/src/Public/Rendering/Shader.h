@@ -25,7 +25,7 @@ struct ShaderUniform
 	uint32_t location;
 	UniformType engineType;
 	GLenum glType;
-	const char* name;
+	std::string name;
 };
 
 class Shader

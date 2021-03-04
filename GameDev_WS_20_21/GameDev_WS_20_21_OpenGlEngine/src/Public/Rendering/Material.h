@@ -11,7 +11,7 @@
 
 #define SETUNIFORM_EXPLICIT(type) \
 public: \
-template<> void SetUniform(const char* name, type value); \
+template<> void SetUniform(const std::string& name, type value); \
 private: \
 template<> void SetShaderUniform(MaterialUniform<type>& uniform); \
 
@@ -32,7 +32,7 @@ public:
 	void AllocateUniforms(Shader* shader);
 	
 	template<typename T>
-	void SetUniform(const char* name, T value)
+	void SetUniform(const std::string& name, T value)
 	{
 		throw "Uniform type incompatible!";
 	}
