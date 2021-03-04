@@ -1,6 +1,6 @@
 #include "GameObjects/Components/Transform.h"
 
-Transform::Transform() : Component(false) , Location(0), Scale(1), _Rotation(0), Forward(glm::vec3(1, 0 ,0))
+Transform::Transform() : Component(false) , Location(0), Scale(1), _Rotation(0), _Forward(glm::vec3(1, 0 ,0))
 {
 }
 
@@ -11,7 +11,7 @@ Transform::Transform(glm::vec3 pos, glm::vec3 scale, glm::vec3 rotation) : Compo
 	Rotation = rotation;
 }
 
-Transform::Transform(nlohmann::ordered_json& serializedComponent) : Component(false), Location(0), Scale(1), _Rotation(0), Forward(glm::vec3(1, 0, 0))
+Transform::Transform(nlohmann::ordered_json& serializedComponent) : Component(false), Location(0), Scale(1), _Rotation(0), _Forward(glm::vec3(1, 0, 0))
 {
 	Deserialize(serializedComponent);
 }
@@ -23,6 +23,7 @@ void Transform::NotifyAttach()
 
 void Transform::NotifyDetach()
 {
+	
 }
 
 glm::mat4 Transform::GetModelMatrix(bool invertTranslation) const
@@ -99,5 +100,14 @@ glm::vec3& Transform::get_Rotation()
 void Transform::set_Rotation(glm::vec3 value)
 {
 	_Rotation = value;
-	Forward = glm::quat(glm::radians(_Rotation)) * glm::vec3(1, 0, 0);
+}
+
+glm::vec3 Transform::get_Forward()
+{
+	return _Forward = glm::quat(glm::radians(_Rotation)) * glm::vec3(1, 0, 0);
+}
+
+glm::vec3 Transform::get_Right()
+{
+	return _Right = glm::quat(glm::radians(_Rotation)) * glm::vec3(0, 0, 1);
 }

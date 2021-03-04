@@ -92,8 +92,25 @@ void UiManager::DrawUi()
 		/// </summary>
 		Begin("Inspector");
 		{
+			bool destroyObject = false;
 			if (EditorManager::SelectedGameObject)
 			{
+				if (Button("Delete", { GetWindowContentRegionWidth(), 30 }))
+				{
+					destroyObject = true;
+				}
+			
+				BeginChild("Transform", { ImGui::GetWindowContentRegionWidth(), 30 * 3 });
+				{
+					static char bufferName[100] = "";
+					strcpy_s(bufferName, EditorManager::SelectedGameObject->name.c_str());
+					if (InputText("Name", bufferName, 100))
+					{
+						EditorManager::SelectedGameObject->name = bufferName;
+					}
+				}
+				EndChild();
+				
 				BeginChild("Transform", { ImGui::GetWindowContentRegionWidth(), 30 * 3 } );
 				{
 					Transform* transform = EditorManager::SelectedGameObject->GetComponentOfType<Transform>();
@@ -148,7 +165,13 @@ void UiManager::DrawUi()
 						}
 					}
 					EndChild();
+
 				}
+			}
+			if (destroyObject)
+			{
+				GameManager::DestroyGameObject(EditorManager::SelectedGameObject);
+				EditorManager::SelectedGameObject = nullptr;
 			}
 		}
 		End();

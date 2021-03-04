@@ -13,7 +13,7 @@ EngineCallback EditorManager::GameObjectNotify([]() { OnGameObjectNotify(); });
 void EditorManager::InitDefaultScene()
 {
 	//setup basic needed objects for editor to work correctly
-	GameObject* mainCamera = GameManager::AddGameObject("Camera", glm::vec3(-2, 0, 0), glm::vec3(0, 0, 0));
+	GameObject* mainCamera = GameManager::AddGameObject("Camera", glm::vec3(4, 3, 7), glm::vec3(20, -30, -9));
 	CameraRenderSettings cameraSettings;
 	cameraSettings.fov = 90;
 	Camera* camera = new Camera(cameraSettings);

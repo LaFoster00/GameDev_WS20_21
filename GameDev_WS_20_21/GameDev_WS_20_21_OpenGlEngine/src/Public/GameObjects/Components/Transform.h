@@ -30,6 +30,15 @@ public:
 	glm::vec3 Location;
 	glm::vec3 Scale;
 	CUSTOM_READ_WRITE_ATTRIB(glm::vec3, Rotation)
+private:
+	private: glm::vec3 _Forward;
 public:
-	glm::vec3 Forward;
+	glm::vec3 get_Forward();
+	_declspec( property( get = get_Forward ) ) glm::vec3 Forward;
+
+private:
+	glm::vec3 _Right;
+public:
+	glm::vec3 get_Right();
+	_declspec(property(get = get_Right)) glm::vec3 Right;
 };

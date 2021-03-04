@@ -74,6 +74,9 @@ glm::mat4 Camera::get_ViewProjectMat()
 			m_projectMat = glm::ortho(sizeX / -2.0f, sizeX / 2.0f, sizeY / -2.0f, sizeY / 2.0f, cameraSettings.nearPlane, cameraSettings.farPlane);
 			break;
 	}
+
+	//const glm::mat4 view = glm::lookAt(m_transform->Location, m_transform->Location + m_transform->Forward, glm::vec3(0, 1, 0));
+
 	
 	const glm::mat4 rotation = glm::toMat4(glm::quat(glm::radians(m_transform->Rotation)));
 	const glm::mat4 translation = glm::translate(glm::mat4(1), -m_transform->Location);
