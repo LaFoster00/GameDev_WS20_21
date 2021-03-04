@@ -11,8 +11,6 @@ class GameObject;
 struct Scene
 {
 	std::string Name = "Scene";
-	std::vector<GameObject*> GameObjects;
-
 	std::string Filepath = "None";
 
 	void Save(const std::string& filepath)
@@ -21,7 +19,7 @@ struct Scene
 		saveFile["SceneName"] = Name;
 
 		std::vector<nlohmann::ordered_json> gameObjects;
-		for (auto object : GameObjects)
+		for (auto object : GameManager::GetGameObjects())
 		{
 			gameObjects.push_back(object->Serialize());
 		}
@@ -33,14 +31,9 @@ struct Scene
 		file.close();
 	}
 
-	void Clear()
+	const void Clear()
 	{
-		for (auto sceneObject : GameObjects)
-		{
-			GameManager::DestroyGameObject(sceneObject);
-		}
-
-		GameObjects.clear();
+		GameManager::Clear();
 	}
 };
 
@@ -51,6 +44,12 @@ public:
 	static void LoadScene(const std::string& filepath, bool saveCurrentScene = false);
 	static void SaveScene(const std::string& filepath);
 
+	static void UpdateSceneOutliner();
 public:
 	static Scene* CurrentlyOpenScene;
+	static GameObject* SelectedGameObject;
+	static std::vector<std::string> OutlinerNames;
+
+private:
+	static EngineCallback GameObjectNotify;
 };

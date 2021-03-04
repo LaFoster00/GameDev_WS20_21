@@ -13,8 +13,6 @@ int main()
 	
 	while (!glfwWindowShouldClose(Display::GetWindow()))
 	{
-		
-		
 		Engine::Update();
 	}
 	

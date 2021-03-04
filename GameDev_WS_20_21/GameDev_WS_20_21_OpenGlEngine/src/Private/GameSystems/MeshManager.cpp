@@ -26,7 +26,7 @@ Mesh* MeshManager::LoadMesh(const std::string& filepath)
 		m_meshes[filepath] = Tools::LoadObj(filepath);
 		
 		std::string fileWithoutEnding =  filepath.substr(0, filepath.find_last_of('.'));
-		int lastSlash = filepath.find_last_of('/');
+		size_t lastSlash = filepath.find_last_of('/');
 		std::string meshName = filepath.substr(lastSlash);
 		
 		m_meshesByName[meshName] = m_meshes[filepath];

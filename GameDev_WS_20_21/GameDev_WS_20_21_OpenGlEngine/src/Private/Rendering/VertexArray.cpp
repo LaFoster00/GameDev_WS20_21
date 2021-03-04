@@ -25,7 +25,7 @@ void VertexArray::AddBuffer(const VertexBuffer& vertexBuffer, const VertexBuffer
 	{
 		const auto& element = elemtents[i];
 		GLASSERTCALL(glEnableVertexAttribArray(i));
-		GLASSERTCALL(glVertexAttribPointer(i, element.count, element.type, element.normalized, layout.GetStride(), (const void*) offset));
+		GLASSERTCALL(glVertexAttribPointer(i, element.count, element.type, element.normalized, layout.GetStride(), reinterpret_cast<const void*>(offset)));
 		offset += element.count * VertexBufferElement::GetSizeOfType(element.type);
 	}
 }

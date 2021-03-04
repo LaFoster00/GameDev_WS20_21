@@ -8,6 +8,8 @@
 
 
 std::vector<GameObject*> GameManager::m_gameObjects;
+std::unordered_map<uint32_t, EngineCallback*> GameManager::GameObjectNotify;
+
 std::unordered_map< uint32_t, EngineCallback*> GameManager::UpdateCallbacks;
 std::unordered_map< uint32_t, EngineCallback*> GameManager::EngineShutDownCallbacks;
 
@@ -20,7 +22,7 @@ void GameManager::ShutDown()
 {
 	if (m_gameObjects.size() > 0)
 	{
-		for (uint32_t i = m_gameObjects.size(); i > 0; i--)
+		for (size_t i = m_gameObjects.size(); i > 0; i--)
 		{
 			delete m_gameObjects[i - 1];
 		}
@@ -72,6 +74,22 @@ void GameManager::RemoveEngineShutDownCallback(EngineCallback& callback)
 	}
 }
 
+void GameManager::AddGameObjectNotifyCallback(EngineCallback& callback)
+{
+	if (GameObjectNotify.find(callback.id) == GameObjectNotify.end())
+	{
+		GameObjectNotify[callback.id] = &callback;
+	}
+}
+
+void GameManager::RemoveGameObjectNotifyCallback(EngineCallback& callback)
+{
+	if (GameObjectNotify.find(callback.id) != GameObjectNotify.end())
+	{
+		GameObjectNotify.erase(callback.id);
+	}
+}
+
 GameObject* GameManager::AddGameObject()
 {
 	GameObject* gameObject = new GameObject();
@@ -97,6 +115,11 @@ void GameManager::AddGameObject(GameObject* gameObject)
 	}
 	
 	m_gameObjects.push_back(gameObject);
+
+	for (auto notifyCallback : GameObjectNotify)
+	{
+		notifyCallback.second->callback();
+	}
 }
 
 void GameManager::DestroyGameObject(GameObject* gameObject)
@@ -107,12 +130,37 @@ void GameManager::DestroyGameObject(GameObject* gameObject)
 		return;
 	}
 
-	delete gameObject;
 	auto index = std::find(m_gameObjects.begin(), m_gameObjects.end(), gameObject);
+	delete gameObject;
 	m_gameObjects.erase(index);
+
+	for (auto notifyCallback : GameObjectNotify)
+	{
+		notifyCallback.second->callback();
+	}
+}
+
+void GameManager::Clear()
+{
+	for (auto object : m_gameObjects)
+	{
+		delete object;
+	}
+
+	m_gameObjects.clear();
+
+	for (auto notifyCallback : GameObjectNotify)
+	{
+		notifyCallback.second->callback();
+	}
 }
 
 bool GameManager::IsGameObjectInGame(GameObject* gameObject)
 {
 	return std::find(m_gameObjects.begin(), m_gameObjects.end(), gameObject) != m_gameObjects.end();
+}
+
+std::vector<GameObject*>& GameManager::GetGameObjects()
+{
+	return m_gameObjects;
 }

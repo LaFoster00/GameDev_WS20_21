@@ -24,7 +24,7 @@ IndexBuffer::IndexBuffer(const std::vector<Face>& faces)
 	GLASSERTCALL(glGenBuffers(1, &m_rendererID));
 	GLASSERTCALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_rendererID));
 	GLASSERTCALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, faces.size() * 3 * sizeof(uint32_t), indices.data(), GL_STATIC_DRAW));
-	m_Count = 3 * faces.size();
+	m_Count = static_cast<int>(3 * faces.size());
 }
 
 IndexBuffer::~IndexBuffer()

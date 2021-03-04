@@ -47,5 +47,5 @@ nlohmann::ordered_json GameObject::Serialize()
 uint32_t GameObject::GetNewId()
 {
 	static uint32_t ID = 0;
-	return id++;
+	return ID++;
 }

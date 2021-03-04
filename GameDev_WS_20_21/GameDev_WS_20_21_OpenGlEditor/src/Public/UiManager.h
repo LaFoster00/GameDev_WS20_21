@@ -1,5 +1,11 @@
 #pragma once
+#include <vector>
+
 #include "GameSystems/Callbacks.h"
+
+struct SceneObject;
+
+
 
 class UiManager
 {
@@ -9,5 +15,5 @@ public:
 	
 	static void DrawUi();
 private:
-	static EngineCallback renderGuiCallback;
+	static EngineCallback RenderGuiCallback;
 };

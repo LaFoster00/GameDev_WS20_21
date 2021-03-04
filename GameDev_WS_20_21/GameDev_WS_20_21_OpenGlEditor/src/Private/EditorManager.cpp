@@ -7,6 +7,8 @@
 #include "GameSystems/GameManager.h"
 
 Scene* EditorManager::CurrentlyOpenScene;
+GameObject* EditorManager::SelectedGameObject;
+EngineCallback EditorManager::GameObjectNotify([]() { UpdateSceneOutliner(); });
 
 void EditorManager::InitDefaultScene()
 {
@@ -18,7 +20,6 @@ void EditorManager::InitDefaultScene()
 	mainCamera->AddComponent(camera);
 
 	CurrentlyOpenScene = new Scene();
-	CurrentlyOpenScene->GameObjects.push_back(mainCamera);
 }
 
 void EditorManager::LoadScene(const std::string& filepath, bool saveCurrentScene)
@@ -46,7 +47,6 @@ void EditorManager::LoadScene(const std::string& filepath, bool saveCurrentScene
 		{
 			GameObject* newGameObject = new GameObject(gameObject.key(), glm::vec3(0), glm::vec3(0));
 			GameManager::AddGameObject(newGameObject);
-			CurrentlyOpenScene->GameObjects.push_back(newGameObject);
 			
 			for (auto component: gameObject.value()["Components"])
 			{
@@ -75,4 +75,9 @@ void EditorManager::LoadScene(const std::string& filepath, bool saveCurrentScene
 void EditorManager::SaveScene(const std::string& filepath)
 {
 	CurrentlyOpenScene->Save(filepath);
+}
+
+void EditorManager::UpdateSceneOutliner()
+{
+	
 }

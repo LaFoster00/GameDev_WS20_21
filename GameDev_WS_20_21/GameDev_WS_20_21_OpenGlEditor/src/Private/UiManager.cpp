@@ -10,47 +10,67 @@
 #include "imgui/imgui.h"
 #include "Rendering/Renderer.h"
 
-EngineCallback UiManager::renderGuiCallback([]() { UiManager::DrawUi(); });
+EngineCallback UiManager::RenderGuiCallback([]() { UiManager::DrawUi(); });
 
 void UiManager::Init()
 {
-	Renderer::AddRenderGuiCallback(renderGuiCallback);
+	Renderer::AddRenderGuiCallback(RenderGuiCallback);
 }
 
 void UiManager::ShutDown()
 {
-	Renderer::RemoveRenderGuiCallback(renderGuiCallback);
+	Renderer::RemoveRenderGuiCallback(RenderGuiCallback);
 }
 
 void UiManager::DrawUi()
 {
-	// Any application code here
-	ImGui::Text("Hello, world!");
-
-	ImGui::SliderFloat3("Translation Camera", &Renderer::MainCamera->gameObject->GetComponentOfType<Transform>()->Location.x, -5, 5);
-	
-	if (ImGui::Button("Save Scene", ImVec2(100, 20)))
+	using namespace ImGui;
 	{
-		EditorManager::SaveScene("TestSafe.savefile");
-	}
-
-	if (ImGui::Button("Load Scene", ImVec2(100, 20)))
-	{
-		EditorManager::LoadScene("TestSafe.savefile");
-	}
-
-	if (ImGui::Button("Add Monkey", ImVec2(100,20)))
-	{
-		static uint32_t id = 0;
-		GameObject* gameObject = GameManager::AddGameObject("Cube" + std::to_string(id++), glm::vec3(0), glm::vec3(0));
-		MeshRenderer* meshRenderer = new MeshRenderer();
-		Mesh* mesh = MeshManager::LoadMesh("../Assets/models/Monkey.obj");
-		meshRenderer->SetMesh(mesh);
-		Material* material = MaterialManager::GetMaterial("../Assets/shader/Basic.shader");
-		meshRenderer->SetMaterial(material);
 		
-		gameObject->AddComponent(meshRenderer);
+		Begin("Scene");
+		{
+			ImGui::BeginChild("SceneOutliner", { 0, 0 }, false);
+			{
+				for (auto object : GameManager::GetGameObjects())
+				{
+					bool currentlySelected = object == EditorManager::SelectedGameObject;
+					if(ImGui::Selectable(object->name.c_str(), currentlySelected) && !currentlySelected)
+					{
+						EditorManager::SelectedGameObject = object;
+					}
+				}
+				
+			}
+			ImGui::EndChild();
+		}
+		End();
+		
+		// Any application code here
+		ImGui::Text("Hello, world!");
 
-		EditorManager::CurrentlyOpenScene->GameObjects.push_back(gameObject);
+		ImGui::SliderFloat3("Translation Camera", &Renderer::MainCamera->gameObject->GetComponentOfType<Transform>()->Location.x, -5, 5);
+
+		if (ImGui::Button("Save Scene", ImVec2(100, 20)))
+		{
+			EditorManager::SaveScene("TestSafe.savefile");
+		}
+
+		if (ImGui::Button("Load Scene", ImVec2(100, 20)))
+		{
+			EditorManager::LoadScene("TestSafe.savefile");
+		}
+
+		if (ImGui::Button("Add Monkey", ImVec2(100, 20)))
+		{
+			static uint32_t id = 0;
+			GameObject* gameObject = GameManager::AddGameObject("Cube" + std::to_string(id++), glm::vec3(0), glm::vec3(0));
+			MeshRenderer* meshRenderer = new MeshRenderer();
+			Mesh* mesh = MeshManager::LoadMesh("../Assets/models/Monkey.obj");
+			meshRenderer->SetMesh(mesh);
+			Material* material = MaterialManager::GetMaterial("../Assets/shader/Basic.shader");
+			meshRenderer->SetMaterial(material);
+
+			gameObject->AddComponent(meshRenderer);
+		}
 	}
 }
