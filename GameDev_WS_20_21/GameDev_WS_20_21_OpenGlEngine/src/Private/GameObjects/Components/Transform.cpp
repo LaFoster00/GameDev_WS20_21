@@ -38,7 +38,7 @@ glm::mat4 Transform::GetModelMatrix() const
 nlohmann::ordered_json Transform::Serialize()
 {
 	nlohmann::ordered_json transformSerialized = nlohmann::json::object();
-
+	transformSerialized["Type"] = typeid(Transform).name();
 	transformSerialized["Location"] = nlohmann::json::array({
 		{"X", Location.x},
 		{"Y", Location.y},
@@ -60,17 +60,35 @@ nlohmann::ordered_json Transform::Serialize()
 
 void Transform::Deserialize(nlohmann::ordered_json& serializedComponent)
 {
-	Location.x = serializedComponent["Location"]["X"];
-	Location.y = serializedComponent["Location"]["Y"];
-	Location.z = serializedComponent["Location"]["Z"];
+	for (auto locationComp : serializedComponent["Location"].items())
+	{
+		if (locationComp.key() == "X")
+			Location.x = locationComp.value();
+		else if (locationComp.key() == "Y")
+			Location.y = locationComp.value();
+		else if (locationComp.key() == "Z")
+			Location.z = locationComp.value();
+	}
 
-	Rotation.x = serializedComponent["Rotation"]["X"];
-	Rotation.y = serializedComponent["Rotation"]["Y"];
-	Rotation.z = serializedComponent["Rotation"]["Z"];
+	for (auto rotationComp : serializedComponent["Rotation"].items())
+	{
+		if (rotationComp.key() == "X")
+			Rotation.x = rotationComp.value();
+		else if (rotationComp.key() == "Y")
+			Rotation.y = rotationComp.value();
+		else if (rotationComp.key() == "Z")
+			Rotation.z = rotationComp.value();
+	}
 
-	Scale.x = serializedComponent["Scale"]["X"];
-	Scale.y = serializedComponent["Scale"]["Y"];
-	Scale.z = serializedComponent["Scale"]["Z"];
+	for (auto scaleComp : serializedComponent["Scale"].items())
+	{
+		if (scaleComp.key() == "X")
+			Scale.x = scaleComp.value();
+		else if (scaleComp.key() == "Y")
+			Scale.y = scaleComp.value();
+		else if (scaleComp.key() == "Z")
+			Scale.z = scaleComp.value();
+	}
 }
 
 glm::vec3& Transform::get_Rotation()

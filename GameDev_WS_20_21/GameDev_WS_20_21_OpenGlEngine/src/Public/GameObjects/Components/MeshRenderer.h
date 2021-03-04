@@ -10,6 +10,7 @@ class Transform;
 class MeshRenderer : public Component
 {
 public:
+	MeshRenderer();
 	MeshRenderer(Mesh* mesh, Material* material);
 	MeshRenderer(nlohmann::ordered_json& serializedMeshRenderer);
 	~MeshRenderer();
@@ -18,6 +19,7 @@ public:
 	void NotifyDetach() override;
 	
 	void SetMesh(Mesh* mesh);
+	void SetMaterial(Material* material);
 	void Render();
 
 	nlohmann::ordered_json Serialize() override;

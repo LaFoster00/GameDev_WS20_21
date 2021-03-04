@@ -23,7 +23,7 @@ public:
 	glm::mat4 GetModelMatrix() const;
 
 	virtual nlohmann::ordered_json Serialize();
-protected:
+	
 	void Deserialize(nlohmann::ordered_json& serializedComponent) override;
 
 public:

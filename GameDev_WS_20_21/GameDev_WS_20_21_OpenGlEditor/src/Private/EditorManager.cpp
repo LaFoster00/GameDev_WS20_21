@@ -29,11 +29,8 @@ void EditorManager::LoadScene(const std::string& filepath, bool saveCurrentScene
 		{
 			SaveScene(CurrentlyOpenScene->Filepath);
 		}
-		
-		for (auto sceneObject : CurrentlyOpenScene->GameObjects)
-		{
-			GameManager::DestroyGameObject(sceneObject);
-		}
+
+		CurrentlyOpenScene->Clear();
 	}
 
 	std::ifstream file(filepath);
@@ -51,23 +48,24 @@ void EditorManager::LoadScene(const std::string& filepath, bool saveCurrentScene
 			GameManager::AddGameObject(newGameObject);
 			CurrentlyOpenScene->GameObjects.push_back(newGameObject);
 			
-			for (auto component: gameObject.value()["Components"].items())
+			for (auto component: gameObject.value()["Components"])
 			{
-				nlohmann::ordered_json componentJson = component.value();
-				if (component.key() == typeid(Camera).name())
+				std::string type = component["Type"].get<std::string>();
+				nlohmann::ordered_json componentJson = component;
+				if (type == typeid(Camera).name())
 				{
 					Camera* camera = new Camera(componentJson);
 					newGameObject->AddComponent(camera);
 				}
-				else if (component.key() == typeid(MeshRenderer).name())
+				else if (type == typeid(MeshRenderer).name())
 				{	
 					MeshRenderer* meshRenderer = new MeshRenderer(componentJson);
 					newGameObject->AddComponent(meshRenderer);
 				}
-				else if (component.key() == typeid(Transform).name())
+				else if (type == typeid(Transform).name())
 				{
-					Transform* newTransform = new Transform(componentJson);
-					newGameObject->AddComponent(newTransform);
+					Transform* newTransform = newGameObject->GetComponentOfType<Transform>();
+					newTransform->Deserialize(componentJson);
 				}
 			}
 		}

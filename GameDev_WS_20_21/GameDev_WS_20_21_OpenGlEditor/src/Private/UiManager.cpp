@@ -32,13 +32,21 @@ void UiManager::DrawUi()
 		EditorManager::SaveScene("TestSafe.savefile");
 	}
 
+	if (ImGui::Button("Load Scene", ImVec2(100, 20)))
+	{
+		EditorManager::LoadScene("TestSafe.savefile");
+	}
+
 	if (ImGui::Button("Add Monkey", ImVec2(100,20)))
 	{
 		static uint32_t id = 0;
 		GameObject* gameObject = GameManager::AddGameObject("Cube" + std::to_string(id++), glm::vec3(0), glm::vec3(0));
+		MeshRenderer* meshRenderer = new MeshRenderer();
 		Mesh* mesh = MeshManager::LoadMesh("../Assets/models/Cube.obj");
+		meshRenderer->SetMesh(mesh);
 		Material* material = MaterialManager::GetMaterial("../Assets/shader/Basic.shader");
-		MeshRenderer* meshRenderer = new MeshRenderer(mesh, material);
+		meshRenderer->SetMaterial(material);
+		
 		gameObject->AddComponent(meshRenderer);
 
 		EditorManager::CurrentlyOpenScene->GameObjects.push_back(gameObject);

@@ -8,7 +8,6 @@
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/ext/matrix_clip_space.hpp>
 
-#include "Serialization/IArchive.h"
 
 Camera::Camera(): Component(false)
 {
@@ -42,7 +41,7 @@ void Camera::NotifyDetach()
 nlohmann::ordered_json Camera::Serialize()
 {
 	nlohmann::ordered_json cameraSerialized;
-
+	cameraSerialized["Type"] = typeid(Camera).name();
 	cameraSerialized["Fov"] = cameraSettings.fov;
 	cameraSerialized["NearPlane"] = cameraSettings.nearPlane;
 	cameraSerialized["FarPlane"] = cameraSettings.farPlane;
@@ -63,7 +62,7 @@ glm::mat4 Camera::get_ViewProjectMat()
 		if (!m_transform) return _ViewProjectMat;
 	}
 
-	const glm::vec2 resolution = Display::GetWindowDimensions();
+	const glm::vec2 resolution = glm::max(Display::GetWindowDimensions(), glm::vec2(1));
 	const float aspectRatio = resolution.x / resolution.y;
 	switch (cameraSettings.renderMode)
 	{
@@ -92,8 +91,9 @@ glm::mat4 Camera::get_ViewProjectMat()
 
 void Camera::Deserialize(nlohmann::ordered_json& serializedComponent)
 {
-	cameraSettings.fov = serializedComponent["Fov"];
-	cameraSettings.renderMode = serializedComponent["RenderMode"];
-	cameraSettings.farPlane = serializedComponent["FarPlane"];
-	cameraSettings.nearPlane = serializedComponent["NearPlane"];
+	cameraSettings.fov = serializedComponent["Fov"].get<float>();
+	int renderMode = serializedComponent["RenderMode"].get<int>();
+	cameraSettings.renderMode = (RenderMode)renderMode;
+	cameraSettings.farPlane = serializedComponent["FarPlane"].get<float>();
+	cameraSettings.nearPlane = serializedComponent["NearPlane"].get<float>();
 }

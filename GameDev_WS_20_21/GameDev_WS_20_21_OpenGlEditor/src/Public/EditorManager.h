@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "GameObjects/GameObject.h"
+#include "GameSystems/GameManager.h"
 
 class GameObject;
 
@@ -19,14 +20,27 @@ struct Scene
 		nlohmann::ordered_json saveFile;
 		saveFile["SceneName"] = Name;
 
+		std::vector<nlohmann::ordered_json> gameObjects;
 		for (auto object : GameObjects)
 		{
-			object->Serialize(saveFile);
+			gameObjects.push_back(object->Serialize());
 		}
 
+		saveFile["GameObjects"] = gameObjects;
+		
 		std::ofstream file(filepath);
 		file << saveFile.dump(4);
 		file.close();
+	}
+
+	void Clear()
+	{
+		for (auto sceneObject : GameObjects)
+		{
+			GameManager::DestroyGameObject(sceneObject);
+		}
+
+		GameObjects.clear();
 	}
 };
 

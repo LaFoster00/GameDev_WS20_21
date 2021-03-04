@@ -31,12 +31,16 @@ GameObject::~GameObject()
 	}
 }
 
-void GameObject::Serialize(nlohmann::ordered_json& archive)
+nlohmann::ordered_json GameObject::Serialize()
 {
+	std::vector<nlohmann::ordered_json> components;
 	for (auto component : m_components)
 	{
-		archive["GameObjects"][name]["Components"][typeid(*component.second).name()] = component.second->Serialize();
+		components.push_back(component.second->Serialize());
 	}
+	nlohmann::ordered_json output;
+	output["Components"] = components;
+	return output;
 }
 
 

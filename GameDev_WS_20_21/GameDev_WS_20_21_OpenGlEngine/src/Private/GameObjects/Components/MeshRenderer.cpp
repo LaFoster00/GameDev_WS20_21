@@ -12,6 +12,10 @@
 #include "GameSystems/MeshManager.h"
 #include "Rendering/Material.h"
 
+MeshRenderer::MeshRenderer() : Component(false), m_renderSceneCallback([this] { Render(); })
+{
+}
+
 MeshRenderer::MeshRenderer(Mesh* mesh, Material* material) : Component(false),
                                                              m_renderSceneCallback([this] { Render(); })
 {
@@ -26,7 +30,7 @@ MeshRenderer::MeshRenderer(nlohmann::ordered_json& serializedMeshRenderer) : Com
 
 MeshRenderer::~MeshRenderer()
 {
-	
+	Renderer::RemoveRenderSceneCallback(m_renderSceneCallback);
 }
 
 void MeshRenderer::NotifyAttach()
@@ -44,9 +48,15 @@ void MeshRenderer::SetMesh(Mesh* mesh)
 	this->mesh = mesh;
 }
 
+void MeshRenderer::SetMaterial(Material* material)
+{
+	this->material = material;
+}
+
 nlohmann::ordered_json MeshRenderer::Serialize()
 {
 	nlohmann::ordered_json meshRendererSerialized;
+	meshRendererSerialized["Type"] = typeid(MeshRenderer).name();
 	meshRendererSerialized["Mesh"] = mesh->filepath;
 	meshRendererSerialized["Material"] = this->material->Serialize();
 	return meshRendererSerialized;
