@@ -76,13 +76,11 @@ glm::mat4 Camera::get_ViewProjectMat()
 			m_projectMat = glm::ortho(sizeX / -2.0f, sizeX / 2.0f, sizeY / -2.0f, sizeY / 2.0f, cameraSettings.nearPlane, cameraSettings.farPlane);
 			break;
 	}
-
 	
-	glm::mat4 view = m_transform->GetModelMatrix();
+	const glm::mat4 rotation = glm::toMat4(glm::quat(glm::radians(m_transform->Rotation)));
+	const glm::mat4 translation = glm::translate(glm::mat4(1), -m_transform->Location);
 	
-	glm::mat4 translation = glm::mat4(1.0f);
-	
-	glm::mat4 output = m_projectMat * view * translation;
+	glm::mat4 output = m_projectMat * rotation * translation;
 	return output;
 }
 

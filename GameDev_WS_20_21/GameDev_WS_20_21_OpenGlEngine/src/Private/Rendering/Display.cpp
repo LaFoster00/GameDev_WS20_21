@@ -59,7 +59,7 @@ GLFWwindow* Display::InitiDisplay()
 	/* Set OpenGl features. */
 #ifdef DEBUG_ENGINE
 	glEnable(GL_DEBUG_OUTPUT);
-	glDebugMessageCallback(MessageCallback, 0);
+	//glDebugMessageCallback(MessageCallback, 0);
 #endif
 
 	glEnable(GL_DEPTH_TEST);

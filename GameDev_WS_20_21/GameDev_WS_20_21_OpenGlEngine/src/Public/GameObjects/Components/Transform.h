@@ -20,7 +20,7 @@ public:
 	void NotifyAttach() override;
 	void NotifyDetach() override;
 	
-	glm::mat4 GetModelMatrix() const;
+	glm::mat4 GetModelMatrix(bool invertTranslation = false) const;
 
 	virtual nlohmann::ordered_json Serialize();
 	

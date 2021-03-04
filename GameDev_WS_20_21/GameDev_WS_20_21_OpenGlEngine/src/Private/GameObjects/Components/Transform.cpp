@@ -25,12 +25,12 @@ void Transform::NotifyDetach()
 {
 }
 
-glm::mat4 Transform::GetModelMatrix() const
+glm::mat4 Transform::GetModelMatrix(bool invertTranslation) const
 {
 	const glm::mat4 scale = glm::scale(glm::mat4(1.0f), Scale);
 	
 	const glm::mat4 rotation = glm::toMat4(glm::quat(glm::radians(_Rotation)));
-	const glm::mat4 translation = glm::translate(glm::mat4(1), Location);
+	const glm::mat4 translation = glm::translate(glm::mat4(1), invertTranslation? -Location : Location);
 
 	return translation * rotation * scale;
 }

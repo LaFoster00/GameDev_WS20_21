@@ -8,6 +8,7 @@
 #include "GameSystems/MaterialManager.h"
 #include "GameSystems/MeshManager.h"
 #include "imgui/imgui.h"
+#include "Rendering/Material.h"
 #include "Rendering/Renderer.h"
 
 EngineCallback UiManager::RenderGuiCallback([]() { UiManager::DrawUi(); });
@@ -29,12 +30,12 @@ void UiManager::DrawUi()
 		
 		Begin("Scene");
 		{
-			ImGui::BeginChild("SceneOutliner", { 0, 0 }, false);
+			BeginChild("SceneOutliner", { 0, 0 }, false);
 			{
 				for (auto object : GameManager::GetGameObjects())
 				{
 					bool currentlySelected = object == EditorManager::SelectedGameObject;
-					if(ImGui::Selectable(object->name.c_str(), currentlySelected) && !currentlySelected)
+					if(Selectable(object->name.c_str(), currentlySelected) && !currentlySelected)
 					{
 						EditorManager::SelectedGameObject = object;
 					}
@@ -42,6 +43,49 @@ void UiManager::DrawUi()
 				
 			}
 			ImGui::EndChild();
+		}
+		End();
+
+		/// <summary>
+		/// This should be managed via per component draw calls giving the possiblity to just go through all components and call DrawInspector or something like that
+		/// But at the same time that would probably defeat the purpose of seperating editor and Game engine so im not 100% sure about how to approach this best
+		/// </summary>
+		Begin("Inspector");
+		{
+			
+			if (EditorManager::SelectedGameObject)
+			{
+				BeginChild("Transform");
+				{
+					Transform* transform = EditorManager::SelectedGameObject->GetComponentOfType<Transform>();
+					DragFloat3("Location", &transform->Location.x);
+					DragFloat3("Rotation", &transform->Rotation.x);
+					DragFloat3("Scale", &transform->Scale.x);
+				}
+				EndChild();
+
+				if (EditorManager::SelectedGameObject->GetComponentOfType<Camera>())
+				{
+					BeginChild("Camera");
+					{
+						Camera* camera = EditorManager::SelectedGameObject->GetComponentOfType<Camera>();
+						DragFloat("Fov", &camera->cameraSettings.fov);
+						DragFloat("NearPlane", &camera->cameraSettings.nearPlane);
+						DragFloat("FarPlane", &camera->cameraSettings.farPlane);
+					}
+					EndChild();
+				}
+
+				if (EditorManager::SelectedGameObject->GetComponentOfType<MeshManager>())
+				{
+					BeginChild("MeshRenderer");
+					{
+						MeshRenderer* meshRenderer = EditorManager::SelectedGameObject->GetComponentOfType<MeshRenderer>();
+						std::string MeshLabel = "Mesh used :" + meshRenderer->mesh->filepath;
+						ImGui::LabelText(MeshLabel.c_str(), "");
+					}
+				}
+			}
 		}
 		End();
 		
