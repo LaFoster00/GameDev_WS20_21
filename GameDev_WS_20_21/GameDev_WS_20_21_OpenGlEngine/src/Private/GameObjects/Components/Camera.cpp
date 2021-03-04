@@ -78,14 +78,11 @@ glm::mat4 Camera::get_ViewProjectMat()
 	}
 
 	
-	glm::mat4 view = glm::lookAt(
-		m_transform->Location, 
-		glm::vec3(0, 0, 0), 
-		glm::vec3(0, 1, 0)  
-	);
-	glm::mat4 tranlation = glm::mat4(1.0f); //glm::translate(glm::mat4(1.0f), -m_transform->Location);
+	glm::mat4 view = m_transform->GetModelMatrix();
 	
-	glm::mat4 output = m_projectMat * view * tranlation ;
+	glm::mat4 translation = glm::mat4(1.0f);
+	
+	glm::mat4 output = m_projectMat * view * translation;
 	return output;
 }
 
