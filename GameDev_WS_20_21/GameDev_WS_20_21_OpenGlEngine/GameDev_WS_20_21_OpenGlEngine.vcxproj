@@ -97,7 +97,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;_DEBUG;_CONSOLE;DEBUG_ENGINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\glew\include;$(ProjectDir)src\Public;$(ProjectDir)src\Public\Vendor;$(SolutionDir)Dependencies\json\single_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Dependencies\glfw\include;$(SolutionDir)..\Dependencies\glm;$(SolutionDir)..\Dependencies\glew\include;$(ProjectDir)src\Public;$(ProjectDir)src\Public\Vendor;$(SolutionDir)..\Dependencies\json\single_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -112,7 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WITH_IMGUI;GLEW_STATIC;_DEBUG;_CONSOLE;DEBUG_ENGINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\glew\include;$(ProjectDir)src\Public;$(ProjectDir)src\Public\Vendor;$(SolutionDir)Dependencies\json\single_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Dependencies\glfw\include;$(SolutionDir)..\Dependencies\glm;$(SolutionDir)..\Dependencies\glew\include;$(ProjectDir)src\Public;$(ProjectDir)src\Public\Vendor;$(SolutionDir)..\Dependencies\json\single_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,7 +129,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\glew\include;$(ProjectDir)src\Public;$(ProjectDir)src\Public\Vendor;$(SolutionDir)Dependencies\json\single_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Dependencies\glfw\include;$(SolutionDir)..\Dependencies\glm;$(SolutionDir)..\Dependencies\glew\include;$(ProjectDir)src\Public;$(ProjectDir)src\Public\Vendor;$(SolutionDir)..\Dependencies\json\single_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,7 +148,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WITH_IMGUI;GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glfw\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\glew\include;$(ProjectDir)src\Public;$(ProjectDir)src\Public\Vendor;$(SolutionDir)Dependencies\json\single_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Dependencies\glfw\include;$(SolutionDir)..\Dependencies\glm;$(SolutionDir)..\Dependencies\glew\include;$(ProjectDir)src\Public;$(ProjectDir)src\Public\Vendor;$(SolutionDir)..\Dependencies\json\single_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
