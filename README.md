@@ -1,6 +1,6 @@
 # GameDev_WS20_21
 
-Expect for basic code from The Cherno's OpenGlSeries, all code (Rendering, Callbacks, Editor(Imgui), Seperation of Engine and Editor, GameObjects system, Data flow etc.) is done 100% by me(except for obj importer and other small features).
+Except for basic code from The Cherno's OpenGlSeries, all code (Rendering, Callbacks, Editor(Imgui), Seperation of Engine and Editor, GameObjects system, Data flow etc.) is done 100% by me(except for obj importer and other small features).
 
 Select Buildconfig Release- / DebugImgui in order to get the project working correctly. Otherwise imgui will be excluded from the engine causing the editor to fail as it is depended on the feature to be implemented!
 
